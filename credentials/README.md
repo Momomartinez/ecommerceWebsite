@@ -7,17 +7,23 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. Server URL or IP
+1. Server URL or IP 
+    -142.44.170.121
 2. SSH username
+    -root
 3. SSH password or key.
-    <br> If a ssh key is used please upload the key to the credentials folder.
+    -3t5ARTsWwV2P!vbTtbU
 4. Database URL or IP and port used.
-    <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
+    
 5. Database username
+    -root
 6. Database password
+    -6&rFzI70oM*
 7. Database name (basically the name that contains all your tables)
-8. Instructions on how to use the above information.
 
+8. Instructions on how to use the above information.
+    -ssh root@142.44.170.121
+    
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
 ## <strong>Failure to do so will result it points be deducted from milestone submissions.</strong><br>
