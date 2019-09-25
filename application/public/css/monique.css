@@ -44,6 +44,15 @@ a:hover {
   }
 }
 
+@media (min-width: 400px) {
+  .rt {
+    margin-top: -550px;
+  }
+  .lft {
+    margin-top: -550px;
+  }
+}
+
 .left {
   display: flex;
   justify-content: center;
