@@ -8,21 +8,22 @@
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
 1. Server URL or IP 
-    -142.44.170.121
+     142.44.170.121
 2. SSH username
-    -root
+    root
 3. SSH password or key.
-    -3t5ARTsWwV2P!vbTtbU
+     3t5ARTsWwV2P!vbTtbU
 4. Database URL or IP and port used.
+142.44.170.121:3306
     
 5. Database username
-    -root
+     root
 6. Database password
-    -6&rFzI70oM*
+     6&rFzI70oM*
 7. Database name (basically the name that contains all your tables)
  team11_db
 8. Instructions on how to use the above information.
-    -ssh root@142.44.170.121
+     ssh root@142.44.170.121
     
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
