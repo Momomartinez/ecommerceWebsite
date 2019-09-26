@@ -2,6 +2,8 @@ html,
 body {
   height: 100%;
 }
+
+
 .navbar-brand {
   font-size: x-large;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -23,7 +25,8 @@ body {
 
 #team-members {
   margin-top: 80px;
-  margin-bottom: 100px;
+  height: 100%;
+  overflow: auto;
 }
 
 #team-members .card {
@@ -38,6 +41,9 @@ body {
 #footer {
   background-color: #450c57;
   color: #fff;
+  position: relative;
+  height: 100px;
+  clear: both;
 }
 
 
