@@ -37,8 +37,21 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/about/dan', function(req, res, next) {
+router.get('/danabout', function(req, res, next) {
     res.render('danabout', { title: 'Express' });
+});
+
+router.get('/moniqueabout', function(req, res, next) {
+    res.render('moniqueabout', { title: 'Express' });
+});
+router.get('/gemabout', function(req, res, next) {
+    res.render('gemabout', { title: 'Express' });
+});
+router.get('/pramishabout', function(req, res, next) {
+    res.render('pramishabout', { title: 'Express' });
+});
+router.get('/rayaabout', function(req, res, next) {
+    res.render('raya_about_page', { title: 'Express' });
 });
 
 router.get('/', function(req, res, next) {
