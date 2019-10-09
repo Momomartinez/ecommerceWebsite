@@ -38,20 +38,20 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/danabout', function(req, res, next) {
-    res.render('danabout', { title: 'Express' });
+    res.render('about/danabout', { title: 'Express' });
 });
 
 router.get('/moniqueabout', function(req, res, next) {
-    res.render('moniqueabout', { title: 'Express' });
+    res.render('about/moniqueabout', { title: 'Express' });
 });
 router.get('/gemabout', function(req, res, next) {
-    res.render('gemabout', { title: 'Express' });
+    res.render('about/gemabout', { title: 'Express' });
 });
 router.get('/pramishabout', function(req, res, next) {
-    res.render('pramishabout', { title: 'Express' });
+    res.render('about/pramishabout', { title: 'Express' });
 });
 router.get('/rayaabout', function(req, res, next) {
-    res.render('raya_about_page', { title: 'Express' });
+    res.render('about/raya_about_page', { title: 'Express' });
 });
 
 router.get('/', function(req, res, next) {
