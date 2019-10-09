@@ -1,57 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- font awesome kit code -->
-    <script src="https://kit.fontawesome.com/2f31daa312.js"></script>
-    <!-- bootstrap import -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <title>CSC648</title>
+    <% include ../partials/head %>
   </head>
 
   <body>
-    <!-- header for navbar -->
-    <div class="container-fluid above-nav bg-warning m-0">
-      <div class="text-center m-0">
-        <h3 class="m-0">SFSU Software Engineering Project CSC 648-848, Fall 2019.  For Demonstration Only</h3>
-      </div>
-    </div>
-
-    <!-- Nav bar with responsive toggle -->
-
-    <nav class="navbar navbar-expand-md  navbar-dark sticky-top">
-
-      <div class="container">
-        <a href="index.html" class="navbar-brand">CSC648</a>
-
-      <button
-        class="navbar-toggler"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item mr-3">
-            <a href="index.html" class="nav-link">HOME</a>
-          </li>
-          <li class="nav-item mr-3">
-            <a href="index.html" class="nav-link">TEAM</a>
-          </li>
-
-        </ul>
-      </div>
-      </div>
-    </nav>
+    <header>
+        <% include ../partials/header %>
+    </header>
+    
 
     <!-- intro-section -->
     <section id="inner-intro">
@@ -132,11 +90,7 @@
 
     <!-- Footer section -->
     <Footer>
-      <div id="footer">
-             <h4 class="text-center py-4"> Copyright &copy;
-              <span id="year"></span>
-             </h4>
-            </div>
+      <% include partials/footer %>
       </Footer>
 
     <!-- jquery import -->
