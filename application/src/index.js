@@ -17,7 +17,8 @@ app.get("/", (req, res) => {
 
 //for testing the mainpage demo
 app.get("/mpd", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/mainpage.html"));
+  // res.sendFile(path.join(__dirname, "../public/mainpage.html"));
+  res.render('pages/mainpage');
 });
 
 
