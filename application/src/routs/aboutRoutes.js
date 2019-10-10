@@ -55,7 +55,7 @@ router.get('/rayaabout', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('pages/index', { title: 'Express' });
 });
 // router.get('/', function(req, res, next) {
 //     res.render('about/raya', { title: 'Express' });
