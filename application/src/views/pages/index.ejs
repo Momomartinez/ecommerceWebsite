@@ -2,12 +2,12 @@
 <html lang="en">
   
   <head>
-    <% include ../partials/head %>
+    <% include (../partials/head) %>
   </head>
 
   <body>
     <header>
-        <% include ../partials/header %>
+        <% include (../partials/header) %>
     </header>
     
 
@@ -88,11 +88,12 @@
                 </div>
       </div>
     </section>
-
+    <h1>Hello</h1>
     <!-- Footer section -->
-    <Footer>
-      <% include ../partials/footer %>
-      </Footer>
+    <footer>
+      <h1>stfu</h1>
+      <% include (../partials/footer, {"cp":"Copyrights"}) %>
+      </footer>
 
     <!-- jquery import -->
     <script
