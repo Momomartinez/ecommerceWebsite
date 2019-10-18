@@ -8,31 +8,69 @@ body {
   height: 100px;
   background-color: indigo !important;
 }
-/* .content {
-  height: 100%;
-  width: auto;
-} */
-.navbar {
-  padding-left: 50px;
+
+.navbar-brand {
+  font-size: 30px;
 }
+
+.navbar-nav a {
+  margin-bottom: 20px;
+  font-size: large;
+  font-family: 'Arial Black', Gadget, sans-serif;
+}
+
 .navbar {
   background-color: indigo !important;
   color: white !important;
+  
 }
 
-.nav-link,
-.navbar-brand {
-  color: white !important;
-  margin: 10px;
+/* dropdown */
+.dropbtn {
+  cursor: pointer;
+  padding: 6px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  color: black !important;
+}
+
+.drowpdown-content {
+  display: none;
+  position: relative;
+  z-index: 1;
+  background-color: indigo;
+}
+
+.drowpdown-content a {
+  padding: 12px 16px;
+}
+
+.searchDiv {
+  background-color: indigo;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding-bottom: 10px;
+  padding-top: 0;
+  padding-left: 50px;
 }
 
 .hero {
-  background: url(../img/students.jpg);
-  background-repeat: no-repeat;
   background-size: 100% 100%;
   object-fit: contain;
-  height: 400px;
-  padding: 0;
+  height: 300px;
+  background-color: indigo;
+  opacity: 0.4;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.innerHero {
+  background-color: white;
+  opacity: 1.0 !important;
+  z-index: 1;
 }
 
 .side {

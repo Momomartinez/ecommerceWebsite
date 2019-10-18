@@ -6,32 +6,24 @@
   </head>
 
   <body>
-   
     <header>
       <!-- navbar -->
       <% include ../partials/header %>
     </header>
-      
-        <!-- content body -->
-        <section>
-          <!-- the side and main areas -->
-          <div class="container-fluid">
-            <div class="row">
-              <!-- side panel -->
-            <% include ../partials/categories %> 
-              <!-- the mian area -->
-             <%- include('../partials/maincontent', {'items':cards}) %>
-            </div>
-          </div>
-        </section>
 
+    <!-- content body -->
+    <section>
+      <!-- the side and main areas -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- the mian area -->
+          <%- include('../partials/maincontent', {'items':cards}) %>
+        </div>
+      </div>
+    </section>
 
- 
-
-
-    <footer >
+    <footer>
       <%- include('../partials/footer', {"cp":"Copyrifght"}) %>
     </footer>
-    
   </body>
 </html>

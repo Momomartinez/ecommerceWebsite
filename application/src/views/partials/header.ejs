@@ -1,45 +1,84 @@
 <!-- views/partials/header.ejs -->
 
-
 <!-- header for navbar -->
 <div class="container-fluid above-nav bg-warning m-0">
-    <div class="text-center m-0">
-      <h3 class="m-0">SFSU Software Engineering Project CSC 648-848, Fall 2019.  For Demonstration Only</h3>
-    </div>
+  <div class="text-center m-0">
+    <h3 class="m-0">
+      SFSU Software Engineering Project CSC 648-848, Fall 2019. For
+      Demonstration Only
+    </h3>
   </div>
+</div>
 
-  <!-- Nav bar with responsive toggle -->
+<!-- Nav bar with responsive toggle -->
 
-  <nav class="navbar navbar-expand-lg  navbar-dark sticky-top">
-<span>
+<nav class="navbar navbar-expand-lg  navbar-dark">
+  <span>
     <button
-    class="navbar-toggler"
-    data-toggle="collapse"
-    data-target="#navbarCollapse"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-      <a href="./" class="navbar-brand m-4">CSC648</a>
-    </span>
-    <!-- seach bar -->
-    <form class="form-inline search" action="">  
-        <input
-          class="form-control mr-2"
-          type="text"
-          placeholder="Search"
-          size="40"
-        />
-        <button class="btn bg-warning" type="submit">Search</button>
-      </form>
+      class="navbar-toggler bg-warning"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a href="./" class="navbar-brand m-4"><strong>CSC648</strong></a>
+  </span>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-3">
+        <a href="./" class="nav-link">HOME</a>
+      </li>
+      <li class="nav-item mr-3">
+        <a href="#" class="nav-link">TEAM</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item mr-3">
-          <a href="./" class="nav-link">HOME</a>
-        </li>
-        <li class="nav-item mr-3">
-          <a href="./" class="nav-link">TEAM</a>
-        </li>
-      </ul>
+<div class="searchDiv">
+  <!-- seach bar -->
+  <form class="form-inline search" action="">
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle bg-warning"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Categories
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">All</a>
+        <a class="dropdown-item" href="#">Electronics</a>
+        <a class="dropdown-item" href="#">Furniture</a>
+        <a class="dropdown-item" href="#">Books</a>
+        <a class="dropdown-item" href="#">Miscellaneous</a>
+      </div>
     </div>
-  </nav>
+
+    <input
+      class="form-control mr-1"
+      type="text"
+      placeholder="Search"
+      size="40"
+    />
+    <button class="btn bg-warning" type="submit">Search</button>
+  </form>
+</div>
+
+
+<!--  When the user clicks on the button,
+toggle between hiding and showing the dropdown content -->
+<script>
+  var anchors = document.getElementsByTagName('a');
+
+  for (var i = 0, len = anchors.length; i < len; i++) {
+    var thisAnchor = anchors[i];
+    thisAnchor.onclick = function() {
+      var btn = this.parentNode.parentNode.getElementsByTagName('button')[0];
+      btn.innerHTML = this.innerHTML;
+    };
+  }
+</script>
