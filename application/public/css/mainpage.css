@@ -1,9 +1,14 @@
 html,
 body {
-  height: 100%;
+  height: relative;
   width: auto;
   background-color: lightgray;
 }
+
+.aboutbody {
+  background-color: white;
+}
+
 .header {
   height: 100px;
   background-color: indigo !important;
@@ -73,6 +78,30 @@ body {
   z-index: 1;
 }
 
+
+#inner-intro {
+  background-color: indigo;
+  color: #fff;
+  min-height: 180px;
+}
+
+#team-members {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  height: 100%;
+  overflow: auto;
+  background-color: white;
+}
+
+#team-members .card {
+  margin: 2px;
+}
+
+.face-img {
+  height: 120px;
+  width: 120px;
+}
+
 .side {
   background-color: white;
   display: flex;
@@ -90,19 +119,19 @@ body {
   border-radius: 5px;
 }
 
-.card {
+.dynamicCard {
   background: transparent;
   border: transparent;
 }
 
-#cards {
+#cardss {
   background: white;
   padding: 40px;
   padding-top: 20px;
   
 }
 
-.card-body {
+.mainCardBody {
   padding-top: 0;
 }
 
@@ -117,6 +146,3 @@ span{
   width: 300px;
   align-items: flex-end;
 }
-
-
-
