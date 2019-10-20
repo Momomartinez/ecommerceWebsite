@@ -12,9 +12,17 @@ app.use('/about', aboutRouter);
 app.get('/', (req, res) => {
   var items = [
     { itemImage: 'images/chair.jpg', itemName: 'chair', itemPrice: '$100.00' },
-    { itemImage: 'images/face.jpg', itemName: 'chair', itemPrice: '$80.00' },
-    { itemImage: 'images/chair.jpg', itemName: 'chair', itemPrice: '$20.00' },
-    { itemImage: 'images/default.jpg', itemName: 'chair', itemPrice: '$30.00' }
+    {
+      itemImage: 'images/greenCouch.jpg',
+      itemName: 'chair',
+      itemPrice: '$80.00'
+    },
+    { itemImage: 'images/stool.jpg', itemName: 'chair', itemPrice: '$20.00' },
+    {
+      itemImage: 'images/bluechair.jpg',
+      itemName: 'chair',
+      itemPrice: '$30.00'
+    }
   ];
   res.render('pages/mainpage', { cards: items });
 });

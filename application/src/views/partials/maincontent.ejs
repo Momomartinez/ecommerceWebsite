@@ -2,7 +2,10 @@
 
 <div class="col m-2">
   <section id="cards">
-    <h3 class="my-4">Electronics</h3>
+    <span class="my-4"
+      ><h2 class="m-0">Furniture</h2>
+      <a class="ml-4" href="#">view more</a></span
+    >
     <div class="row">
       <% cards.forEach(function(cards){ %> <%- include('../partials/cards',
       {cards: cards}); %> <% }); %>
@@ -10,7 +13,10 @@
     <hr />
   </section>
   <section id="cards">
-    <h3 class="my-4">Furniture</h3>
+    <span class="my-4"
+      ><h2 class="m-0">Electronics</h2>
+      <a class="ml-4" href="#">view more</a>
+    </span>
     <div class="row">
       <% cards.forEach(function(cards){ %> <%- include('../partials/cards',
       {cards: cards}); %> <% }); %>
@@ -18,7 +24,10 @@
     <hr />
   </section>
   <section id="cards">
-    <h3 class="my-4">Books</h3>
+    <span class="my-4"
+      ><h2 class="m-0">Books</h2>
+      <a class="ml-4" href="#">view more</a>
+    </span>
     <div class="row">
       <% cards.forEach(function(cards){ %> <%- include('../partials/cards',
       {cards: cards}); %> <% }); %>
