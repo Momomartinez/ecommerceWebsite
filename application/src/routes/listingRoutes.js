@@ -61,7 +61,7 @@ router.route('/:id(\\d+)')
                 return;
             }
 
-            res.render('pages/mainpage', { objectArrayFromDb: results});
+            res.render('pages/mainpage', { cards: results});
             console.log(req.params.id);
             console.log("hhhhhhh");
             console.log(results);
