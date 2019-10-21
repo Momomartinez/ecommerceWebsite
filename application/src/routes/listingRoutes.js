@@ -15,12 +15,10 @@ router.route('/')
 
         db.query(' SELECT listing.id, listing.title, listing.price, listing.desc, listing.image FROM listing order by listing.id ')
             .then(([results, fields]) => {
-
-                res.render('pages/index', {
-                    objectArrayFromDb: results,
+                res.render('pages/mainpage', {
+                    cards: results,
                     body: req.body,
                 });
-
             });
     })
 // .post((req, res) => {
@@ -63,7 +61,7 @@ router.route('/:id(\\d+)')
                 return;
             }
 
-            res.render('pages/index', { objectArrayFromDb: results});
+            res.render('pages/mainpage', { objectArrayFromDb: results});
             console.log(req.params.id);
             console.log("hhhhhhh");
             console.log(results);
