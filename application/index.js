@@ -9,8 +9,9 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 const aboutRouter = require('./src/routes/aboutRoutes');
-
+const listingRouter = require('./src/routes/listingsRoutes');
 app.use('/about', aboutRouter);
+app.use('/listing', listingRouter);
 
 app.get('/', (req, res) => {
   var items = [
