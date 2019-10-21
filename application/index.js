@@ -15,24 +15,24 @@ const aboutRouter = require('./src/routes/aboutRoutes');
 const listingRouter = require('./src/routes/listingRoutes');
 
 app.use('/about', aboutRouter);
-app.use('/pages', listingRouter);
+app.use('/', listingRouter);
 
-app.get('/', (req, res) => {
-  var items = [
-    { itemImage: 'images/chair.jpg', itemName: 'chair', itemPrice: '$100.00' },
-    {
-      itemImage: 'images/greenCouch.jpg',
-      itemName: 'chair',
-      itemPrice: '$80.00'
-    },
-    { itemImage: 'images/stool.jpg', itemName: 'chair', itemPrice: '$20.00' },
-    {
-      itemImage: 'images/bluechair.jpg',
-      itemName: 'chair',
-      itemPrice: '$30.00'
-    }
-  ];
-  res.render('pages/mainpage', { cards: items });
-});
+// app.get('/', (req, res) => {
+//   var items = [
+//     { itemImage: 'images/chair.jpg', itemName: 'chair', itemPrice: '$100.00' },
+//     {
+//       itemImage: 'images/greenCouch.jpg',
+//       itemName: 'chair',
+//       itemPrice: '$80.00'
+//     },
+//     { itemImage: 'images/stool.jpg', itemName: 'chair', itemPrice: '$20.00' },
+//     {
+//       itemImage: 'images/bluechair.jpg',
+//       itemName: 'chair',
+//       itemPrice: '$30.00'
+//     }
+//   ];
+//   res.render('pages/mainpage', { cards: items });
+// });
 
 app.listen(PORT, () => console.log('server started on port', PORT));
