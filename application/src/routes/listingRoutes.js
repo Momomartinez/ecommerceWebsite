@@ -3,12 +3,6 @@ const express = require('express');
 const db = require('../models/database.js');
 const router = express.Router();
 
-const listing_type = {
-    Electronics: 1,
-    Books: 2,
-    Furniture: 3,
-    Other: 4,
-};
 
 async function listingGet(req, res){
     const [type_rows, type_fields] = await db.execute('SELECT * FROM listing_type');
