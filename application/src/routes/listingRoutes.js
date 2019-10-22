@@ -21,34 +21,34 @@ router.route('/')
                 });
             });
     })
-// .post((req, res) => {
-//     let sql = 'SELECT * FROM listing ';
-//     const conditions = [];
-//     console.log(req.body);
-//     console.log("fffffff");
-//     console.log(req.body.listing_type_id);
-//
-//     // listing type id - temp solution
-//     if (req.body.listing_type_id !== '') {
-//         const id = listing_type[req.body.listing_type_id];
-//         conditions.push(`listing.listing_type_id = ${id}`);
-//     }
-//     if (conditions.length !== 0) {
-//         sql += ' AND ( ';
-//         sql += conditions.join(' AND ');
-//         sql += ' ) ';
-//     }
-//     db.query(sql)
-//
-//         .then(([results, _]) => {
-//             res.render('pages/index', {
-//
-//
-//                 body: req.body,
-//                 objectArrayFromDb: results,
-//             });
-//         });
-// });
+.post((req, res) => {
+    let sql = 'SELECT * FROM listing ';
+    const conditions = [];
+    console.log(req.body);
+    console.log("fffffff");
+    console.log(req.body.listing_type_id);
+
+    // listing type id - temp solution
+    if (req.body.listing_type_id !== '') {
+        const id = listing_type[req.body.listing_type_id];
+        conditions.push(`listing.listing_type_id = ${id}`);
+    }
+    if (conditions.length !== 0) {
+        sql += ' AND ( ';
+        sql += conditions.join(' AND ');
+        sql += ' ) ';
+    }
+    db.query(sql)
+
+        .then(([results, _]) => {
+            res.render('pages/index', {
+
+
+                body: req.body,
+                objectArrayFromDb: results,
+            });
+        });
+});
 
 router.route('/:id(\\d+)')
     .get((req, res) => {
