@@ -3,16 +3,16 @@ const express = require('express');
 const db = require('../models/database.js');
 const router = express.Router();
 
-// const listing_type = {
-//     Electronics: 1,
-//     Books: 2,
-//     Furniture: 3,
-//     Other: 4,
-// };
+const listing_type = {
+    Electronics: 1,
+    Books: 2,
+    Furniture: 3,
+    Other: 4,
+};
 
 router.route('/')
     .get((req, res) => {
-
+        console.log("hggggggg");
         db.query(' SELECT listing.id, listing.title, listing.price, listing.desc, listing.image FROM listing order by listing.id ')
             .then(([results, fields]) => {
                 res.render('pages/mainpage', {
@@ -21,8 +21,10 @@ router.route('/')
                 });
             });
     })
-.post((req, res) => {
-    let sql = 'SELECT * FROM listing ';
+
+    .get((req, res) => {
+    console.log("fffffff");
+    let sql = ' SELECT * FROM listing ';
     const conditions = [];
     console.log(req.body);
     console.log("fffffff");
@@ -37,21 +39,21 @@ router.route('/')
         sql += ' AND ( ';
         sql += conditions.join(' AND ');
         sql += ' ) ';
-    }
-    db.query(sql)
 
+    }
+
+    db.query(sql)
         .then(([results, _]) => {
             res.render('pages/index', {
-
-
                 body: req.body,
-                objectArrayFromDb: results,
+                cards: results,
             });
         });
 });
 
 router.route('/:id(\\d+)')
     .get((req, res) => {
+
         db.query('SELECT * '
             + 'FROM listing '
             + 'WHERE id = ?', req.params.id).then(([results, fields]) => {
@@ -68,20 +70,7 @@ router.route('/:id(\\d+)')
         });
     });
 
-// router.get("/db", (req, res) => {
-//     let sql = 'SELECT category.category_name FROM category';
-//     db.query(sql, (err, result) =>{
-//     if(err) throw err;
-//     res.send(result);
-//     });
-// });
 
-// let sql = ' SELECT category.category_name FROM category ;
-// listingRouter.route('/')
-//     .get((req,res) => db.query(sql, (err,result) => {
-//         if(err) throw err;
-//         res.send('database created ...');
-//     })
 
 
 module.exports = router;
