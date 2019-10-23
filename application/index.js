@@ -12,11 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const morgan = require('morgan');
 app.use(morgan('tiny'));
 const aboutRouter = require('./src/routes/aboutRoutes');
+const listingRouter = require('./src/routes/listingRoutes');
 
-const listingRouter = require('./src/routes/listingsRoutes');
 app.use('/about', aboutRouter);
-app.use('/listing', listingRouter);
-
+app.use('/', listingRouter);
 
 // app.get('/', (req, res) => {
 //   var items = [
