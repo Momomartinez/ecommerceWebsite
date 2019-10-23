@@ -16,13 +16,14 @@ body {
 
 .navbar-brand {
   font-size: 30px;
-  margin: 0;
+  padding: 0;
+  padding-left: 5PX;
 }
 
 .navbar-nav a {
   font-size: large;
   font-family: 'Arial Black', Gadget, sans-serif;
-  padding-top: 0;
+ 
 }
 
 .navbar {
@@ -45,7 +46,6 @@ body {
 .drowpdown-content {
   display: none;
   position: relative;
-  z-index: 1;
   background-color: indigo;
 }
 
@@ -58,28 +58,22 @@ body {
   display: flex;
   justify-content: center;
   align-content: center;
-  padding-bottom: 10px;
-  padding-top: 0;
-  padding-left: 50px;
+ 
 }
 
-.hero {
+.inner-hero{
+  height: 500px;
+  background: url(../images/books.jpg);
   background-size: 100% 100%;
-  object-fit: contain;
-  height: 300px;
-  background-color: indigo;
-  opacity: 0.4;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+  color: white;
 }
 
-.innerHero {
-  background-color: white;
-  opacity: 1 !important;
-  z-index: 1;
+.dark-overlay{
+  height: 100%;
+  width: auto;
+  background: rgb(0, 0, 0,.4)
 }
-
 
 #inner-intro {
   background-color: indigo;
@@ -151,4 +145,5 @@ span{
   display: flex;
   width: 300px;
   align-items: flex-end;
+  margin-bottom: 5px;
 }
