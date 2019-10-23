@@ -16,6 +16,7 @@ body {
 
 .navbar-brand {
   font-size: 30px;
+  margin: 0;
 }
 
 .navbar-nav a {
@@ -28,6 +29,7 @@ body {
   background-color: indigo !important;
   color: white !important;
   padding-left: 50px;
+  margin: 0;
 }
 
 /* dropdown */
@@ -121,16 +123,20 @@ body {
 
 .dynamicCard {
   background: transparent;
-  border: transparent;
+  /* border: transparent; */
+  margin-bottom: 20px;;
 }
 
 #cardss {
   background: white;
-  padding: 40px;
-  padding-top: 20px;
-  
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 30px;
 }
-
+hr {
+  margin-top: 2rem !important;
+  margin-bottom: 0;
+}
 .mainCardBody {
   padding-top: 0;
 }
