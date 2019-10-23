@@ -26,10 +26,10 @@ router.route('/:id(\\d+)')
         console.log("the id is: "+req.params.id);
         let sql = 'SELECT * FROM listing WHERE listing_type_id = ?';
         db.query(sql , req.params.id).then(([results, fields]) => {
-            if (!results || results.length !== 1) {
-                res.status(404).send('404 - Page Not found');
-                return;
-            }
+            // if (!results || results.length !== 1) {
+            //     res.status(404).send('404 - Page Not found');
+            //     return;
+            // }
             res.render('pages/mainpage', { cards: results});
             console.log(req.params.id);
             console.log("hhhhhhh");
