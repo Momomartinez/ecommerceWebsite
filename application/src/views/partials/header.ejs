@@ -56,9 +56,11 @@
         Categories
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/<%=cards[0].id %>"><%= cards[0].name %></a>
-
-
+        <% for (var i = 0; i < cards.length; i++) { %>
+        <a class="dropdown-item" href="/<%=cards[i].id %>"
+          ><%= cards[i].name %></a
+        >
+        <% } %>
       </div>
     </div>
 
@@ -75,12 +77,12 @@
 <!--  When the user clicks on the button,
 toggle between hiding and showing the dropdown content -->
 <script>
-  var anchors = document.getElementsByTagName('a');
+  var anchors = document.getElementsByTagName("a");
 
   for (var i = 0, len = anchors.length; i < len; i++) {
     var thisAnchor = anchors[i];
     thisAnchor.onclick = function() {
-      var btn = this.parentNode.parentNode.getElementsByTagName('button')[0];
+      var btn = this.parentNode.parentNode.getElementsByTagName("button")[0];
       btn.innerHTML = this.innerHTML;
     };
   }
