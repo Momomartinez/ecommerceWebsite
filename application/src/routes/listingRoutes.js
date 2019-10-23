@@ -12,6 +12,7 @@ async function listingGet(req, res){
         cards: type_rows,
         body: req.body,
     });
+    console.log("this is the cards row " +type_rows);
 }
 
 router.route('/')
