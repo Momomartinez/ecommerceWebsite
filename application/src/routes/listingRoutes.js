@@ -19,11 +19,12 @@ const router = express.Router();
 //   listingGet(req, res);
 // });
 
-async function getCategories() {
+async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM listing_type", (err, categories) => {
     if (err) throw err;
-    console.log(categories);
-    return categories;
+    //console.log(categories);
+    req.categoriesList = categories;
+    next();
   });
 }
 
@@ -66,10 +67,9 @@ async function search(req, res, next) {
   });
 }
 
-router.get("/search", search, (req, res) => {
+router.get("/search", search, getCategories, (req, res) => {
   var searchResult = req.searchResult;
-  var categoriesList = getCategories();
-  console.log(categoriesList);
+  var categoriesList = req.categoriesList;
   res.render("pages/mainpage", {
     cards: searchResult,
     categories: categoriesList
