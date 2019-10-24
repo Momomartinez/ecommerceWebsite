@@ -19,103 +19,60 @@ const router = express.Router();
 //   listingGet(req, res);
 // });
 
-router.get("/categories", (req, res) => {
-  db.query("SELECT * FROM listing_type", (err, rows) => {
+async function getCategories() {
+  await db.execute("SELECT * FROM listing_type", (err, categories) => {
     if (err) throw err;
-    return res.json(rows);
-  });
-});
-
-async function search(req, res, next) {
-  var searchTerm = req.query.search;
-  var categoryName = req.query.category;
-  var categoryId = 0;
-
-  var catquery =
-    `SELECT * FROM listing_type WHERE name = '` + categoryName + `'`;
-  await db.query(catquery, (err, results) => {
-    // if (err) throw err;
-    if (results.length <= 0) {
-      req.searchResult = "";
-      console.log("This is the result" + results);
-      next();
-    } else {
-      categoryId = results[0].id;
-      console.log("This is categoryId: " + categoryId);
-      console.log(results);
-      let query = "SELECT * FROM listing";
-      if (searchTerm != "" && categoryId != 0) {
-        query =
-          `SELECT * FROM listing WHERE listing_type_id = '` +
-          categoryId +
-          `' AND (title LIKE '%` +
-          searchTerm +
-          `%' OR description LIKE '%` +
-          searchTerm +
-          `%')`;
-      } else if (searchTerm != "" && categoryId == 0) {
-        query =
-          `SELECT * FROM listing WHERE (title LIKE '%` +
-          searchTerm +
-          `%' OR description LIKE '%` +
-          searchTerm +
-          `%')`;
-      } else if (searchTerm == "" && categoryId != 0) {
-        query =
-          `SELECT * FROM listing WHERE listing_type_id = '` + categoryId + `'`;
-      }
-
-      console.log(query);
-      db.query(query, (err, result) => {
-        if (err) {
-          req.searchResult = "";
-          console.log(result);
-          next();
-        }
-        req.searchResult = result;
-        next();
-      });
-    }
+    console.log(categories);
+    return categories;
   });
 }
 
-//   let query = "SELECT * FROM listing";
-//   if (searchTerm != "" && categoryId != 0) {
-//     query =
-//       `SELECT * FROM listing WHERE listing_type_id = '` +
-//       categoryId +
-//       `' AND (title LIKE '%` +
-//       searchTerm +
-//       `%' OR description LIKE '%` +
-//       searchTerm +
-//       `%')`;
-//   } else if (searchTerm != "" && categoryId == 0) {
-//     query =
-//       `SELECT * FROM listing WHERE (title LIKE '%` +
-//       searchTerm +
-//       `%' OR description LIKE '%` +
-//       searchTerm +
-//       `%')`;
-//   } else if (searchTerm == "" && categoryId != 0) {
-//     query =
-//       `SELECT * FROM listing WHERE listing_type_id = '` + categoryId + `'`;
-//   }
+async function search(req, res, next) {
+  var searchTerm = req.query.search;
+  var category = req.query.category;
 
-//   console.log(query);
-//   db.query(query, (err, result) => {
-//     if (err) {
-//       req.searchResult = "";
-//       console.log(result);
-//       next();
-//     }
-//     req.searchResult = result;
-//     next();
-//   });
+  let join =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing_type.name FROM listing INNER JOIN listing_type ON listing.listing_type_id = listing_type.id";
+  let query = "";
+  if (searchTerm != "" && (category != "" && category != "All")) {
+    query =
+      ` WHERE name = '` +
+      category +
+      `' AND (title LIKE '%` +
+      searchTerm +
+      `%' OR description LIKE '%` +
+      searchTerm +
+      `%')`;
+  } else if (searchTerm != "" && (category == "" || category == "All")) {
+    query =
+      ` WHERE (title LIKE '%` +
+      searchTerm +
+      `%' OR description LIKE '%` +
+      searchTerm +
+      `%')`;
+  } else if (searchTerm == "" && (category != "" && category != "All")) {
+    query = ` WHERE name = '` + category + `'`;
+  }
+
+  let sql = join + query;
+  console.log("this is sql: " + sql);
+  await db.execute(sql, (err, result) => {
+    if (err) {
+      req.searchResult = "";
+      next();
+    }
+    req.searchResult = result;
+    next();
+  });
+}
 
 router.get("/search", search, (req, res) => {
   var searchResult = req.searchResult;
+  var categoriesList = getCategories();
+  console.log(categoriesList);
   res.render("pages/mainpage", {
-    cards: searchResult
+    cards: searchResult,
+    categories: categoriesList
   });
 
   //res.json(searchResult);
