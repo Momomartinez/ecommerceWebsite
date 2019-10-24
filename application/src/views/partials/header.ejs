@@ -1,5 +1,19 @@
 <!-- views/partials/header.ejs -->
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+   $(document).ready(async function getCat() {
+    await $.ajax({
+      url: "/categories",
+      type: "GET",
+      dataType: "json",
+      success: function(categories) {
+        console.log(categories);
+        console.log("heloo");
+      }
+    });
+  });
+</script>
+
 <!-- header for navbar -->
 <div class="container-fluid above-nav bg-warning m-0">
   <div class="text-center m-0">
@@ -57,7 +71,8 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <% for (var i = 0; i < cards.length; i++) { %>
-        <a class="dropdown-item" href="/<%=cards[i].id %>"><%= cards[i].name %></a
+        <a class="dropdown-item" href="/<%=cards[i].id %>"
+          ><%= cards[i].name %></a
         >
         <% } %>
       </div>
