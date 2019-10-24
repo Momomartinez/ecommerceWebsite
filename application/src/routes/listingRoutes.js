@@ -72,10 +72,21 @@ router.get("/search", search, getCategories, (req, res) => {
   var categoriesList = req.categoriesList;
   res.render("pages/mainpage", {
     cards: searchResult,
-    categories: categoriesList
+    categoriesList: categoriesList,
+    searchTerm: req.query.search,
+    searchCategory: req.query.category
   });
+});
 
-  //res.json(searchResult);
+router.get("/", search, getCategories, (req, res) => {
+  var searchResult = req.searchResult;
+  var categoriesList = req.categoriesList;
+  res.render("pages/mainpage", {
+    cards: searchResult,
+    categoriesList: categoriesList,
+    searchTerm: req.query.search,
+    searchCategory: req.query.category
+  });
 });
 
 // router.route("/:id(\\d+)").get((req, res) => {

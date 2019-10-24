@@ -1,20 +1,5 @@
 <!-- views/partials/header.ejs -->
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-   $(document).ready(function getCat() {
-    $.ajax({
-      url: "/categories",
-      type: "GET",
-      dataType: "json",
-      data: {},
-      success: function(categories) {
-        console.log(categories);
-        console.log("heloo");
-      }
-    });
-  });
-</script> -->
-
 <!-- header for navbar -->
 <div class="container-fluid above-nav bg-warning m-0">
   <div class="text-center m-0">
@@ -71,8 +56,8 @@
         Categories
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <% for (var i = 0; i < categories.length; i++) { %>
-        <a class="dropdown-item" href=""><%= categories[i].name %></a>
+        <% for (var i = 0; i < categoriesList.length; i++) { %>
+        <a class="dropdown-item" href=""><%= categoriesList[i].name %></a>
         <% } %>
       </div>
     </div>
@@ -100,3 +85,19 @@ toggle between hiding and showing the dropdown content -->
     };
   }
 </script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+   {
+    $.ajax({
+      url: "/search",
+      type: "GET",
+      data: {
+          search = "",
+          category = ""
+      },
+      success: function(data) {
+        console.log(data);
+      }
+    });
+  });
+</script> -->
