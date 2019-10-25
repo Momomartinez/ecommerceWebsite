@@ -18,21 +18,25 @@ body {
   font-size: 30px;
   padding: 0;
   padding-left: 10px;
- 
+  color: white !important;
 }
 .nav-link {
-  padding-left: 40px !important;
+  color: white !important;
 }
+
 .navbar-nav a {
   font-size: large;
   font-family: 'Arial Black', Gadget, sans-serif;
   padding-top: 0;
+  
+}
+
+.navbar-nav {
   padding-left: 40px;
 }
 
 .navbar {
   background-color: indigo !important;
-  color: white !important;
   padding-left: 40px;
 }
 
@@ -110,7 +114,6 @@ select {
 .pic {
   width: 100%;
   height: 250px;
-  
 }
 
 .dynamicCard {
