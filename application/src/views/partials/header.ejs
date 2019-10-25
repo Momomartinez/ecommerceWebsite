@@ -57,9 +57,9 @@
       </button> -->
       <select name="category" aria-setsize="1" value="<%= searchCategory %>">
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <option class="dropdown-item" value="All">All</option>
+          <option class="dropdown-item" value="All" <% if (searchCategory == 'All') {%>selected<%}%>>All</option>
           <% for (var i = 0; i < categoriesList.length; i++) { %>
-          <option class="dropdown-item" value="<%= categoriesList[i].name %>"
+          <option class="dropdown-item" value="<%= categoriesList[i].name %>" <% if (searchCategory == categoriesList[i].name) {%>selected<%}%>
             ><%= categoriesList[i].name %></option
           >
           <% } %>
