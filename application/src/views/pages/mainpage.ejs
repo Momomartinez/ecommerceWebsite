@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- scripts -->
+    <% include ../partials/head %>
+  </head>
+
+  <body>
+    <header>
+      <!-- navbar -->
+      <%- include('../partials/header', {'categoriesList':categoriesList,
+      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+    </header>
+
+    <!-- content body -->
+    <section>
+      <!-- the side and main areas -->
+      <div class="container-fluid">
+        <div class="row">
+
+          <!-- the mian area -->
+          <%- include('../partials/listings', {'items':cards, 'searchTerm':
+          searchTerm, 'searchCategory': searchCategory}) %>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <%- include('../partials/footer', {"cp":"Copyright"}) %>
+    </footer>
+  </body>
+</html>

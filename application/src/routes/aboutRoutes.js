@@ -1,30 +1,64 @@
+// let express = require('express');
+// let aboutRouter = express.Router();
+//
+// // Main About Page
+// aboutRouter.route('/')
+//     .get((req, res) => {
+//         res.render('index', { isLoggedIn: req.isAuthenticated() });
+//     });
+// // Personal About Pages
+// aboutRouter.route('/danabout')
+//     .get((req, res) => {
+//         res.render('danabout', { isLoggedIn: req.isAuthenticated() });
+//     });
+//
+// aboutRouter.route('/gemabout')
+//     .get((req, res) => {
+//         res.render('gemabout', { isLoggedIn: req.isAuthenticated() });
+//     });
+//
+// aboutRouter.route('/moniqueabout')
+//     .get((req, res) => {
+//         res.render('moniqueabout', { isLoggedIn: req.isAuthenticated() });
+//     });
+//
+// aboutRouter.route('/pramishabout')
+//     .get((req, res) => {
+//         res.render('pramishabout', { isLoggedIn: req.isAuthenticated() });
+//     });
+// aboutRouter.route('/rayaabout')
+//     .get((req, res) => {
+//         res.render('raya_about_page', { isLoggedIn: req.isAuthenticated() });
+//     });
+//
+// module.exports = aboutRouter;
+
 var express = require("express");
 var router = express.Router();
-var path = require("path");
 
-/* GET Dan About Me. */
-router.get("/dan", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../public/about/danabout.html"));
+/* GET home page. */
+router.get("/danabout", function(req, res, next) {
+  res.render("about/danabout", { title: "Express" });
 });
 
-/* GET Monique About Me. */
-router.get("/monique", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../public/about/moniqueabout.html"));
+router.get("/moniqueabout", function(req, res, next) {
+  res.render("about/moniqueabout", { title: "Express" });
+});
+router.get("/gemabout", function(req, res, next) {
+  res.render("about/gemabout", { title: "Express" });
+});
+router.get("/pramishabout", function(req, res, next) {
+  res.render("about/pramishabout", { title: "Express" });
+});
+router.get("/rayaabout", function(req, res, next) {
+  res.render("about/raya_about_page", { title: "Express" });
 });
 
-/* GET Pramish About Me. */
-router.get("/pramish", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../public/about/pramishabout.html"));
+router.get("/", function(req, res, next) {
+  res.render("pages/index");
 });
-
-/* GET Raya About Me. */
-router.get("/raya", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../public/about/raya_about_page.html"));
-});
-
-/* GET Gem About Me. */
-router.get("/gem", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../public/about/gemabout.html"));
-});
+// router.get('/', function(req, res, next) {
+//     res.render('about/raya', { title: 'Express' });
+// });
 
 module.exports = router;

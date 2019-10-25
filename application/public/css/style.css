@@ -3,7 +3,6 @@ body {
   height: 100%;
 }
 
-
 .navbar-brand {
   font-size: x-large;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -12,9 +11,14 @@ body {
   background-color: #450c57 !important;
 }
 .navbar-nav {
-  margin-bottom: 20px;
   font-size: large;
   font-family: 'Arial Black', Gadget, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-nav a.nav-link {
+  margin: 0;
 }
 
 #inner-intro {
@@ -45,5 +49,3 @@ body {
   height: 100px;
   clear: both;
 }
-
-
