@@ -132,6 +132,7 @@ body {
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 30px;
+  height: 100%;
 }
 hr {
   margin-top: 2rem !important;
@@ -151,4 +152,8 @@ span{
   display: flex;
   width: 300px;
   align-items: flex-end;
+}
+
+.mainArea {
+  min-height: 100vh;
 }
