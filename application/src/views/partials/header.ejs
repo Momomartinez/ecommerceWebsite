@@ -21,8 +21,39 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a href="/" class="navbar-brand m-4"><strong>CSC648</strong></a>
+    <a href="/" class="navbar-brand"><strong>CSC648</strong></a>
   </span>
+
+  <div class="searchDiv">
+      <!-- seach bar -->
+      <form class="form-inline search" action="">
+        <div class="dropdown">
+          <select name="category" aria-setsize="1" value="<%= searchCategory %>">
+            <div class=" dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <option class="dropdown-item" value="All" <% if (searchCategory == 'All') {%>selected<%}%>>All</option>
+              <% for (var i = 0; i < categoriesList.length; i++) { %>
+              <option class="dropdown-item" value="<%= categoriesList[i].name %>" <% if (searchCategory == categoriesList[i].name) {%>selected<%}%>
+                ><%= categoriesList[i].name %></option
+              >
+              <% } %>
+            </div>
+          </select>
+        </div>
+    
+        <input
+          id="search"
+          name="search"
+          class="form-control mr-1"
+          type="text"
+          value="<%= searchTerm %>"
+          placeholder="Search"
+          size="40"
+        />
+        <button id="searchbtn" class="btn bg-warning" type="submit">Search</button>
+      </form>
+    </div>
+
+
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item mr-3">
@@ -41,34 +72,7 @@
   </div>
 </nav>
 
-<div class="searchDiv">
-  <!-- seach bar -->
-  <form class="form-inline search" action="">
-    <div class="dropdown">
-      <select name="category" aria-setsize="1" value="<%= searchCategory %>">
-        <div class=" dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <option class="dropdown-item" value="All" <% if (searchCategory == 'All') {%>selected<%}%>>All</option>
-          <% for (var i = 0; i < categoriesList.length; i++) { %>
-          <option class="dropdown-item" value="<%= categoriesList[i].name %>" <% if (searchCategory == categoriesList[i].name) {%>selected<%}%>
-            ><%= categoriesList[i].name %></option
-          >
-          <% } %>
-        </div>
-      </select>
-    </div>
 
-    <input
-      id="search"
-      name="search"
-      class="form-control mr-1"
-      type="text"
-      value="<%= searchTerm %>"
-      placeholder="Search"
-      size="40"
-    />
-    <button id="searchbtn" class="btn bg-warning" type="submit">Search</button>
-  </form>
-</div>
 
 <!--  When the user clicks on the button,
 toggle between hiding and showing the dropdown content -->
