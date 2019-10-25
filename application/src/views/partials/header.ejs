@@ -45,18 +45,8 @@
   <!-- seach bar -->
   <form class="form-inline search" action="">
     <div class="dropdown">
-      <!-- <button
-        class="btn dropdown-toggle bg-warning"
-        type="button"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        Categories
-      </button> -->
       <select name="category" aria-setsize="1" value="<%= searchCategory %>">
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class=" dropdown-menu" aria-labelledby="dropdownMenuButton">
           <option class="dropdown-item" value="All" <% if (searchCategory == 'All') {%>selected<%}%>>All</option>
           <% for (var i = 0; i < categoriesList.length; i++) { %>
           <option class="dropdown-item" value="<%= categoriesList[i].name %>" <% if (searchCategory == categoriesList[i].name) {%>selected<%}%>
