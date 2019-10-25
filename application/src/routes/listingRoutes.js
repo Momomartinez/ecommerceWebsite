@@ -2,23 +2,6 @@ const express = require("express");
 const db = require("../models/database.js");
 const router = express.Router();
 
-// async function listingGet(req, res) {
-//   const [type_rows, type_fields] = await db.execute(
-//     "SELECT * FROM listing_type"
-//   );
-//   // const [listing_rows, listing_fields] = await db.execute('SELECT listing.id, listing.title, listing.price, listing.desc, listing.image FROM listing order by listing.id');
-//   res.render("pages/mainpage", {
-//     // types: type_rows,
-//     cards: type_rows,
-//     body: req.body
-//   });
-//   console.log("this is the cards row " + type_rows);
-// }
-
-// router.route("/").get((req, res) => {
-//   listingGet(req, res);
-// });
-
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM listing_type", (err, categories) => {
     if (err) throw err;
@@ -28,6 +11,7 @@ async function getCategories(req, res, next) {
   });
 }
 
+//Search function
 async function search(req, res, next) {
   var searchTerm = req.query.search;
   var category = req.query.category;
@@ -56,7 +40,7 @@ async function search(req, res, next) {
   }
 
   let sql = join + query;
-  console.log("this is sql: " + sql);
+  //console.log("this is sql: " + sql);
   await db.execute(sql, (err, result) => {
     if (err) {
       req.searchResult = "";
@@ -67,6 +51,8 @@ async function search(req, res, next) {
   });
 }
 
+//search
+//gets search results and renders searchpage
 router.get("/search", search, getCategories, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
@@ -78,6 +64,8 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
+//Landing page for Vertical Prototype
+//Same as search page but no results
 router.get("/", search, getCategories, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
@@ -88,22 +76,5 @@ router.get("/", search, getCategories, (req, res) => {
     searchCategory: req.query.category
   });
 });
-
-// router.route("/:id(\\d+)").get((req, res) => {
-//   console.log("the id is: " + req.params.id);
-//   let sql = "SELECT * FROM listing WHERE listing_type_id = ?";
-//   db.query(sql, req.params.id).then(([results, fields]) => {
-//     // if (!results || results.length !== 1) {
-//     //     res.status(404).send('404 - Page Not found');
-//     //     return;
-//     // }
-//     res.render("pages/mainpage", { cards: results });
-//     console.log(req.params.id);
-//     console.log("hhhhhhh");
-//     console.log(results);
-//     console.log(sql);
-//     console.log(req.params.id);
-//   });
-// });
 
 module.exports = router;
