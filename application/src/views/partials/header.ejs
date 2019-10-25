@@ -45,7 +45,7 @@
   <!-- seach bar -->
   <form class="form-inline search" action="">
     <div class="dropdown">
-      <button
+      <!-- <button
         class="btn dropdown-toggle bg-warning"
         type="button"
         id="dropdownMenuButton"
@@ -54,29 +54,36 @@
         aria-expanded="false"
       >
         Categories
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item">All</a>
-        <% for (var i = 0; i < categoriesList.length; i++) { %>
-        <a class="dropdown-item"><%= categoriesList[i].name %></a>
-        <% } %>
-      </div>
+      </button> -->
+      <select name="category" aria-setsize="1" value="<%= searchCategory %>">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <option class="dropdown-item" value="All">All</option>
+          <% for (var i = 0; i < categoriesList.length; i++) { %>
+          <option class="dropdown-item" value="<%= categoriesList[i].name %>"
+            ><%= categoriesList[i].name %></option
+          >
+          <% } %>
+        </div>
+      </select>
     </div>
 
     <input
+      id="search"
+      name="search"
       class="form-control mr-1"
       type="text"
+      value="<%= searchTerm %>"
       placeholder="Search"
       size="40"
     />
-    <button class="btn bg-warning" type="submit">Search</button>
+    <button id="searchbtn" class="btn bg-warning" type="submit">Search</button>
   </form>
 </div>
 
 <!--  When the user clicks on the button,
 toggle between hiding and showing the dropdown content -->
 <script>
-  var anchors = document.getElementsByTagName("a");
+  var anchors = document.getElementsByTagName("option");
 
   for (var i = 0, len = anchors.length; i < len; i++) {
     var thisAnchor = anchors[i];
@@ -87,18 +94,21 @@ toggle between hiding and showing the dropdown content -->
   }
 </script>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-   {
-    $.ajax({
-      url: "/search",
-      type: "GET",
-      data: {
-          search = "",
-          category = ""
-      },
-      success: function(data) {
-        console.log(data);
-      }
-    });
-  });
-</script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+  $(document).ready(function() {
+    $("#searchbtn").click(function(e) {
+      e.preventDefault();
+      $.ajax({
+        type: "GET",
+        url: "/search",
+        data: {
+          search: $("input[name=search]").val(),
+          category: $("select[name=category]").val()
+        },
+        success: function(result) {
+          console.log("success");
+        }
+      })
+    })
+  })
+</script>

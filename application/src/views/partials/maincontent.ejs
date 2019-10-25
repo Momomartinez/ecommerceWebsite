@@ -4,12 +4,10 @@
   <% for (var i = 0; i < cards.length; i++) { %>
 
   <section id="cardss">
-
-
-
     <span class=""
-      ><h2 class="m-0"><%= cards[i].name %></h2>
-<!--      main_test_db-->
+      ><h2 class="m-0"><%= searchCategory %></h2>
+      <h3 class="m-0">"<%= searchTerm %>"</h3>
+      <!--      main_test_db-->
       <a class="ml-4" href="#">view more</a></span
     >
     <div class="row">
@@ -17,35 +15,7 @@
       {cards: cards}); %> <% }); %>
     </div>
     <hr />
-
   </section>
 
-  <section id="cardss">
-
-    <span class=""
-      ><h2 class="m-0"></h2>
-<!--      main_test_db-->
-      <a class="ml-4" href="#">view more</a>
-    </span>
-    <div class="row">
-      <% cards.forEach(function(cards){ %><%- include('../partials/cards',
-      {cards: cards}); %> <% }); %>
-    </div>
-    <hr />
-  </section>
-
-  <section id="cardss">
-
-    <span class=""
-      ><h2 class="m-0"></h2>
-<!--       main_test_db-->
-      <a class="ml-4" href="#">view more</a>
-    </span>
-    <div class="row">
-      <% cards.forEach(function(cards){ %> <%- include('../partials/cards',
-      {cards: cards}); %> <% }); %>
-    </div>
-    <hr />
-  </section>
-    <% } %>
+  <% } %>
 </div>
