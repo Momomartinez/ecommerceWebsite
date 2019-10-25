@@ -56,8 +56,9 @@
         Categories
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item">All</a>
         <% for (var i = 0; i < categoriesList.length; i++) { %>
-        <a class="dropdown-item" href=""><%= categoriesList[i].name %></a>
+        <a class="dropdown-item"><%= categoriesList[i].name %></a>
         <% } %>
       </div>
     </div>
