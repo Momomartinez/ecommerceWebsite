@@ -1,7 +1,7 @@
 html,
 body {
   height: relative;
-  width: auto;
+  width: 100%;
   background-color: lightgray;
 }
 
@@ -22,22 +22,26 @@ body {
 }
 .nav-link {
   color: white !important;
+ padding: 0px;
+ margin: 5px; 
 }
+
 
 .navbar-nav a {
   font-size: large;
   font-family: 'Arial Black', Gadget, sans-serif;
-  padding-top: 0;
-  
+ 
 }
 
 .navbar-nav {
-  padding-left: 40px;
+  
+  padding-right: 20px;
 }
 
 .navbar {
   background-color: indigo !important;
-  padding-left: 40px;
+
+
 }
 
 /* dropdown */
@@ -57,7 +61,7 @@ select {
   align-content: center;
   padding-bottom: 10px;
   padding-top: 0;
-  padding-left: 40px;
+  
 }
 
 .hero {
@@ -129,9 +133,8 @@ select {
   padding-top: 30px;
   height: 100%;
 }
-hr {
-  margin-top: 2rem !important;
-  margin-bottom: 0;
+.cardLinebreak {
+ 
 }
 .mainCardBody {
   padding-top: 0;
@@ -143,14 +146,12 @@ ul {
   padding-left: 0;
 }
 
-span {
+#logobtn {
   display: flex;
   width: 300px;
-  padding-left: 40px;
   padding-bottom: 10px;
   margin: 0;
-  align-content: flex-end;
-  align-items: space-between;
+
 }
 
 .mainArea {
