@@ -148,4 +148,11 @@ ul {
 
 .mainArea {
   min-height: 100vh;
+  padding-left: 5px;
+}
+
+@media screen and (max-width: 992px) {
+  .mainArea {
+   padding-left: 15px;
+  }
 }
