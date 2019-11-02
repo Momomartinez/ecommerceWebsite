@@ -18,10 +18,13 @@ body {
   font-size: 30px;
   padding: 0;
   padding-left: 10px;
+  padding-right: 30px;
   color: white !important;
+  margin: 0;
 }
 .nav-link {
   color: white !important;
+  text-align: center;
 }
 
 
@@ -32,33 +35,41 @@ body {
 }
 
 .navbar-nav {
-  
+  padding-left: 30px;
   padding-right: 20px;
 }
 
 .navbar {
   background-color: indigo !important;
+  flex-flow: 56wrap;
 
 }
 
 /* dropdown */
 select {
   width: auto;
-  font-size: 20px;
   border: 1px solid #ccc;
   height: 38px;
   background: #ffc107;
-  border-end-end-radius: 0px;
+
+}
+
+.search{
+  flex-flow: nowrap;
+}
+.searchDiv input[type="text"]
+{
+width: 90%;
+color: #333;
+outline: none;
 }
 
 .searchDiv {
   background-color: indigo;
-  display: flex;
-  justify-content: center;
-  align-content: center;
   padding-bottom: 10px;
   padding-top: 0;
-  
+  width: 100%;
+  position: relative;
 }
 
 .inner-hero{
@@ -140,7 +151,7 @@ ul {
 
 #logobtn {
   display: flex;
-  width: 300px;
+width: auto;
   padding-bottom: 10px;
   margin: 0;
 }
@@ -176,7 +187,7 @@ ul {
 display: flex;
  align-items: flex-start;
  justify-content: left;
- padding: 30px;
+ padding: 50px;
  height: 80%;
  flex-direction: column;
 }
@@ -188,6 +199,10 @@ display: flex;
 h4.itemTitle {
   width: 100%;
   text-align: center;
+}
+
+.modalCard {
+  padding: 30px;
 }
 
 /* ------------------- */

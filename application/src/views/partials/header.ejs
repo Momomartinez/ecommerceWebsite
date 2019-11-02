@@ -12,7 +12,7 @@
 
 <!-- Nav bar with responsive toggle -->
 
-<nav class="navbar navbar-expand-lg  navbar-light">
+<nav class="navbar navbar-expand-md  navbar-light">
   <span id="logobtn">
     <button
       class="navbar-toggler bg-warning"
@@ -25,9 +25,11 @@
   </span>
 
   <div class="searchDiv">
-      <!-- seach bar -->
+      <!-- seach bar --> 
       <form class="form-inline search" action="">
+          
         <div class="dropdown">
+           
           <select name="category" aria-setsize="1" value="<%= searchCategory %>">
             <div class=" dropdown-menu" aria-labelledby="dropdownMenuButton">
               <option class="dropdown-item" value="All" <% if (searchCategory == 'All') {%>selected<%}%>>All</option>
@@ -47,11 +49,14 @@
           type="text"
           value="<%= searchTerm %>"
           placeholder="Search"
-          size="40"
         />
+        
         <button id="searchbtn" class="btn bg-warning" type="submit">Search</button>
       </form>
     </div>
+
+
+    <div class="">
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
@@ -68,6 +73,8 @@
       </li>
     </ul>
   </div>
+</div>
+
 </nav>
 
 </div>
