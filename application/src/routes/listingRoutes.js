@@ -64,6 +64,8 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
+
+
 //Landing page for Vertical Prototype
 //Same as search page but no results
 router.get("/", search, getCategories, (req, res) => {
