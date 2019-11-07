@@ -25,6 +25,7 @@ body {
 .nav-link {
   color: white !important;
   text-align: center;
+  margin: 5px;
 }
 
 
