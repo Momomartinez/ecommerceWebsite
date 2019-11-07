@@ -14,10 +14,10 @@ const morgan = require("morgan");
 app.use(morgan("tiny"));
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
-const authentication = require("./src/routes/listingRoutes")
+const loginRouter = require("./src/routes/listingRoutes")
 
 app.use("/about", aboutRouter);
 app.use("/", listingRouter);
-app.use("/", authentication);
+app.use("/", loginRouter);
 
 app.listen(PORT, () => console.log("server started on port", PORT));
