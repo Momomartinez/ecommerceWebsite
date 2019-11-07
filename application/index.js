@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const PORT = 3000;
 
-var expressValidator = require('express-validator');
+
 
 
 const app = express();

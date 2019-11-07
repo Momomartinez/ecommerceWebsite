@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { check, validationResult } = require('express-validator');
 
 
 router.get('/login', function (req, res, next) {
@@ -10,18 +10,16 @@ router.get('/login', function (req, res, next) {
 router.post("/register", function(req, res, next) {
     var name = req.body.name;
     var email = req.body.username;
+    var password = req.body.password;
     console.log(name);
     console.log(email);
+   
 
     //check vallidation
-    req.checkBody('name', 'name is required').notEmpty();
 
-    var errors = req.validationErrors();
-    if(errors){
-        console.log('Yes');
-    }else{
-        console.log('No')
-    }
+
+    // var errors = req.validationErrors();
+
 
 });
 
