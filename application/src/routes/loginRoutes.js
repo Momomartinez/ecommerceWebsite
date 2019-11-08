@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../models/database.js");
+const { User } = require('../models/user.js');
 const { check, validationResult } = require('express-validator');
 
 
@@ -23,10 +24,10 @@ router.post("/register", function(req, res, next) {
 
     //check pass length
     if(password.length < 6) {
-        errors.push({msg: 'password shoul be at least 6 character'});
+        errors.push({msg: 'password should be at least 6 character'});
     }
     if(errors.length > 0){
-        res.render('about/danabout', {
+        res.render('partials/login', {
             errors,
             name,
             email,
@@ -36,6 +37,12 @@ router.post("/register", function(req, res, next) {
     }else{
         //validation pass
         //create the user in model
+        User.register(req.body.name, req.body.email, req.body.password)
+            .then((userID) => {
+                // req.login({id : userID} , () => res.redirect('/'));
+                console.log(userID);
+            });
+
     }
 });
 
