@@ -10,6 +10,15 @@ class User {
                 return results[0].insertId;
             });
     }
+
+    static async checkValid(email){
+        return db.query('SELECT * from user where email = ?', email)
+            .then(([rows, fields]) => {
+                if(!rows || rows == null || rows.length !== 1){
+                    return false;
+                }
+            });
+    }
 }
 
 
