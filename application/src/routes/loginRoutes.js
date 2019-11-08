@@ -5,11 +5,11 @@ const { User } = require('../models/user.js');
 const { check, validationResult } = require('express-validator');
 
 
-router.get('/login', function (req, res, next) {
-    res.render('partials/login');
+router.get('/register', function (req, res, next) {
+    res.render('register');
 })
 
-router.post("/register", function(req, res, next) {
+router.post("/auth/register", function(req, res, next) {
     // var name = req.body.name;
     // var email = req.body.username;
     // var password = req.body.password;
