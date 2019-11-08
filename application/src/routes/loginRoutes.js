@@ -33,18 +33,30 @@ router.post("/register", function(req, res, next) {
         });
        console.log(errors);
     }else{
-        User.checkValid(req.body.email)
+        User.checkValid(req.body.email, res)
             .then((res) => {
-                console.log(req.body.email);
-                console.log(res);
+                if(res != false){
+                    User.register(req.body.name, req.body.email, req.body.password)
+                        .then((userID) => {
+                            req.login({id: userID}, () => res.redirect('/'));
+                            console.log(userID);
+                        });
+                }else{
+                    errors.push({msg: 'the username is exists. Please login!'});
+                    console.log(errors);
+                }
         });
         //validation pass
         //create the user in model
-        User.register(req.body.name, req.body.email, req.body.password)
-            .then((userID) => {
-                req.login({id : userID} , () => res.redirect('/'));
-                console.log(userID);
-            });
+
+
+            // User.register(req.body.name, req.body.email, req.body.password)
+            //     .then((userID) => {
+            //         req.login({id: userID}, () => res.redirect('/'));
+            //         console.log(userID);
+            //     });
+
+
 
     }
 });
