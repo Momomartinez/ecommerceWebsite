@@ -33,6 +33,11 @@ router.post("/register", function(req, res, next) {
         });
        console.log(errors);
     }else{
+        User.checkValid(req.body.email)
+            .then((res) => {
+                console.log(req.body.email);
+                console.log(res);
+        });
         //validation pass
         //create the user in model
         User.register(req.body.name, req.body.email, req.body.password)
