@@ -25,7 +25,7 @@ router.post("/auth/register", function(req, res, next) {
         errors.push({msg: 'password should be at least 6 character'});
     }
     if(errors.length > 0){
-        res.render('partials/login', {
+        res.render('register', {
             errors,
             name,
             email,

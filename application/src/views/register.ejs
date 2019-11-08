@@ -67,13 +67,12 @@
                     <div class="card bg-primary text-center card-form">
                         <div class="card-body">
                             <h3>Register Today</h3>
-                            <p>Please fill out this form to register</p>
 
                             <%if (typeof errors != 'undefined') { %>
                                 <div class="alert alert-danger" style="text-align:left">
                                     <ul style="padding-left: 15px;">
-                                        <% errors.forEach(function(err){ %>
-                                            <li><%= err.msg %></li>
+                                        <% errors.forEach(function(error){ %>
+                                            <li><%= error.msg %></li>
                                         <% }) %>
                                     </ul>
                                 </div>
