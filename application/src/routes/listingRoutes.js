@@ -3,7 +3,7 @@ const db = require("../models/database.js");
 const router = express.Router();
 
 async function getCategories(req, res, next) {
-  await db.execute("SELECT * FROM listing_type", (err, categories) => {
+  await db.execute("SELECT * FROM category", (err, categories) => {
     if (err) throw err;
     //console.log(categories);
     req.categoriesList = categories;
@@ -17,7 +17,7 @@ async function search(req, res, next) {
   var category = req.query.category;
 
   let join =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing_type.name FROM listing INNER JOIN listing_type ON listing.listing_type_id = listing_type.id";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, category.name FROM listing INNER JOIN category ON listing.category_id = category.id";
   let query = "";
   if (searchTerm != "" && (category != "" && category != "All")) {
     query =

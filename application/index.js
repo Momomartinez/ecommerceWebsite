@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const session = require('express-session');
 const PORT = 3000;
 
 
@@ -15,6 +16,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const morgan = require("morgan");
 app.use(morgan("tiny"));
+// use express session
+app.use(
+    session({
+        secret: 'CSC Class',
+        saveUninitialized: false,
+        resave: false,
+    }),
+);
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
