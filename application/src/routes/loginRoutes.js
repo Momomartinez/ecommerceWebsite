@@ -5,8 +5,6 @@ const { User } = require('../models/user.js');
 const { check, validationResult } = require('express-validator');
 
 
-
-
 router.get('/login', function (req, res, next) {
     res.render('partials/login');
 })
@@ -39,23 +37,11 @@ router.post("/register", function(req, res, next) {
         //create the user in model
         User.register(req.body.name, req.body.email, req.body.password)
             .then((userID) => {
-                // req.login({id : userID} , () => res.redirect('/'));
+                req.login({id : userID} , () => res.redirect('/'));
                 console.log(userID);
             });
 
     }
 });
-
-// async function checkValidation(req, res, next) {
-//     await db.query("SELECT * FROM listing_type", (err, categories) => {
-//         if (err) throw err;
-//         //console.log(categories);
-//         req.categoriesList = categories;
-//         next();
-//     });
-// }
-
-
-
 
 module.exports = router;

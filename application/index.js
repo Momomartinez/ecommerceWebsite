@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const session = require('express-session');
+const passport = require('passport');
 const PORT = 3000;
 
 
@@ -8,6 +9,8 @@ const PORT = 3000;
 
 const app = express();
 
+app.use(passport.initialize());
+app.use(passport.session());
 app.set("views", path.join(__dirname, "./src/views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
