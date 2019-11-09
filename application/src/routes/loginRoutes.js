@@ -44,11 +44,9 @@ router.post("/auth/register", function(req, res, next) {
                             req.login({id: userID}, () => res.redirect('/'));
                             console.log(userID);
                         });
-
-
+                    
                 //if there is similar user exists in the table --> show error
                 }else{
-
                     errors.push({msg: 'user is already exist'});
                     console.log(errors);
                     res.render('register', {
@@ -57,10 +55,6 @@ router.post("/auth/register", function(req, res, next) {
                         email,
                         password
                     });
-
-
-
-
                 }
         });
 
