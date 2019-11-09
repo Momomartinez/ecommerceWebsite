@@ -35,7 +35,7 @@ router.post("/auth/register", function(req, res, next) {
     }else{
         User.checkValid(req.body.email, res)
             .then((isValid) => {
-
+                //if there is no similar user in the the user table--> insert the user
                 if(isValid){
                     console.log("valid");
 
@@ -46,6 +46,7 @@ router.post("/auth/register", function(req, res, next) {
                         });
 
 
+                //if there is similar user exists in the table --> show error
                 }else{
 
                     errors.push({msg: 'user is already exist'});
