@@ -54,7 +54,8 @@ router.post("/auth/register", function(req, res, next) {
                         errors,
                         name,
                         email,
-                        password
+                        password,
+                        password_confirm
                     });
                 }
         });
