@@ -10,14 +10,14 @@ router.get('/register', function (req, res, next) {
 })
 
 router.post("/auth/register", function(req, res, next) {
-    // var name = req.body.name;
-    // var email = req.body.username;
-    // var password = req.body.password;
-    const {name, email, password}  = req.body;
+    const {name, email, password, password_confirm}  = req.body;
     let errors = [];
-    console.log(name);
+
     if(!name || !email || !password) {
         errors.push({msg: 'please fill in all fields'})
+    }
+    if(password !== password_confirm){
+        errors.push({msg: 'password not match'})
     }
 
     //check pass length
@@ -35,16 +35,16 @@ router.post("/auth/register", function(req, res, next) {
     }else{
         User.checkValid(req.body.email, res)
             .then((isValid) => {
+
                 //if there is no similar user in the the user table--> insert the user
                 if(isValid){
                     console.log("valid");
-
                     User.register(req.body.name, req.body.email, req.body.password)
                         .then((userID) => {
                             req.login({id: userID}, () => res.redirect('/'));
                             console.log(userID);
                         });
-                    
+
                 //if there is similar user exists in the table --> show error
                 }else{
                     errors.push({msg: 'user is already exist'});
