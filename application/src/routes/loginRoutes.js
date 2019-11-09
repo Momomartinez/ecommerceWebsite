@@ -34,21 +34,36 @@ router.post("/auth/register", function(req, res, next) {
        console.log(errors);
     }else{
         User.checkValid(req.body.email, res)
-            .then((res) => {
-                // console.log(req.body.email);
-                // console.log("39: "+res);
-                // if(res != false){
-                //     console.log("ggggg");
-                // }else{
-                //     console.log("39: ");
-                // }
+            .then((isValid) => {
+
+                if(isValid){
+                    console.log("valid");
+
+                    User.register(req.body.name, req.body.email, req.body.password)
+                        .then((userID) => {
+                            req.login({id: userID}, () => res.redirect('/'));
+                            console.log(userID);
+                        });
+
+
+                }else{
+
+                    errors.push({msg: 'user is already exist'});
+                    console.log(errors);
+                    res.render('register', {
+                        errors,
+                        name,
+                        email,
+                        password
+                    });
+
+
+
+
+                }
         });
 
-            User.register(req.body.name, req.body.email, req.body.password)
-                .then((userID) => {
-                    req.login({id: userID}, () => res.redirect('/'));
-                    console.log(userID);
-                });
+
 
 
 
