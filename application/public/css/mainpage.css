@@ -42,8 +42,6 @@ body {
 
 .navbar {
   background-color: indigo !important;
-  flex-flow: 56wrap;
-
 }
 
 /* dropdown */
@@ -207,3 +205,16 @@ h4.itemTitle {
 }
 
 /* ------------------- */
+
+/* media query for seach bar responsiveness */
+@media screen and (max-width: 991px){
+  .navbar {
+    flex-flow: nowrap;
+  }
+}
+
+@media screen and (max-width: 776px){
+  .navbar {
+    flex-flow: wrap;
+  }
+} 
