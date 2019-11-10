@@ -28,6 +28,15 @@ body {
   margin: 5px;
 }
 
+/* user dropdown navlinks */
+a.dropdown-item {
+font-size: inherit !important;
+font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.dropdown-menu {
+  padding: 0 !important;
+}
 
 .navbar-nav a {
   font-size: large;
