@@ -14,6 +14,9 @@
 
           <div class="modalCard row">
             <!-- sign up form -->
+            <button class="btn btn-danger" onclick="replace()" data-dismiss="modal" type="button">
+              login
+            </button>
               </div>
           
           </div>
@@ -22,3 +25,25 @@
     </div>
   </div>
 </div>
+
+<!-- for prototype day or testing and showing only -->
+<script>
+function hideElement() { 
+            element = document.querySelector('.loginButton'); 
+            element.style.visibility = 'hidden'; 
+}
+
+function showElement() { 
+            element = document.querySelector('.user'); 
+            element.style.visibility = 'visible'; 
+        } 
+  
+function replace() {
+  var firstbtn = document.querySelector(".loginButton");
+  var secondbtn = document.querySelector(".user");
+  firstbtn.parentNode.replaceChild(secondbtn, firstbtn);
+  secondbtn.style.visibility = 'visible'; 
+}
+
+
+</script>
