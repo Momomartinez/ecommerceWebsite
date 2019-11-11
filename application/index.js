@@ -1,14 +1,24 @@
 const express = require("express");
 const path = require("path");
 var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
 const PORT = 3000;
 
 
+var options ={
+    host: "142.44.170.121",
+    user: "root",
+    password: "6&rFzI70oM*",
+    database: "team11_db",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+};
 
-
+var sessionStore = new MySQLStore(options);
 const app = express();
 
 const morgan = require("morgan");
@@ -25,6 +35,7 @@ app.use(
     session({
         secret: 'CSC Class',
         saveUninitialized: false,
+        store: sessionStore,
         resave: false,
     }),
 );
@@ -38,7 +49,7 @@ app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
 passport.use(new LocalStrategy(
-    function(username, password, done) {
+    function(email, password, done) {
         console.log("hellooooooo");
         console.log(username);
         console.log(password);
