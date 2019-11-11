@@ -14,7 +14,8 @@ class User {
     static async checkValid(email){
         return db.query('SELECT * from user where email = ?', email)
             .then(([rows, fields]) => {
-                if(!rows || rows.length === 0){
+                if(!email) return false;
+                if(!rows || rows == null || rows.length === 0){
                     console.log("user class: "+rows);
                     return true;
                 }

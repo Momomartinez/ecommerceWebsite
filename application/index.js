@@ -10,7 +10,7 @@ const PORT = 3000;
 
 const app = express();
 
-app.use(passport.initialize());
+
 app.set("views", path.join(__dirname, "./src/views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -20,7 +20,7 @@ app.use(expressValidator());
 app.use(bodyParser.json());
 const morgan = require("morgan");
 app.use(morgan("tiny"));
-app.use(passport.session());
+
 // use express session
 app.use(
     session({
@@ -29,7 +29,8 @@ app.use(
         resave: false,
     }),
 );
-
+app.use(passport.initialize());
+app.use(passport.session());
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
