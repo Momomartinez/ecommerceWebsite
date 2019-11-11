@@ -78,7 +78,7 @@
                                 </div>
                             <% } %>
 
-                            <form method="post" action="/register">
+                            <form method="POST" action="/login">
                                 <!--name-->
                                 <div class="form-group">
                                     <input
@@ -89,16 +89,7 @@
                                             value="<%= (typeof body != 'undefined' && typeof body.name != 'undefined')?body.name:'' %>"
                                     />
                                 </div>
-                                <!--email-->
-                                <div class="form-group">
-                                    <input
-                                            name="email"
-                                            type="email"
-                                            class="form-control form-control-lg"
-                                            placeholder="Email"
-                                            value="<%= (typeof body != 'undefined' && typeof body.email != 'undefined')?body.email:'' %>"
-                                    />
-                                </div>
+
                                 <!--password-->
                                 <div class="form-group">
                                     <input
@@ -108,31 +99,7 @@
                                             placeholder="Password"
                                     />
                                 </div>
-                                <!--password-->
-                                <div class="form-group">
-                                    <input
-                                            name="password_confirm"
-                                            type="password"
-                                            class="form-control form-control-lg"
-                                            placeholder="Confirm Password"
-                                    />
-                                </div>
-                                <!--agree to terms and conditions-->
-                                <div class="form-check">
-                                    <input
-                                            name="terms"
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            value="1"
-                                            id="termsAndConditionsCheck"
-                                            <%= (typeof body != 'undefined' && typeof body.terms != 'undefined')?'checked':'' %>
-                                    />
-                                    <label class="form-check-label" for="appartmentCheck">
-                                        Agree to <a href="" style="color: blue;">terms and conditions</a>
-                                    </label>
-                                    <p></p>
-                                </div>
-                                <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+
                                 <!--submit button-->
                                 <input
                                         type="submit"

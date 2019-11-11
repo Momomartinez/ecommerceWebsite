@@ -5,14 +5,24 @@ const { validationResult } = require('express-validator/check');
 const passport = require('passport');
 
 
+router.get('/login', function (req, res, next) {
+    res.render('login', {title: 'Login'});
+});
+
+router.post('/login', passport.authenticate(
+    'local', {
+    successRedirect: '/register',
+    failureRedirect: '/login',
+}));
 
 router.get('/register', function (req, res, next) {
-
+    console.log("10 : "+req.user);
+    console.log("10 : "+req.isAuthenticated());
     res.render('register', {title: 'Form Validation', isLoggedIn: req.isAuthenticated(), success: req.session.success, errors: req.session.errors});
     req.session.errors = null;
 });
 
-router.post("/auth/register", function(req, res, next) {
+router.post("/register", function(req, res, next) {
 
     req.check('email', 'invalid email adress').isEmail().exists();
     // req.check('email', 'email should not be empty').exists();
@@ -43,6 +53,8 @@ router.post("/auth/register", function(req, res, next) {
                             const user_id = userID;
                             req.login({id: userID}, () => res.redirect('/'));
                             console.log(userID);
+                            console.log("user : "+req.user);
+                            console.log("isAthenticated: "+req.isAuthenticated());
                         });
 
                     //if there is similar user exists in the table --> show error
@@ -62,7 +74,10 @@ router.post("/auth/register", function(req, res, next) {
 
     }
 
+
 });
+
+
 
 passport.serializeUser(function(user_id, done) {
     done(null, user_id);
