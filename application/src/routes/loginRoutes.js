@@ -25,9 +25,10 @@ router.get('/register', function (req, res, next) {
 });
 
 router.post("/register", function(req, res, next) {
-
-    req.check('email', 'invalid email adress').isEmail().exists();
-    req.check('password', 'password should be at least 6 character').isLength({min: 6});
+    req.check('name', 'username must be between  6 and 18 character').isLength({ min: 6, max: 18 }),
+    req.check('email', 'invalid email adress').exists().isEmail().contains('mail.sfsu.edu');
+    // req.check('email', 'Please enter your sfsu student email').not().contains('mail.sfsu.edu');
+    req.check('password', 'password must be between  6 and 18 character').isLength({ min: 6, max: 18 }),
     req.check('password', 'password not match').equals(req.body.password_confirm);
     req.check('terms', 'You must accept the terms and conditions.').equals('1');
 
