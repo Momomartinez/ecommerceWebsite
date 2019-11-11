@@ -12,7 +12,7 @@
 
 <!-- Nav bar with responsive toggle -->
 
-<nav class="navbar navbar-expand-md  navbar-light">
+<nav class="navbar navbar-expand-lg  navbar-light">
   <span id="logobtn">
     <button
       class="navbar-toggler bg-warning"
@@ -31,7 +31,7 @@
         <div class="dropdown">
            
           <select name="category" aria-setsize="1" value="<%= searchCategory %>">
-            <div class=" dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <option class="dropdown-item" value="All" <% if (searchCategory == 'All') {%>selected<%}%>>All</option>
               <% for (var i = 0; i < categoriesList.length; i++) { %>
               <option class="dropdown-item" value="<%= categoriesList[i].name %>" <% if (searchCategory == categoriesList[i].name) {%>selected<%}%>
@@ -49,6 +49,7 @@
           type="text"
           value="<%= searchTerm %>"
           placeholder="Search"
+          maxlength="40"
         />
         
         <button id="searchbtn" class="btn bg-warning" type="submit">Search</button>
@@ -59,18 +60,31 @@
     <div class="">
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item user dropleft">
+            <a href="" target="_blank" class="nav-link dropdown-toggle "  type="button" id="dropdownMenuButton"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class=" fas fa-user fa-2x "></i></a> 
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="/msgs">Messages</a>
+                <a class="dropdown-item" href="#">Listings</a>
+                <a class="dropdown-item bg-light" href="#">LogOut</a>
+             
+              </div>
+          </li>
       <li class="nav-item">
-        <a href="./" class="nav-link" style="border: 2px solid #ffc107; border-radius: 5px;">SELL</a>
+        <a href="./" class="nav-link">SELL</a>
       </li>
       <li class="nav-item">
-        <a href="/about" target="_blank" class="nav-link">TEAM</a>
+        <a href="/about" target="_blank" class="nav-link" >TEAM</a>
       </li>
-      <li class="nav-item">
-        <a href="/login" class="nav-link">LOGIN</a>
+
+
+      <li class="nav-item loginButton">
+        <a href="#login" role="button" data-toggle="modal" style="border: 2px solid #ffc107; border-radius: 5px;"  class="nav-link ">LOGIN<span style="color: #ffc107">/</span>SIGNUP</a>
       </li>
-      <li class="nav-item">
-        <a href="register" class="nav-link">SIGNUP</a>
-      </li>
+     
+
+      <!-- <li class="nav-item">
+        <a href="#" class="nav-link">SIGNUP</a>
+      </li> -->
     </ul>
   </div>
 </div>
@@ -111,3 +125,5 @@ toggle between hiding and showing the dropdown content -->
     })
   })
 </script>
+
+<% include ../partials/login %>
