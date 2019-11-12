@@ -6,7 +6,7 @@ const passport = require('passport');
 var expressValidator = require('express-validator');
 
 
-router.get('/login', function (req, res) {
+router.get('/register', function (req, res) {
     res.render('login', {title: 'Login'});
 });
 router.post("/login", passport.authenticate(

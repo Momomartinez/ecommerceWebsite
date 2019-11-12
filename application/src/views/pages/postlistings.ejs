@@ -7,6 +7,35 @@
     <% include ../partials/head %>
 </head>
 
+<style>
+#main-container{
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+    margin: 10px 400px;
+  border: 1px solid black;
+}
+#input-value{
+   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+input[placeholder="Description"] {
+    width: 125px;
+    height: 100px;
+}
+.imagebtn{
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+
+</style>
+
 
 <body>
 <header>
@@ -15,7 +44,38 @@
     'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
 </header>
 
-<h1>hello</h1>
+<div id='main-container'>
+    <h2>Sell your item on SFSU Buy & Sell</h2>
+    <form action="/action_page.php" method="post">
+      <div id="input-value">
+        <input type="text" placeholder="Title"  required>
+        <input type="number" placeholder="$ Price"  required>
+        <input type="text" placeholder="Description"  size="1200" required>
+      </div>
+      <br>
+      <button type="button" class="imagebtn"> Add image</button>
+
+      <div>
+      <select>
+        <option selected="true" disabled="disabled">Category</option>
+        <option value="Book">Book</option>
+        <option value="Furniture">Furniture</option>
+        <option value="Electronics">Electronics</option>
+      </select>
+      </div>
+
+      <div class="check">
+        <label class="check-label">
+          <input class="check-input" type="checkbox" name="remember"> You agree to  our Terms of Use
+        </label>
+      </div>
+
+      <button type="submit">Submit</button>
+
+      <button type="Cancel">Cancel</button>
+    </form>
+  
+  </div>
 
 </body>
 
