@@ -11,6 +11,20 @@ async function getCategories(req, res, next) {
   });
 }
 
+async function getRecentListings(req, res, next) {
+  let query =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY date DESC LIMIT 9;";
+
+  await db.execute(query, (err, results) => {
+    if (err) {
+      req.searchResult = "";
+      next();
+    }
+    req.searchResult = results;
+    next();
+  });
+}
+
 async function getRecentElectronics(req, res, next) {
   let electronicsQ =
     "SELECT * FROM listing WHERE category_id = 1 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
@@ -119,14 +133,15 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
-router.get("/", search, getCategories, (req, res) => {
+//Landing page
+router.get("/", getRecentListings, getCategories, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
   res.render("pages/mainpage", {
     cards: searchResult,
     categoriesList: categoriesList,
-    searchTerm: req.query.search,
-    searchCategory: req.query.category
+    searchTerm: "",
+    searchCategory: "All"
   });
 });
 
