@@ -44,10 +44,12 @@ app.use(passport.session());
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
+const sellRouter = require("./src/routes/sellRoutes");
 
 app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
+app.use("/", sellRouter);
 passport.use(new LocalStrategy(
     function(email, password, done) {
         console.log("hellooooooo");

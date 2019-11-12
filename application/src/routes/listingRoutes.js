@@ -64,9 +64,6 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
-// router.get("/login", function(req, res, next) {
-//   res.render("partials/signup", { title: "Express" });
-// });
 
 //Landing page for Vertical Prototype
 //Same as search page but no results
