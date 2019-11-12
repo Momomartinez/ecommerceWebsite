@@ -1,50 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- scripts -->
-  <% include ../partials/head %>
-</head>
+  <head>
+    <!-- scripts -->
+    <% include ../partials/head %>
+  </head>
 
-<body>
-<header>
-  <!-- navbar -->
-  <%- include('../partials/header', {'categoriesList':categoriesList,
-  'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
-</header>
+  <body>
+    <header>
+      <!-- navbar -->
+      <%- include('../partials/header', {'categoriesList':categoriesList,
+      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+    </header>
 
-<!-- <section>
-  <div class="inner-hero"> 
-    <div class="dark-overlay">
-    <div class="row m-0">
-      <div class="col-6 mx-5 my-5">
-        <div class="container text-center">
-        <h1>SFSU Buy and Sell</h1>
+    <!-- content body -->
+    <section>
+      <!-- the side and main areas -->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- the mian area -->
+          <%- include('../partials/listings', {'items':cards, 'searchTerm':
+          searchTerm, 'searchCategory': searchCategory}) %>
+        </div>
       </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</section> -->
+    </section>
 
-
-
-
-<!-- content body -->
-<section>
-  <!-- the side and main areas -->
-  <div class="container-fluid">
-    <div class="row">
-      <!-- the mian area -->
-      <%- include('../partials/listings', {'items':cards, 'searchTerm':
-      searchTerm, 'searchCategory': searchCategory}) %>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <%- include('../partials/footer', {"cp":"Copyright"}) %>
-</footer>
-</body>
+    <footer>
+      <%- include('../partials/footer', {"cp":"Copyright"}) %>
+    </footer>
+  </body>
 </html>
 
 <% include ../partials/contactSeller %>

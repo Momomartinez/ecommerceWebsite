@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var passport = require('passport');
@@ -21,6 +22,7 @@ var options ={
 var sessionStore = new MySQLStore(options);
 const app = express();
 
+
 const morgan = require("morgan");
 app.use(morgan("tiny"));
 app.set("views", path.join(__dirname, "./src/views"));
@@ -30,6 +32,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(bodyParser.json());
+
 // use express session
 app.use(
     session({
@@ -58,5 +61,6 @@ passport.use(new LocalStrategy(
         return done(null, "jnjhbj");
     }
 ));
+
 
 app.listen(PORT, () => console.log("server started on port", PORT));

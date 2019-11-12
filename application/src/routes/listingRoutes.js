@@ -11,15 +11,82 @@ async function getCategories(req, res, next) {
   });
 }
 
+async function getRecentListings(req, res, next) {
+  let query =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY date DESC LIMIT 9;";
+
+  await db.execute(query, (err, results) => {
+    if (err) {
+      req.searchResult = "";
+      next();
+    }
+    req.searchResult = results;
+    next();
+  });
+}
+
+async function getRecentElectronics(req, res, next) {
+  let electronicsQ =
+    "SELECT * FROM listing WHERE category_id = 1 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
+
+  await db.execute(electronicsQ, (err, recentElectronics) => {
+    if (err) {
+      req.recentElectronics = "";
+      next();
+    }
+    req.recentElectronics = recentElectronics;
+    next();
+  });
+}
+async function getRecentBooks(req, res, next) {
+  let booksQ =
+    "SELECT * FROM listing WHERE category_id = 2 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
+
+  await db.execute(booksQ, (err, recentBooks) => {
+    if (err) {
+      req.recentBooks = "";
+      next();
+    }
+    req.recentBooks = recentBooks;
+    next();
+  });
+}
+async function getRecentFurniture(req, res, next) {
+  let furnitureQ =
+    "SELECT * FROM listing WHERE category_id = 3 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
+
+  await db.execute(furnitureQ, (err, recentFurniture) => {
+    if (err) {
+      req.recentFurniture = "";
+      next();
+    }
+    req.recentFurniture = recentFurniture;
+    next();
+  });
+}
+async function getRecentOther(req, res, next) {
+  let otherQ =
+    "SELECT * FROM listing WHERE category_id = 4 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
+
+  await db.execute(otherQ, (err, recentOther) => {
+    if (err) {
+      req.recentOther = "";
+      next();
+    }
+    req.recentOther = recentOther;
+    next();
+  });
+}
+
 //Search function
 async function search(req, res, next) {
   var searchTerm = req.query.search;
   var category = req.query.category;
 
   let join =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, category.name FROM listing INNER JOIN category ON listing.category_id = category.id";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id";
   let query = "";
-  if (searchTerm != "" && (category != "" && category != "All")) {
+  if (searchTerm != "" && category != "" && category != "All") {
     query =
       ` WHERE name = '` +
       category +
@@ -27,16 +94,18 @@ async function search(req, res, next) {
       searchTerm +
       `%' OR description LIKE '%` +
       searchTerm +
-      `%')`;
+      `%') AND is_sold = 0;`;
   } else if (searchTerm != "" && (category == "" || category == "All")) {
     query =
       ` WHERE (title LIKE '%` +
       searchTerm +
       `%' OR description LIKE '%` +
       searchTerm +
-      `%')`;
-  } else if (searchTerm == "" && (category != "" && category != "All")) {
-    query = ` WHERE name = '` + category + `'`;
+      `%') AND is_sold = 0;`;
+  } else if (searchTerm == "" && category != "" && category != "All") {
+    query = ` WHERE name = '` + category + `' AND is_sold = 0;`;
+  } else if (searchTerm == "" && category == "All") {
+    query = ` WHERE is_sold = 0;`;
   }
 
   let sql = join + query;
@@ -51,6 +120,28 @@ async function search(req, res, next) {
   });
 }
 
+//Landing page
+router.get("/", getRecentListings, getCategories, (req, res) => {
+  var searchResult = req.searchResult;
+  var categoriesList = req.categoriesList;
+  res.render("pages/mainpage", {
+    cards: searchResult,
+    categoriesList: categoriesList,
+    searchTerm: "",
+    searchCategory: "All"
+  });
+});
+
+//Message page
+router.get("/msgs", getCategories, (req, res) => {
+  var categoriesList = req.categoriesList;
+  res.render("pages/messages", {
+    categoriesList: categoriesList,
+    searchTerm: "",
+    searchCategory: "All"
+  });
+});
+
 //search
 //gets search results and renders searchpage
 router.get("/search", search, getCategories, (req, res) => {
@@ -64,18 +155,41 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
+// //Landing page
+// router.get("/", getRecentListings, getCategories, (req, res) => {
+//   var searchResult = req.searchResult;
+//   var categoriesList = req.categoriesList;
+//   res.render("pages/mainpage", {
+//     cards: searchResult,
+//     categoriesList: categoriesList,
+//     searchTerm: "",
+//     searchCategory: "All"
+//   });
+// });
 
-//Landing page for Vertical Prototype
-//Same as search page but no results
-router.get("/", search, getCategories, (req, res) => {
-  var searchResult = req.searchResult;
-  var categoriesList = req.categoriesList;
-  res.render("pages/mainpage", {
-    cards: searchResult,
-    categoriesList: categoriesList,
-    searchTerm: req.query.search,
-    searchCategory: req.query.category
-  });
-});
+//Homepage
+//Takes the 3 most recent items in each category and displays them
+// router.get(
+//   "/",
+//   getRecentElectronics,
+//   getRecentBooks,
+//   getRecentFurniture,
+//   getRecentOther,
+//   getCategories,
+//   (req, res) => {
+//     var recentElectronics = req.recentElectronics;
+//     var recentBooks = req.recentBooks;
+//     var recentFurniture = req.recentFurniture;
+//     var recentOther = req.recentOther;
+//     var categoriesList = req.categoriesList;
+//     console.log(recentElectronics);
+//     console.log(recentBooks);
+//     console.log(recentFurniture);
+//     console.log(recentOther);
+//     res.render("pages/mainpage", {
+//       categoriesList: categoriesList
+//     });
+//   }
+// );
 
 module.exports = router;

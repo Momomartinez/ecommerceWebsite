@@ -26,7 +26,7 @@
 
   <div class="searchDiv">
       <!-- seach bar --> 
-      <form class="form-inline search" action="">
+      <form method="GET" action="/search" class="form-inline search" >
           
         <div class="dropdown">
            
@@ -64,7 +64,7 @@
             <a href="" target="_blank" class="nav-link dropdown-toggle "  type="button" id="dropdownMenuButton"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class=" fas fa-user fa-2x "></i></a> 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="/msgs">Messages</a>
-                <a class="dropdown-item" href="#">Listings</a>
+                <a class="dropdown-item" href="/posts">Listings</a>
                 <a class="dropdown-item bg-light" href="#">LogOut</a>
              
               </div>
@@ -105,25 +105,6 @@ toggle between hiding and showing the dropdown content -->
       btn.innerHTML = this.innerHTML;
     };
   }
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-  $(document).ready(function() {
-    $("#searchbtn").click(function(e) {
-      e.preventDefault();
-      $.ajax({
-        type: "GET",
-        url: "/search",
-        data: {
-          search: $("input[name=search]").val(),
-          category: $("select[name=category]").val()
-        },
-        success: function(result) {
-          console.log("success");
-        }
-      })
-    })
-  })
 </script>
 
 <% include ../partials/login %>
