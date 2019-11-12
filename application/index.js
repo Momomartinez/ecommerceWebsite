@@ -18,8 +18,16 @@ const listingRouter = require('./src/routes/listingRoutes');
 app.use('/about', aboutRouter);
 app.use('/', listingRouter);
 
-app.get('/login', function(req, res, next) {
-  res.render('partials/login', {});
+// app.get('/login', function(req, res, next) {
+//   res.render('partials/login', {});
+// });
+
+// app.get('/msgs', function(req, res, next) {
+//   res.render('pages/messages', {});
+// });
+
+app.get('/posts', function(req, res, next) {
+  res.render('pages/postlistings', {});
 });
 
 app.listen(PORT, () => console.log('server started on port', PORT));

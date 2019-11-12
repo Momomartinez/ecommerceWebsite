@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<% include ../partials/head%>
+</head>
+<body>
+  
+
+<!-- <header> <a href="/" class="testhome"><strong>CSC648</strong></a> </header> -->
+
+<!-- navbar -->
+<!-- if you comment the header partial out it will work, but it give error that categories is not defined, i assume it has to do with the route  -->
+<%- include('../partials/header', {'categoriesList':categoriesList,
+      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+
+<% include ../partials/msgBox%>
+</body>
+</html>
