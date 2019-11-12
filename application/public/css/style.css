@@ -1,35 +1,51 @@
-#main-container{
-  min-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-    margin: 10px 400px;
-  border: 1px solid black;
-}
-#input-value{
-   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-}
-input[placeholder="Description"] {
-    width: 125px;
-    height: 100px;
-}
-.imagebtn{
-  font-size: 20px;
-  border: 2px solid black;
-  border-radius: 10px;
+html,
+body {
+  height: 100%;
 }
 
-@media only screen and (min-width: 600px) {
-  body {
-    margin: 10px 40px;
-  }
+.navbar-brand {
+  font-size: x-large;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-@media only screen and (max-width: 600px) {
-  body {
-    margin: 10px 40px;
-  }
+.navbar {
+  background-color: #450c57 !important;
+}
+.navbar-nav {
+  font-size: large;
+  font-family: 'Arial Black', Gadget, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-nav a.nav-link {
+  margin: 0;
+}
+
+#inner-intro {
+  background-color: #450c57;
+  color: #fff;
+  min-height: 180px;
+}
+
+#team-members {
+  margin-top: 80px;
+  height: 100%;
+  overflow: auto;
+}
+
+#team-members .card {
+  margin: 2px;
+}
+
+.face-img {
+  height: 120px;
+  width: 120px;
+}
+
+#footer {
+  background-color: #450c57;
+  color: #fff;
+  position: relative;
+  height: 100px;
+  clear: both;
 }
