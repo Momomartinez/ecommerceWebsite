@@ -1,1 +1,22 @@
-<h1 class="text-center">this is the listings page for post the user posted</h1>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- scripts -->
+    <% include ../partials/head %>
+</head>
+
+
+<body>
+<header>
+    <!-- navbar -->
+    <%- include('../partials/header', {'categoriesList':categoriesList,
+    'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+</header>
+
+</body>
+
+</html>
+
+
