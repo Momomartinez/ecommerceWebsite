@@ -120,6 +120,16 @@ async function search(req, res, next) {
   });
 }
 
+//Message page
+router.get("/msgs", getCategories, (req, res) => {
+  var categoriesList = req.categoriesList;
+  res.render("pages/messages", {
+    categoriesList: categoriesList,
+    searchTerm: "",
+    searchCategory: "All"
+  });
+});
+
 //search
 //gets search results and renders searchpage
 router.get("/search", search, getCategories, (req, res) => {
