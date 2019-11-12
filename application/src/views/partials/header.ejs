@@ -26,7 +26,7 @@
 
   <div class="searchDiv">
       <!-- seach bar --> 
-      <form class="form-inline search" action="">
+      <form method="GET" action="/search" class="form-inline search" >
           
         <div class="dropdown">
            
@@ -103,25 +103,6 @@ toggle between hiding and showing the dropdown content -->
       btn.innerHTML = this.innerHTML;
     };
   }
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
-  $(document).ready(function() {
-    $("#searchbtn").click(function(e) {
-      e.preventDefault();
-      $.ajax({
-        type: "GET",
-        url: "/search",
-        data: {
-          search: $("input[name=search]").val(),
-          category: $("select[name=category]").val()
-        },
-        success: function(result) {
-          console.log("success");
-        }
-      })
-    })
-  })
 </script>
 
 <% include ../partials/login %>

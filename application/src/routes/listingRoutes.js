@@ -120,6 +120,18 @@ async function search(req, res, next) {
   });
 }
 
+//Landing page
+router.get("/", getRecentListings, getCategories, (req, res) => {
+  var searchResult = req.searchResult;
+  var categoriesList = req.categoriesList;
+  res.render("pages/mainpage", {
+    cards: searchResult,
+    categoriesList: categoriesList,
+    searchTerm: "",
+    searchCategory: "All"
+  });
+});
+
 //Message page
 router.get("/msgs", getCategories, (req, res) => {
   var categoriesList = req.categoriesList;
@@ -143,17 +155,17 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
-//Landing page
-router.get("/", getRecentListings, getCategories, (req, res) => {
-  var searchResult = req.searchResult;
-  var categoriesList = req.categoriesList;
-  res.render("pages/mainpage", {
-    cards: searchResult,
-    categoriesList: categoriesList,
-    searchTerm: "",
-    searchCategory: "All"
-  });
-});
+// //Landing page
+// router.get("/", getRecentListings, getCategories, (req, res) => {
+//   var searchResult = req.searchResult;
+//   var categoriesList = req.categoriesList;
+//   res.render("pages/mainpage", {
+//     cards: searchResult,
+//     categoriesList: categoriesList,
+//     searchTerm: "",
+//     searchCategory: "All"
+//   });
+// });
 
 //Homepage
 //Takes the 3 most recent items in each category and displays them
