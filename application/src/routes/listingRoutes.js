@@ -142,6 +142,10 @@ router.get("/msgs", getCategories, (req, res) => {
   });
 });
 
+router.get("/posts", (req, res) => {
+  res.render("partials/postlistings", {});
+});
+
 //search
 //gets search results and renders searchpage
 router.get("/search", search, getCategories, (req, res) => {
