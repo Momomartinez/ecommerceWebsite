@@ -7,10 +7,11 @@
     <div class="card-body mainCardBody">
       <h5 class="m-0 mt-1"><%= cards.title %></h5>
       <p class="m-0 text-muted">$<%= cards.price %></p>
-      <button class="btn bg-warning mt-1 pl-5 pr-5 py-1">
-
+      <button class="btn bg-warning mt-1 pl-5 pr-5 py-1"
+      data-toggle="modal" data-target="#viewItem-<%= cards.id %>">
         View
       </button>
     </div>
   </div>
 </div>
+

@@ -1,9 +1,6 @@
-<!-- views/partials/maincontent.ejs -->
+<!-- views/partials/listings.ejs -->
 
-<!-- side panel for categories lise and filter options -->
-<% include ../partials/sidebar %>
-
-<div class=" mainArea col m-2">
+<div class=" mainArea col my-3">
   <section id="cardss">
     <span class="my-4">
       <h2 class="m-0"><%= searchCategory %></h2>
@@ -16,3 +13,8 @@
     <hr />
   </section>
 </div>
+
+
+
+<% cards.forEach(function(cards){ %> <%- include('../partials/viewItem',
+      {cards: cards}); %> <% }); %>
