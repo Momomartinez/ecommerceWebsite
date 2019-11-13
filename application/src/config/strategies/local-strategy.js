@@ -5,7 +5,7 @@ const debug = require('debug')('app:local-strategy');
 
 const strategy = new LocalStrategy(
     ((email, password, done) => {
-        const isValid = User.getUser(email);
+        const isValid = User.findUser(email);
         isValid.then((res) => {
             if (res != false) {
                 return done(null, res);

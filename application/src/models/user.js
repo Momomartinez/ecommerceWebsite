@@ -23,7 +23,7 @@ class User {
             });
     }
 
-    static async getUser(email) {
+    static async findUser(email) {
         return db.query('SELECT * FROM user WHERE email = ?', email)
             .then(([rows, fields]) => {
                 console.log("debug2");
