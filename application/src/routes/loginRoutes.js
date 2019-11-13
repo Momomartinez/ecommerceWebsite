@@ -6,14 +6,26 @@ const passport = require('passport');
 var expressValidator = require('express-validator');
 
 
-router.get('/login', function (req, res) {
-    res.render('login', {title: 'Login'});
-});
-router.post("/login", passport.authenticate(
-    'local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}));
+// router.get('/login', function (req, res) {
+//     res.render('login', {title: 'Login'});
+// });
+//
+// router.post('/login',passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: false,
+// }));
+router.route('/login')
+    .get((req, res) => {
+        console.log("debug1");
+        res.render('login');
+    })
+    .post(passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: false,
+    }));
+
 
 
 
@@ -66,25 +78,6 @@ router.post("/register", function(req, res, next) {
             });
 
     }
-
-
 });
-
-// router.post('/login', passport.authenticate(
-//     'local', {
-//         successRedirect: '/register',
-//         failureRedirect: '/login'
-//     }));
-
-passport.serializeUser(function(user_id, done) {
-    done(null, user_id);
-});
-
-passport.deserializeUser(function(user_id, done) {
-
-    done(null, user_id);
-
-});
-
 
 module.exports = router;

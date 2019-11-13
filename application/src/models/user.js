@@ -22,6 +22,19 @@ class User {
                 return false;
             });
     }
+
+    static async getUser(email) {
+        return db.query('SELECT * FROM user WHERE email = ?', email)
+            .then(([rows, fields]) => {
+                console.log("debug2");
+                if (!rows || rows == null || rows.length !== 1) {
+                    return false;
+                }
+                return rows[0];
+            });
+    }
+
+
 }
 
 

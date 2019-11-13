@@ -42,8 +42,16 @@ app.use(
         resave: false,
     }),
 );
-app.use(passport.initialize());
-app.use(passport.session());
+require('./src/config/passport.js')(app);
+
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+    done(null, id);
+});
+
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
@@ -53,14 +61,7 @@ app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
 app.use("/", sellRouter);
-passport.use(new LocalStrategy(
-    function(email, password, done) {
-        console.log("hellooooooo");
-        console.log(username);
-        console.log(password);
-        return done(null, "jnjhbj");
-    }
-));
+
 
 
 app.listen(PORT, () => console.log("server started on port", PORT));
