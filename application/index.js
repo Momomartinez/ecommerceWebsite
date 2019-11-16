@@ -61,9 +61,6 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
 },
     function (name, password, done) {
-        console.log("local strategy");
-        console.log(name);
-        console.log(password);
         const isValid = User.findUser(name, password);
         isValid.then((res) => {
             if(res != false){

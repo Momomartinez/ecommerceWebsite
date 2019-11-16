@@ -26,12 +26,6 @@ class User {
     static async findUser(name, pass) {
         return db.query('SELECT * FROM user WHERE email = ?', name)
             .then(([rows, fields]) => {
-                console.log("debug2");
-                console.log("name: "+name);
-                console.log("pass: "+pass);
-                console.log("rows[0]: "+rows[0]);
-                // console.log("rows[0].password: "+rows[0].password);
-
                 if (!rows || rows == null || rows.length !== 1) {
                     return false;
                 }
