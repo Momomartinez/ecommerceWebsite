@@ -57,13 +57,17 @@ router.post("/register", function(req, res, next) {
     }
 });
 
+router.get('/login/failed',(req, res) => {
+        res.render('register', { login: true, loginError: true, isLoggedIn: req.isAuthenticated() });
+});
+
 router.get('/login', function (req, res) {
     res.render('login', {title: 'Login'});
 });
 
 router.post('/login',passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
+    failureRedirect: '/login/failed',
     failureFlash: false,
 }));
 
