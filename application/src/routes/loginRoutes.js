@@ -6,21 +6,6 @@ const passport = require('passport');
 var expressValidator = require('express-validator');
 
 
-
-// router.route('/login')
-//     .get((req, res) => {
-//         console.log("debug1");
-//         res.render('login');
-//     })
-//     .post(passport.authenticate('local', {
-//         successRedirect: '/',
-//         failureRedirect: '/login',
-//         failureFlash: false,
-//     }));
-//
-
-
-
 router.get('/register', function (req, res, next) {
     console.log("10 : "+req.user);
     console.log("10 : "+req.isAuthenticated());

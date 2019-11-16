@@ -30,7 +30,7 @@ class User {
                 console.log("name: "+name);
                 console.log("pass: "+pass);
                 console.log("rows[0]: "+rows[0]);
-                console.log("rows[0].password: "+rows[0].password);
+                // console.log("rows[0].password: "+rows[0].password);
 
                 if (!rows || rows == null || rows.length !== 1) {
                     return false;
