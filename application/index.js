@@ -1,11 +1,12 @@
 const express = require("express");
 const path = require("path");
-
+const { User } = require('./src/models/user.js');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
+
 const PORT = 3000;
 
 
@@ -42,15 +43,9 @@ app.use(
         resave: false,
     }),
 );
-require('./src/config/passport.js')(app);
-
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((id, done) => {
-    done(null, id);
-});
+// require('./src/config/passport.js')(app);
+app.use(passport.initialize());
+app.use(passport.session());
 
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
@@ -61,7 +56,23 @@ app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
 app.use("/", sellRouter);
-
+passport.use(new LocalStrategy({
+        usernameField: 'name',
+        passwordField: 'password'
+},
+    function (name, password, done) {
+        console.log("local strategy");
+        console.log(name);
+        console.log(password);
+        const isValid = User.findUser(name, password);
+        isValid.then((res) => {
+            if(res != false){
+                return done(null, res);
+            }
+            return done(null, false, {message: 'Invalid email or password.'});
+        });
+    }),
+);
 
 
 app.listen(PORT, () => console.log("server started on port", PORT));

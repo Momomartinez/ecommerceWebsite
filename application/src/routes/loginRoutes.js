@@ -6,15 +6,7 @@ const passport = require('passport');
 var expressValidator = require('express-validator');
 
 
-router.get('/login', function (req, res) {
-    res.render('login', {title: 'Login'});
-});
 
-router.post('/login',passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: false,
-}));
 // router.route('/login')
 //     .get((req, res) => {
 //         console.log("debug1");
@@ -79,5 +71,26 @@ router.post("/register", function(req, res, next) {
 
     }
 });
+
+router.get('/login', function (req, res) {
+    res.render('login', {title: 'Login'});
+});
+
+router.post('/login',passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: false,
+}));
+
+
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+    done(null, id);
+});
+
+
 
 module.exports = router;
