@@ -1,5 +1,11 @@
+<!-- 
+  //  This partial is for the messages page that holds the implentation of the email messages for the //  users to find their sent or received messages from users trying to contact them on their posted //  items
+ -->
+
+
+
 <title>Messages</title>
-<body class="colorbgwhats ">
+<body class="colorbg ">
     <div class="container MessageBox">
     <h3 class=" text-center">Messaging</h3>
     <div class="messaging">
@@ -17,8 +23,8 @@
                     </span> </div>
                 </div>
               </div>
-              <div class="inbox_chat">
-                <div class="chat_list active_chat">
+              <div class="inbox_chat "  onclick="emailSelected()">
+                <div class="chat_list active_chat ">
                   <div class="chat_people">
                     <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                     <div class="chat_ib">
@@ -41,7 +47,7 @@
                 
               </div>
             </div>
-            <div class="mesgs">
+            <div class="mesgs" id="mesgs">
               <div class="msg_history">
                 <div class="incoming_msg">
                   <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
@@ -89,3 +95,10 @@
         </div>
       </div>  
     </body>
+
+
+    <script>
+    function emailSelected() {
+      document.getElementById('mesgs').innerHTML="hello";
+    }
+    </script>

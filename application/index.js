@@ -22,12 +22,12 @@ app.use('/', listingRouter);
 //   res.render('partials/login', {});
 // });
 
-// app.get('/msgs', function(req, res, next) {
-//   res.render('pages/messages', {});
-// });
-
-app.get('/posts', function(req, res, next) {
-  res.render('pages/postlistings', {});
+app.get('/msgs', function(req, res, next) {
+  res.render('pages/messages', {});
 });
+
+// app.get('/posts', function(req, res, next) {
+//   res.render('pages/postlistings', {});
+// });
 
 app.listen(PORT, () => console.log('server started on port', PORT));
