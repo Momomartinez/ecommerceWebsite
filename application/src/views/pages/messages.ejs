@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<% include ../partials/head%>
+    <% include ../partials/head %>
 </head>
 <body>
 
@@ -10,8 +10,8 @@
 <!-- navbar -->
 <!-- if you comment the header partial out it will work, but it give error that categories is not defined, i assume it has to do with the route  -->
 <%- include('../partials/header', {'categoriesList':categoriesList,
-      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
 
-<% include ../partials/msgBox%>
+<% include ../partials/msgBox %>
 </body>
 </html>
