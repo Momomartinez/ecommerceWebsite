@@ -129,6 +129,7 @@ router.get("/", getRecentListings, getCategories, (req, res) => {
     categoriesList: categoriesList,
     searchTerm: "",
     searchCategory: "All"
+
   });
 });
 

@@ -41,9 +41,9 @@ router.post("/register", function(req, res, next) {
                         .then((userID) => {
                             const user_id = userID;
                             req.login({id: userID}, () => res.redirect('/'));
-                            console.log(userID);
-                            console.log("user : "+req.user);
-                            console.log("isAthenticated: "+req.isAuthenticated());
+                            // console.log(userID);
+                            // console.log("user : "+req.user);
+                            // console.log("isAthenticated: "+req.isAuthenticated());
                         });
 
                     //if there is similar user exists in the table --> show error
