@@ -96,8 +96,39 @@
 
 <!-- js function to get the email that is clicked on to show on the 
      on the right side with the full conversations -->
-    <script>
+
+<script src="ejs.js"></script>
+<script>
     function emailSelected() {
-      document.getElementById('mesgs').innerHTML="hello";
+
+
+      let blogPosts = [
+        {
+            title: 'Perk is for real!',
+            body: '...',
+            author: 'Aaron Larner',
+            publishedAt: new Date('2016-03-19'),
+            createdAt: new Date('2016-03-19')
+        },
+        {
+            title: 'Development continues...',
+            body: '...',
+            author: 'Aaron Larner',
+            publishedAt: new Date('2016-03-18'),
+            createdAt: new Date('2016-03-18')
+        },
+        {
+            title: 'Welcome to Perk!',
+            body: '...',
+            author: 'Aaron Larner',
+            publishedAt: new Date('2016-03-17'),
+            createdAt: new Date('2016-03-17')
+        }
+    ],
+    
+        emails = ejs.render('<%= blogPosts.join(", "); %>', { posts: blogPosts });
+
+        document.getElementById('mesgs').innerHTML = emails;
+
     }
-    </script>
+</script>
