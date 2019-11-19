@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<% include ../partials/head%>
+    <% include ../partials/head %>
 </head>
 <body>
-  
 
-<!-- <header> <a href="/" class="testhome"><strong>CSC648</strong></a> </header> -->
 
 <!-- navbar -->
-<%- include('../partials/header', {"categoriesList":'categoriesList',
-      "searchTerm": 'searchTerm', "searchCategory": 'searchCategory'}) %>
 
-     
+<%- include('../partials/header', {'categoriesList':categoriesList,
+'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
 
-<% include ../partials/msgBox%>
+<% include ../partials/msgBox %>
 </body>
 </html>

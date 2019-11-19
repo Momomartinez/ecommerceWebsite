@@ -424,3 +424,11 @@ overflow-y: auto;
 }
 
 /* ----------------------------------------------------------------*/ 
+
+
+/*  css for textbook search feature*/
+select#class, #Department, button#searchbtn.textbook.btn.bg-warning
+{
+  width: 100%;
+}
+
