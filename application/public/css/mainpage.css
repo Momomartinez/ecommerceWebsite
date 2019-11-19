@@ -5,6 +5,10 @@ body {
   background-color: lightgray;
 }
 
+.container-fluid.centerArea{
+  max-width: 1500px;;
+}
+
 .aboutbody {
   background-color: white;
 }
