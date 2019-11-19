@@ -98,18 +98,4 @@
 
 </div>
 
-<!--  When the user clicks on the button,
-toggle between hiding and showing the dropdown content -->
-<script>
-    var anchors = document.getElementsByTagName("option");
-
-    for (var i = 0, len = anchors.length; i < len; i++) {
-        var thisAnchor = anchors[i];
-        thisAnchor.onclick = function () {
-            var btn = this.parentNode.parentNode.getElementsByTagName("button")[0];
-            btn.innerHTML = this.innerHTML;
-        };
-    }
-</script>
-
 <% include ../partials/login %>

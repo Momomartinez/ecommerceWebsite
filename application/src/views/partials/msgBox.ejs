@@ -23,39 +23,30 @@
                     </span> </div>
                 </div>
               </div>
-              <div class="inbox_chat "  onclick="emailSelected()">
-                <div class="chat_list active_chat ">
+              <div class="inbox_chat">
+                <div class="chat_list active_chat">
                   <div class="chat_people">
                     <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib">
+                    <div class="chat_ib" onclick="emailSelected()">
                       <h5>User 1 <span class="chat_date">Dec 25</span></h5>
                       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere quasi quod vitae voluptatem placeat eaque natu</p>
                     </div>
+                  </div>
                 </div>
-                <div class="inbox_chat">
-                    <div class="chat_list active_chat">
-                        <div class="chat_people">
-                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div>
-                            <div class="chat_ib">
-                                <h5>User 1 <span class="chat_date">Dec 25</span></h5>
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere quasi quod vitae voluptatem placeat eaque natu</p>
-                            </div>
-                        </div>
+                <!-- <div class="chat_list">
+                  <div class="chat_people">
+                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="chat_ib">
+                      <h5>User 2 <span class="chat_date">Dec 26</span></h5>
+                      <p>Test, which is a new approach to have all solutions 
+                        astrology under one roof.</p>
                     </div>
-                    <div class="chat_list">
-                        <div class="chat_people">
-                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div>
-                            <div class="chat_ib">
-                                <h5>User 2 <span class="chat_date">Dec 26</span></h5>
-                                <p>Test, which is a new approach to have all solutions
-                                    astrology under one roof.</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
+                  </div>
+                </div> -->
+              </div>
             </div>
+            
+            <!-- the is the inside column of the message inbox to the right that show the conversation -->
             <div class="mesgs" id="mesgs">
               <div class="msg_history">
                 <div class="incoming_msg">
@@ -103,7 +94,8 @@
       </div>  
     </body>
 
-
+<!-- js function to get the email that is clicked on to show on the 
+     on the right side with the full conversations -->
     <script>
     function emailSelected() {
       document.getElementById('mesgs').innerHTML="hello";
