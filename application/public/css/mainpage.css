@@ -44,6 +44,8 @@ body {
   color: white;
   padding-bottom: 10px;
   padding-top: 10px;
+  display: flex;
+  align-items: center;
 }
 .aboutbody {
   background-color: white;
