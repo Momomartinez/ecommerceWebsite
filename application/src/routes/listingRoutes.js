@@ -132,16 +132,6 @@ router.get("/", getRecentListings, getCategories, (req, res) => {
   });
 });
 
-//Message page
-router.get("/msgs", getCategories, (req, res) => {
-  var categoriesList = req.categoriesList;
-  res.render("pages/messages", {
-    categoriesList: categoriesList,
-    searchTerm: "",
-    searchCategory: "All"
-  });
-});
-
 router.get("/posts", (req, res) => {
   res.render("partials/postlistings", {});
 });

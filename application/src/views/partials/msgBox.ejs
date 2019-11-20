@@ -25,26 +25,19 @@
               </div>
               <div class="inbox_chat">
                 <div class="chat_list active_chat">
-                  <div class="chat_people">
-                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                    <div class="chat_ib" onclick="emailSelected()">
-                      <h5>User 1 <span class="chat_date">Dec 25</span></h5>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere quasi quod vitae voluptatem placeat eaque natu</p>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="chat_list">
+                <% for(let i = 0; i < emails.length; i++) { %>     
                   <div class="chat_people">
                     <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                     <div class="chat_ib">
-                      <h5>User 2 <span class="chat_date">Dec 26</span></h5>
-                      <p>Test, which is a new approach to have all solutions 
-                        astrology under one roof.</p>
+                      <h5><%= emails[i].sender %> <span class="chat_date"><%= emails[i].publishedAt %></span></h5>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere quasi quod vitae voluptatem placeat eaque natu</p>
                     </div>
                   </div>
-                </div> -->
+                  <%}%>
+                </div>
               </div>
             </div>
+         
             
             <!-- the is the inside column of the message inbox to the right that show the conversation -->
             <div class="mesgs" id="mesgs">
@@ -94,41 +87,7 @@
       </div>  
     </body>
 
-<!-- js function to get the email that is clicked on to show on the 
-     on the right side with the full conversations -->
-
-<script src="ejs.js"></script>
-<script>
-    function emailSelected() {
 
 
-      let blogPosts = [
-        {
-            title: 'Perk is for real!',
-            body: '...',
-            author: 'Aaron Larner',
-            publishedAt: new Date('2016-03-19'),
-            createdAt: new Date('2016-03-19')
-        },
-        {
-            title: 'Development continues...',
-            body: '...',
-            author: 'Aaron Larner',
-            publishedAt: new Date('2016-03-18'),
-            createdAt: new Date('2016-03-18')
-        },
-        {
-            title: 'Welcome to Perk!',
-            body: '...',
-            author: 'Aaron Larner',
-            publishedAt: new Date('2016-03-17'),
-            createdAt: new Date('2016-03-17')
-        }
-    ],
-    
-        emails = ejs.render('<%= blogPosts.join(", "); %>', { posts: blogPosts });
 
-        document.getElementById('mesgs').innerHTML = emails;
-
-    }
-</script>
+ 

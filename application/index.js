@@ -48,11 +48,15 @@ const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
 const sellRouter = require("./src/routes/sellRoutes");
+// test for messages route
+const messagesRouter = require("./src/routes/messageRoutes");
 
 app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
 app.use("/", sellRouter);
+//test for msg route
+app.use("/", messagesRouter);
 passport.use(new LocalStrategy(
     function(email, password, done) {
         console.log("hellooooooo");
