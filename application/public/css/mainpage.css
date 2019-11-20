@@ -2,13 +2,49 @@ html,
 body {
   height: relative;
   width: 100%;
-  background-color: lightgray;
+  background-color:#222324;
 }
 
+.mainArea {
+  min-height: 100vh;
+}
 .container-fluid.centerArea{
-  max-width: 1700px;;
+  max-width: 1800px;
+  margin: auto;
 }
 
+@media screen and (max-width: 794px ){
+  .hero-text{
+    font-size: 2.2em !important;
+  }
+}
+
+@media screen and (max-width: 715px ){
+  .hero-text{
+    font-size: 2.1em !important;
+  }
+}
+
+@media screen and (max-width: 490px ){
+  .hero-text{
+    font-size: 2.0em !important;
+  }
+}
+
+@media screen and (max-width: 320px ){
+  .hero-text{
+    font-size: 1.7em !important;
+  }
+}
+
+.inner-hero {
+  max-width: 1800px;
+  margin: auto;
+  height: 150px;
+  color: white;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
 .aboutbody {
   background-color: white;
 }
@@ -16,6 +52,20 @@ body {
 .header {
   height: 100px;
   background-color: indigo !important;
+}
+
+
+#logobtn {
+  display: flex;
+  width: auto;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+@media screen and (max-width: 776px){
+  #logobtn{
+    width: 100%;
+  }
 }
 
 .navbar-brand {
@@ -56,6 +106,10 @@ font-family: Arial, Helvetica, sans-serif !important;
 
 .navbar {
   background-color: indigo !important;
+  max-width: 1800px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 
 /* dropdown */
@@ -85,19 +139,7 @@ outline: none;
   position: relative;
 }
 
-.inner-hero{
-  height: 500px;
-  background: url(../images/books.jpg);
-  background-size: 100% 100%;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-  color: white;
-}
 
-.dark-overlay{
-  height: 100%;
-  width: auto;
-  background: rgb(0, 0, 0,.4)
-}
 
 #inner-intro {
   background-color: indigo;
@@ -162,16 +204,7 @@ ul {
   padding-left: 0;
 }
 
-#logobtn {
-  display: flex;
-width: auto;
-  padding-bottom: 10px;
-  margin: 0;
-}
 
-.mainArea {
-  min-height: 100vh;
-}
 
 .modal-footer{
   justify-content: center !important;
@@ -280,6 +313,7 @@ border-bottom: 0;
 /* user account display */
 .user {
   visibility: hidden;
+  display: none;
 }
 
 /* -------------------------  msg.css  --------------------- */
