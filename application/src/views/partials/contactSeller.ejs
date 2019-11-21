@@ -11,9 +11,19 @@
               <span>&times;</span>
             </button>
           </div>
-          <div class="post-info">
-              <h6><%=cards.image%>   <%=cards.title%>   <%=cards.price%></h6> 
+          <div class="outer-post-info">
+          <div class="inner-post-info">
+            <img
+              src="<%= cards.image %>"
+              style="height: 50px; width: 50px"
+              alt=""
+            />
+           <%=cards.title%>
+            <span class="itemPrice">$<%= cards.price %></span>
           </div>
+          <div class=""> <%= cards.description %> - Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, quibusdam? Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem!</div>
+        </div>
+    </div>
           <form>
             <div class="form-group">
               <label for="name">Name</label>
