@@ -164,17 +164,20 @@ router.get('/msgs', function(req, res, next) {
     {
       sender: 'Donner Conner',
       publishedAt: new Date('2016-03-19'),
-      message: 'some info for some thing i dont know what to sAY...'
+      message: 'some info for some thing i dont know what to sAY...',
+      id: 1
     },
     {
       sender: 'Megan Hagen',
       publishedAt: new Date('2016-04-19'),
-      message: 'some info for some thing i dont know what to sAY...'
+      message: 'some info for some thing i dont know what to sAY...',
+      id: 2
     },
     {
       sender: 'Sally Dolly',
       publishedAt: new Date('2016-06-19'),
-      message: 'some info for some thing i dont know what to sAY...'
+      message: 'some info for some thing i dont know what to sAY...',
+      id: 3
     }
   ];
   res.render('pages/messages', { emails: emailsRecieved });
