@@ -162,17 +162,17 @@ router.get('/search', search, getCategories, (req, res) => {
 router.get('/msgs', function(req, res, next) {
   let emailsRecieved = [
     {
-      sender: 'Aaron Larner',
+      sender: 'Donner Conner',
       publishedAt: new Date('2016-03-19'),
       message: 'some info for some thing i dont know what to sAY...'
     },
     {
-      sender: 'Aaron mhn',
+      sender: 'Megan Hagen',
       publishedAt: new Date('2016-04-19'),
       message: 'some info for some thing i dont know what to sAY...'
     },
     {
-      sender: 'Aaron sfv',
+      sender: 'Sally Dolly',
       publishedAt: new Date('2016-06-19'),
       message: 'some info for some thing i dont know what to sAY...'
     }
