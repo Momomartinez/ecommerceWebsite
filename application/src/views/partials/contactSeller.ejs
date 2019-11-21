@@ -1,39 +1,39 @@
 <!-- /views/partials/contactSeller.ejs -->
 
-<div class="modal fade text-dark" id="contactSeller">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="container ">
-                    <div class="modal-header">
-                        <h2 class="w-100 text-center">Contact Seller</h2>
-                        <button class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" required>Email</label>
-                            <input type="email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary btn-block ">Submit</button>
-                            <button class="btn btn-warning btn-block m-0">Cancel</button>
-                        </div>
-                    </form>
-                </div>
+<div class="modal fade text-dark" id="contactSeller-<%= cards.id %>">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container ">
+          <div class="modal-header">
+            <h2 class="w-100 text-center">Contact Seller</h2>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="post-info">
+              <h6><%=cards.image%>   <%=cards.title%>   <%=cards.price%></h6> 
+          </div>
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" />
             </div>
+            <div class="form-group">
+              <label for="email" required>Email</label>
+              <input type="email" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea class="form-control"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary btn-block ">Submit</button>
+              <button class="btn btn-warning btn-block m-0">Cancel</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-  
