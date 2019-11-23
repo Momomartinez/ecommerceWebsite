@@ -128,7 +128,9 @@ router.get("/", getRecentListings, getCategories, (req, res) => {
     cards: searchResult,
     categoriesList: categoriesList,
     searchTerm: "",
+
     searchCategory: "Recent"
+
   });
 });
 

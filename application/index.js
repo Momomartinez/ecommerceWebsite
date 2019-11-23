@@ -1,11 +1,12 @@
 const express = require("express");
 const path = require("path");
-
+const { User } = require('./src/models/user.js');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
+
 const PORT = 3000;
 
 
@@ -42,8 +43,10 @@ app.use(
         resave: false,
     }),
 );
+// require('./src/config/passport.js')(app);
 app.use(passport.initialize());
 app.use(passport.session());
+
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
@@ -55,16 +58,21 @@ app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
 app.use("/", sellRouter);
-//test for msg route
-app.use("/", messagesRouter);
-passport.use(new LocalStrategy(
-    function(email, password, done) {
-        console.log("hellooooooo");
-        console.log(username);
-        console.log(password);
-        return done(null, "jnjhbj");
-    }
-));
+
+passport.use(new LocalStrategy({
+        usernameField: 'name',
+        passwordField: 'password'
+},
+    function (name, password, done) {
+        const isValid = User.findUser(name, password);
+        isValid.then((res) => {
+            if(res != false){
+                return done(null, res);
+            }
+            return done(null, false, {message: 'Invalid email or password.'});
+        });
+    }),
+);
 
 
 app.listen(PORT, () => console.log("server started on port", PORT));

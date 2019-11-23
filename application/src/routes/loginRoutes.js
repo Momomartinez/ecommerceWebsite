@@ -6,14 +6,6 @@ const passport = require('passport');
 var expressValidator = require('express-validator');
 
 
-router.get('/register', function (req, res) {
-    res.render('login', {title: 'Login'});
-});
-router.post("/login", passport.authenticate(
-    'local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}));
 
 
 
@@ -52,9 +44,9 @@ router.post("/register", function(req, res, next) {
                         .then((userID) => {
                             const user_id = userID;
                             req.login({id: userID}, () => res.redirect('/'));
-                            console.log(userID);
-                            console.log("user : "+req.user);
-                            console.log("isAthenticated: "+req.isAuthenticated());
+                            // console.log(userID);
+                            // console.log("user : "+req.user);
+                            // console.log("isAthenticated: "+req.isAuthenticated());
                         });
 
                     //if there is similar user exists in the table --> show error
@@ -66,25 +58,31 @@ router.post("/register", function(req, res, next) {
             });
 
     }
-
-
 });
 
-// router.post('/login', passport.authenticate(
-//     'local', {
-//         successRedirect: '/register',
-//         failureRedirect: '/login'
-//     }));
-
-passport.serializeUser(function(user_id, done) {
-    done(null, user_id);
+router.get('/login/failed',(req, res) => {
+        res.render('register', { login: true, loginError: true, isLoggedIn: req.isAuthenticated() });
 });
 
-passport.deserializeUser(function(user_id, done) {
-
-    done(null, user_id);
-
+router.get('/login', function (req, res) {
+    res.render('login', {title: 'Login'});
 });
+
+router.post('/login',passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login/failed',
+    failureFlash: false,
+}));
+
+
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+    done(null, id);
+});
+
 
 
 module.exports = router;
