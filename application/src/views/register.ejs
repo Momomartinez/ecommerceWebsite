@@ -1,11 +1,12 @@
-
 <style>
     #registerFormColor {
         color: #fff;
     }
+
     .leftTextColor {
         color: #fff;
     }
+
     #home-section {
 
         background-repeat: no-repeat;
@@ -13,6 +14,7 @@
         background-attachment: fixed;
         min-height: 600px;
     }
+
     #home-section .dark-overlay {
         top: 0;
         left: 0;
@@ -20,11 +22,14 @@
         height: 600px;
         background: rgba(0, 0, 0, 0.7);
     }
+
     #home-section .home-inner {
         padding-top: 20px;
     }
+
     #home-section .card-form {
     }
+
     #explore-head-section {
         background: #fff;
         color: #333;
@@ -68,7 +73,7 @@
                         <div class="card-body">
                             <h3>Register Today</h3>
 
-                            <%if (typeof errors != 'undefined') { %>
+                            <% if (typeof errors != 'undefined') { %>
                                 <div class="alert alert-danger" style="text-align:left">
                                     <ul style="padding-left: 15px;">
                                         <% errors.forEach(function(error){ %>
@@ -86,7 +91,7 @@
                                             type="text"
                                             class="form-control form-control-lg"
                                             placeholder="Name"
-                                            value="<%= (typeof body != 'undefined' && typeof body.name != 'undefined')?body.name:'' %>"
+                                            value="<%= (typeof body != 'undefined' && typeof body.name != 'undefined') ? body.name : '' %>"
                                     />
                                 </div>
                                 <!--email-->
@@ -96,7 +101,7 @@
                                             type="email"
                                             class="form-control form-control-lg"
                                             placeholder="Email: @mail.sfsu.edu" required
-                                            value="<%= (typeof body != 'undefined' && typeof body.email != 'undefined')?body.email:'' %>"
+                                            value="<%= (typeof body != 'undefined' && typeof body.email != 'undefined') ? body.email : '' %>"
                                     />
                                 </div>
                                 <!--password-->
@@ -125,7 +130,7 @@
                                             type="checkbox"
                                             value="1"
                                             id="termsAndConditionsCheck"
-                                            <%= (typeof body != 'undefined' && typeof body.terms != 'undefined')?'checked':'' %>
+                                            <%= (typeof body != 'undefined' && typeof body.terms != 'undefined') ? 'checked' : '' %>
                                     />
                                     <label class="form-check-label" for="appartmentCheck">
                                         Agree to <a href="" style="color: blue;">terms and conditions</a>
@@ -166,12 +171,11 @@
     </div>
 </section>
 
-<%if (typeof login != 'undefined') { %>
+<% if (typeof login != 'undefined') { %>
     <script type="text/javascript">
         $("#loginModal").modal('show');
     </script>
 <% } %>
-
 
 </body>
 

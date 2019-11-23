@@ -1,19 +1,61 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- scripts -->
     <% include ../partials/head %>
+
 </head>
-
-
 <body>
 <header>
     <!-- navbar -->
     <%- include('../partials/header', {'categoriesList':categoriesList,
     'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
 </header>
+
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <h1 class="text-center mb-3">Sell your item on SFSU Buy & Sell</h1>
+            <form action="/users/register" method="POST">
+                <div class="form-group">
+                    <input type="text" id="item" name="item" class="form-control" placeholder="Name of Item"/>
+                    <br>
+                    <input type="number" id="item" name="item" class="form-control" placeholder="Price of Item"/>
+                    <br>
+                    <textarea class="form-control" rows="5" id="comment" name="text" placeholder="Item Description"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block"> Add Image</button>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Books</a>
+                        <a class="dropdown-item" href="#">Furniture</a>
+                        <a class="dropdown-item" href="#">Electronics</a>
+                        <a class="dropdown-item" href="#">Other</a>
+                    </div>
+                </div>
+                <br>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                    <label class="custom-control-label" for="defaultIndeterminate2">You agree to our Terms and Conditions.</label>
+                </div>
+                <br>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary">Submit</button>&nbsp;
+                    <button type="button" class="btn btn-primary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<br>
+<footer>
+    <%- include('../partials/footer', {"cp":"Copyright"}) %>
+</footer>
 
 </body>
 

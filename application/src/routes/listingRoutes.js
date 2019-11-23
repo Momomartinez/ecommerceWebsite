@@ -128,19 +128,14 @@ router.get("/", getRecentListings, getCategories, (req, res) => {
     cards: searchResult,
     categoriesList: categoriesList,
     searchTerm: "",
-    searchCategory: "All"
+
+    searchCategory: "Recent"
 
   });
 });
 
-//Message page
-router.get("/msgs", getCategories, (req, res) => {
-  var categoriesList = req.categoriesList;
-  res.render("pages/messages", {
-    categoriesList: categoriesList,
-    searchTerm: "",
-    searchCategory: "All"
-  });
+router.get("/posts", (req, res) => {
+  res.render("partials/postlistings", {});
 });
 
 //search

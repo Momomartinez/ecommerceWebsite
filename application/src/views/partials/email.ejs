@@ -1,0 +1,19 @@
+<!-- views/partials/email.ejs -->
+<!-- this is the email template for the list emails to be shown in the inbox -->
+
+
+<div class="chat_people" onclick="emailSelected()">             
+    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+    <div class="chat_ib" id="chat-list">
+      <h5><%= emails.sender %> <span class="chat_date"><%= emails.publishedAt %></span></h5>
+    </div>  
+  </div>
+  <hr>  
+
+  <script type="text/javascript">
+    function emailSelected() {
+          document.getElementById('mesgs').innerHTML="hello";
+         console.log(email.id)
+        }
+     
+      </script>

@@ -2,9 +2,57 @@ html,
 body {
   height: relative;
   width: 100%;
-  background-color: lightgray;
+  background-color:#222324;
 }
 
+/* user account display */
+.user {
+  visibility: hidden;
+}
+
+.mainArea {
+  min-height: 100vh;
+}
+.container-fluid.centerArea{
+  max-width: 1800px;
+  margin: auto;
+}
+/* responsive screen sizes for intro-hero text */
+@media screen and (max-width: 794px ){
+  .hero-text{
+    font-size: 2.2em !important;
+  }
+}
+
+@media screen and (max-width: 715px ){
+  .hero-text{
+    font-size: 2.1em !important;
+  }
+}
+
+@media screen and (max-width: 490px ){
+  .hero-text{
+    font-size: 2.0em !important;
+  }
+}
+
+@media screen and (max-width: 320px ){
+  .hero-text{
+    font-size: 1.7em !important;
+  }
+}
+
+.inner-hero {
+  max-width: 1800px;
+  margin: auto;
+  height: 150px;
+  color: white;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .aboutbody {
   background-color: white;
 }
@@ -12,6 +60,20 @@ body {
 .header {
   height: 100px;
   background-color: indigo !important;
+}
+
+
+#logobtn {
+  display: flex;
+  width: auto;
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+@media screen and (max-width: 776px){
+  #logobtn{
+    width: 100%;
+  }
 }
 
 .navbar-brand {
@@ -46,12 +108,15 @@ font-family: Arial, Helvetica, sans-serif !important;
 
 .navbar-nav {
   padding-left: 30px;
-
   align-content: center;
 }
 
 .navbar {
   background-color: indigo !important;
+  max-width: 1800px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 
 /* dropdown */
@@ -81,19 +146,7 @@ outline: none;
   position: relative;
 }
 
-.inner-hero{
-  height: 500px;
-  background: url(../images/books.jpg);
-  background-size: 100% 100%;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-  color: white;
-}
 
-.dark-overlay{
-  height: 100%;
-  width: auto;
-  background: rgb(0, 0, 0,.4)
-}
 
 #inner-intro {
   background-color: indigo;
@@ -136,7 +189,6 @@ outline: none;
 
 .dynamicCard {
   background: transparent;
-  /* border: transparent; */
   margin-bottom: 20px;
 }
 
@@ -158,24 +210,11 @@ ul {
   padding-left: 0;
 }
 
-#logobtn {
-  display: flex;
-width: auto;
-  padding-bottom: 10px;
-  margin: 0;
-}
-
-.mainArea {
-  min-height: 100vh;
-}
-
-.modal-footer{
+.modal-footer > button{
   justify-content: center !important;
+  align-content: center !important;
+  font-weight: 700;
 }
-
-
-
-
 
 .itemdescrip {
 display: flex;
@@ -185,7 +224,7 @@ display: flex;
  flex-direction: column;
 }
 
-.modalbtn{
+.modalbtn {
   width: 100%;
 }
 
@@ -203,6 +242,27 @@ p.itemDescription{
   padding: 16px;
   margin: 0;
 }
+
+.inner-post-info{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  padding: 5px;
+}
+
+.outer-post-info{
+  padding: 15px;
+  border: 1px solid #c4c4c4;
+  margin: 10px;
+}
+
+.itemPrice {
+  color: mediumseagreen;
+}
+
+
 
 /* ------------------- */
 
@@ -273,10 +333,6 @@ border-bottom: 0;
   }
 }
 
-/* user account display */
-.user {
-  visibility: hidden;
-}
 
 /* -------------------------  msg.css  --------------------- */
 .colorbg{
@@ -424,3 +480,11 @@ overflow-y: auto;
 }
 
 /* ----------------------------------------------------------------*/ 
+
+
+/*  css for textbook search feature*/
+select#class, #Department, button#searchbtn.textbook.btn.bg-warning
+{
+  width: 100%;
+}
+
