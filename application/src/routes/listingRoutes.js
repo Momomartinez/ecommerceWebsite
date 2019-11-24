@@ -25,59 +25,6 @@ async function getRecentListings(req, res, next) {
   });
 }
 
-async function getRecentElectronics(req, res, next) {
-  let electronicsQ =
-    "SELECT * FROM listing WHERE category_id = 1 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
-
-  await db.execute(electronicsQ, (err, recentElectronics) => {
-    if (err) {
-      req.recentElectronics = "";
-      next();
-    }
-    req.recentElectronics = recentElectronics;
-    next();
-  });
-}
-async function getRecentBooks(req, res, next) {
-  let booksQ =
-    "SELECT * FROM listing WHERE category_id = 2 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
-
-  await db.execute(booksQ, (err, recentBooks) => {
-    if (err) {
-      req.recentBooks = "";
-      next();
-    }
-    req.recentBooks = recentBooks;
-    next();
-  });
-}
-async function getRecentFurniture(req, res, next) {
-  let furnitureQ =
-    "SELECT * FROM listing WHERE category_id = 3 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
-
-  await db.execute(furnitureQ, (err, recentFurniture) => {
-    if (err) {
-      req.recentFurniture = "";
-      next();
-    }
-    req.recentFurniture = recentFurniture;
-    next();
-  });
-}
-async function getRecentOther(req, res, next) {
-  let otherQ =
-    "SELECT * FROM listing WHERE category_id = 4 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
-
-  await db.execute(otherQ, (err, recentOther) => {
-    if (err) {
-      req.recentOther = "";
-      next();
-    }
-    req.recentOther = recentOther;
-    next();
-  });
-}
-
 //Search function
 async function search(req, res, next) {
   var searchTerm = req.query.search;
@@ -128,15 +75,12 @@ router.get("/", getRecentListings, getCategories, (req, res) => {
     cards: searchResult,
     categoriesList: categoriesList,
     searchTerm: "",
-
     searchCategory: "Recent"
 
   });
 });
 
-router.get("/posts", (req, res) => {
-  res.render("partials/postlistings", {});
-});
+
 
 //search
 //gets search results and renders searchpage
@@ -151,41 +95,5 @@ router.get("/search", search, getCategories, (req, res) => {
   });
 });
 
-// //Landing page
-// router.get("/", getRecentListings, getCategories, (req, res) => {
-//   var searchResult = req.searchResult;
-//   var categoriesList = req.categoriesList;
-//   res.render("pages/mainpage", {
-//     cards: searchResult,
-//     categoriesList: categoriesList,
-//     searchTerm: "",
-//     searchCategory: "All"
-//   });
-// });
-
-//Homepage
-//Takes the 3 most recent items in each category and displays them
-// router.get(
-//   "/",
-//   getRecentElectronics,
-//   getRecentBooks,
-//   getRecentFurniture,
-//   getRecentOther,
-//   getCategories,
-//   (req, res) => {
-//     var recentElectronics = req.recentElectronics;
-//     var recentBooks = req.recentBooks;
-//     var recentFurniture = req.recentFurniture;
-//     var recentOther = req.recentOther;
-//     var categoriesList = req.categoriesList;
-//     console.log(recentElectronics);
-//     console.log(recentBooks);
-//     console.log(recentFurniture);
-//     console.log(recentOther);
-//     res.render("pages/mainpage", {
-//       categoriesList: categoriesList
-//     });
-//   }
-// );
 
 module.exports = router;
