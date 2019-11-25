@@ -44,8 +44,8 @@ router.post("/register", function(req, res, next) {
                         .then((userID) => {
                             const user_id = userID;
                             req.login({id: userID}, () => res.redirect('/'));
-                            // console.log(userID);
-                            // console.log("user : "+req.user);
+                            console.log(userID);
+                            console.log("user register post: "+req.user);
                             // console.log("isAthenticated: "+req.isAuthenticated());
                         });
 
@@ -66,6 +66,7 @@ router.get('/login/failed',(req, res) => {
 
 router.get('/login', function (req, res) {
     res.render('login', {title: 'Login'});
+    console.log("user login get: "+req.user.id);
 });
 
 router.post('/login',passport.authenticate('local', {

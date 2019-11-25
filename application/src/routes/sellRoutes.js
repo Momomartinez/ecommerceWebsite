@@ -17,6 +17,7 @@ async function getCategories(req, res, next) {
 router.get("/sell", getCategories, (req, res) => {
     // var searchResult = req.searchResult;
     var categoriesList = req.categoriesList;
+    var userid = req.user.id;
 
     res.render("pages/postlistings", {
         // cards: searchResult,
@@ -35,7 +36,7 @@ router.post('/sell', (req, res) => {
       image, is_sold, date, user_id, category_id
       ) VALUES (?,?,?,?,?,?,?,?) `,
             [req.body.title, req.body.price, req.body.description, req.body.image,
-                 0, req.body.date, 51, req.body.category]);
+                 0, req.body.date, req.user.id, req.body.category]);
         console.log("req.body: "+req.body);
         res.redirect('register');
     })();

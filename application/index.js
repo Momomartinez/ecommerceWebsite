@@ -69,6 +69,7 @@ passport.use(new LocalStrategy({
             if(res != false){
                 return done(null, res);
             }
+
             return done(null, false, {message: 'Invalid email or password.'});
         });
     }),
