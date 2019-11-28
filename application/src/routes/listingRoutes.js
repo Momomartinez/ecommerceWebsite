@@ -31,7 +31,7 @@ async function search(req, res, next) {
   var category = req.query.category;
 
   let join =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id";
   let query = "";
   if (searchTerm != "" && category != "" && category != "All") {
     query =
@@ -76,11 +76,8 @@ router.get("/", getRecentListings, getCategories, (req, res) => {
     categoriesList: categoriesList,
     searchTerm: "",
     searchCategory: "Recent"
-
   });
 });
-
-
 
 //search
 //gets search results and renders searchpage
@@ -94,6 +91,5 @@ router.get("/search", search, getCategories, (req, res) => {
     searchCategory: req.query.category
   });
 });
-
 
 module.exports = router;
