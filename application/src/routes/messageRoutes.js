@@ -183,4 +183,16 @@ router.get('/msgs', function(req, res, next) {
   res.render('pages/messages', { emails: emailsRecieved });
 });
 
+router.get('/messages/:id', (req,res,next) =>{
+  let messagesId = {
+    1: ["message1", "message11"],
+    2: ["message2", "message22"],
+    3: ["message33", "message33"],
+    
+  };
+  console.log(req.params.id);
+  console.log(JSON.stringify({ messagesId: req.params.id }));
+
+})
+
 module.exports = router;
