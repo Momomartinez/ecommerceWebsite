@@ -159,7 +159,7 @@ router.get('/search', search, getCategories, (req, res) => {
 //   });
 // });
 
-router.get('/msgs', function(req, res, next) {
+router.get('/msgs', getCategories, function(req, res, next) {
   let emailsRecieved = [
     {
       sender: 'Donner Conner',
@@ -180,7 +180,8 @@ router.get('/msgs', function(req, res, next) {
       id: 3
     }
   ];
-  res.render('pages/messages', { emails: emailsRecieved });
+  var categoriesList = req.categoriesList; 
+  res.render('pages/messages', { categoriesList: categoriesList, emails: emailsRecieved });
 });
 
 router.get('/messages/:id', (req,res,next) =>{
