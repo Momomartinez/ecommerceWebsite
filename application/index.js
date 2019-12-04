@@ -46,7 +46,8 @@ app.use(
 // require('./src/config/passport.js')(app);
 app.use(passport.initialize());
 app.use(passport.session());
-
+/* allows to call static items in pulic folder such as images */
+app.use(express.static('./public'));
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
