@@ -92,35 +92,35 @@ async function deleteListing(req, res, next) {
   });
 }
 
-async function contactSeller(req, res, next) {
-  var message = req.body.message;
-  var buyerId = req.user.id;
-  var sellerId = req.body.sellerId;
-  var listingId = req.body.listingId;
+// async function contactSeller(req, res, next) {
+//   var message = req.body.message;
+//   var buyerId = req.user.id;
+//   var sellerId = req.body.sellerId;
+//   var listingId = req.body.listingId;
 
-  await db.execute(
-    `INSERT INTO message (
-        id, message, buyer_id, seller_id, listing_id, date) VALUES (?,?,?,?,?,?) `,
-    ["NULL", message, buyerId, sellerId, listingId, "NULL"],
-    (err, results) => {
-      if (err) {
-        next();
-      }
-      next();
-    }
-  );
-}
+//   await db.execute(
+//     `INSERT INTO message (
+//         id, message, buyer_id, seller_id, listing_id, date) VALUES (?,?,?,?,?,?) `,
+//     ["NULL", message, buyerId, sellerId, listingId, "NULL"],
+//     (err, results) => {
+//       if (err) {
+//         next();
+//       }
+//       next();
+//     }
+//   );
+// }
 
 async function createMessage(req, res, next) {
   var message = req.body.message;
-  var buyerId = req.body.buyerId;
-  var sellerId = req.body.sellerId;
-  var listingId = req.body.listingId;
+  var senderId = req.body.buyerId;
+  var receiverId = req.body.sellerId;
+  //var listingId = req.body.listingId;
 
   await db.execute(
     `INSERT INTO message (
-            id, message, buyer_id, seller_id, listing_id, date) VALUES (?,?,?,?,?,?) `,
-    ["NULL", message, buyerId, sellerId, listingId, "NULL"],
+            id, message, sender_id, receiver_id, date) VALUES (?,?,?,?,?) `,
+    ["NULL", message, buyerId, sellerId, "NULL"],
     (err, results) => {
       if (err) {
         next();
