@@ -149,14 +149,39 @@ router.get('/search', search, getCategories, (req, res) => {
   });
 });
 
-// Message page
-router.get('/msgs', getCategories, (req, res) => {
-  var categoriesList = req.categoriesList;
-  res.render('pages/messages', {
-    categoriesList: categoriesList,
-    searchTerm: '',
-    searchCategory: 'All'
-  });
+//Message page
+// router.get('/msgs', getCategories, (req, res) => {
+//   var categoriesList = req.categoriesList;
+//   res.render('pages/messages', {
+//     categoriesList: categoriesList,
+//     searchTerm: '',
+//     searchCategory: 'All'
+//   });
+// });
+
+router.get('/msgs', getCategories, function(req, res, next) {
+  let emailsRecieved = [
+    {
+      sender: 'Donner Conner',
+      publishedAt: new Date('2016-03-19'),
+      message: 'some info for some thing i dont know what to sAY...',
+      id: 1
+    },
+    {
+      sender: 'Megan Hagen',
+      publishedAt: new Date('2016-04-19'),
+      message: 'some info for some thing i dont know what to sAY...',
+      id: 2
+    },
+    {
+      sender: 'Sally Dolly',
+      publishedAt: new Date('2016-06-19'),
+      message: 'some info for some thing i dont know what to sAY...',
+      id: 3
+    }
+  ];
+  var categoriesList = req.categoriesList; 
+  res.render('pages/messages', { categoriesList: categoriesList, emails: emailsRecieved });
 });
 
 // router.get('/msgs', function(req, res, next) {
