@@ -2,14 +2,20 @@
 <html lang="en">
   <head>
     <% include ../partials/head %>
+    <title>DashBoard</title>
   </head>
 
 
 
   <body>
-
+      <header>
+          <!-- navbar -->
+          <%- include('../partials/header', {'categoriesList':categoriesList,
+          'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+      </header>
+      
      
-    <title>DashBoard</title>
+    
   <!-- navbar -->
 
     
