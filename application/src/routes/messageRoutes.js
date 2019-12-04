@@ -149,7 +149,7 @@ router.get('/search', search, getCategories, (req, res) => {
   });
 });
 
-//Message page
+// // Message page
 // router.get('/msgs', getCategories, (req, res) => {
 //   var categoriesList = req.categoriesList;
 //   res.render('pages/messages', {
@@ -185,14 +185,30 @@ router.get('/msgs', function(req, res, next) {
 
 router.get('/messages/:id', (req,res,next) =>{
   let messagesId = {
-    1: ["message1", "message11"],
+    1: {sender:"Conner Conner",
+        messages:[
+            {send:"seller",
+            message:"seller message1",
+            timestamp: new Date("2019-03-22")},
+            {send:"buyer",
+            message:"seller message1",
+            timestamp: new Date("2019-03-22")},
+            {send:"buyer",
+            message:"seller message1",
+            timestamp: new Date("2019-03-22")},
+            {send:"seller",
+            message:"seller message1",
+            timestamp: new Date("2019-03-22")},
+            {send:"buyer",
+            message:"seller message1",
+            timestamp: new Date("2019-03-22")}]},
     2: ["message2", "message22"],
     3: ["message33", "message33"],
     
   };
   console.log(req.params.id);
   console.log(JSON.stringify({ messagesId: req.params.id }));
-
+  res.json({"messages":messagesId[req.params.id]});
 })
 
 module.exports = router;

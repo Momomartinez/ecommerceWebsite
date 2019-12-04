@@ -1,6 +1,7 @@
 html,
 body {
-  /* height: relative; */
+  
+  position: relative;
   width: 100%;
   background-color: #222324;
 }
@@ -327,15 +328,40 @@ p.itemDescription {
   }
 }
 
-/* -------------------------  msg.css  --------------------- */
+/* this is the css for the dashboard */
 .colorbg {
-  background: white;
+  min-height: 100vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.table-sm td, .table-sm th {
+  text-align: center;
+}
+
+.myPosts {
+  min-height: 300px;
+  margin: auto;
+  border: #333 2px solid;
+  padding: 15x;
+  margin-bottom: 50px;
+  background-color: white;
 }
 
 .MessageBox {
-  max-width: 1170px;
+  min-height: 400px;
   margin: auto;
+  border: #333 2px solid;
+  padding: 15x;
+ background-color: white;
 }
+
+
+/* -------------------------  msg.css  --------------------- */
+
+
+
 img {
   max-width: 100%;
 }
@@ -518,10 +544,6 @@ img {
 .msg_history {
   height: 516px;
   overflow-y: auto;
-}
-
-.MessageBox {
-  padding-top: 100px;
 }
 
 /* ----------------------------------------------------------------*/

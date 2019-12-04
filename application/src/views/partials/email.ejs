@@ -18,12 +18,16 @@
         console.log(_id);
         fetch('http://localhost:3000/messages/'+_id)
           .then( (data) => {
-              console.log(data);
+            return data.json();
+          })
+          .then((json_data) => {
+            console.log(json_data);
           })
           .catch( (err) => {
 
           });
-      // $.("messageRoutes.ejs", function (res) {
+
+      // ("messageRoutes.ejs", function (res) {
       //   var str = $("#test").html();
       //   var data = {emails:res};
       //   var rendered = new EJS({test:str}).render(data);
