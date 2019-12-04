@@ -113,8 +113,8 @@ async function deleteListing(req, res, next) {
 
 async function createMessage(req, res, next) {
   var message = req.body.message;
-  var senderId = req.body.buyerId;
-  var receiverId = req.body.sellerId;
+  var senderId = req.body.senderId;
+  var receiverId = req.body.receiverId;
   //var listingId = req.body.listingId;
 
   await db.execute(
