@@ -120,7 +120,7 @@ async function createMessage(req, res, next) {
   await db.execute(
     `INSERT INTO message (
             id, message, sender_id, receiver_id, date) VALUES (?,?,?,?,?) `,
-    ["NULL", message, buyerId, sellerId, "NULL"],
+    ["NULL", message, senderId, receiverId, "NULL"],
     (err, results) => {
       if (err) {
         next();
@@ -132,11 +132,10 @@ async function createMessage(req, res, next) {
 
 router.get("/userMessages", getCategories, getMessages, (req, res) => {
   var categoriesList = req.categoriesList;
-  var sellerMessages = req.sellerMessages;
-  var buyerMessages = req.buyerMessages;
+  var userMessages = req.userMessages;
+
   // res.render("pages/userMessages", {
-  //   sellerMessages: sellerMessages,
-  //   buyerMessages: buyerMessages,
+  //
   //   categoriesList: categoriesList,
   //   searchTerm: "",
   //   searchCategory: "All"
@@ -199,6 +198,6 @@ router.delete(
   }
 );
 
-router.post("/contactSeller", getCategories, contactSeller, (req, res) => {});
+//router.post("/contactSeller", getCategories, contactSeller, (req, res) => {});
 
 router.post("/message", getCategories, createMessage, (req, res) => {});
