@@ -180,8 +180,10 @@ router.get('/msgs', getCategories, function(req, res, next) {
       id: 3
     }
   ];
+  var searchTerm = req.query.search;
   var categoriesList = req.categoriesList; 
-  res.render('pages/messages', { categoriesList: categoriesList, emails: emailsRecieved });
+  res.render('pages/messages', { categoriesList: categoriesList, searchTerm: '',
+         searchCategory: 'All', emails: emailsRecieved });
 });
 
 // router.get('/msgs', function(req, res, next) {
