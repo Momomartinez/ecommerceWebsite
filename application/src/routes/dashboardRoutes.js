@@ -210,3 +210,5 @@ router.post("/message", getCategories, createMessage, (req, res) => {});
 //   //   searchCategory: "All"
 //   // });
 // });
+
+module.exports = router;
