@@ -14,9 +14,11 @@ async function getMessages(req, res, next) {
   var uid = req.user.id;
 
   var query =
-    "SELECT DISTINCT user.username, message.sender_id FROM message, user WHERE message.receiver_id = " +
+    "SELECT DISTINCT listing.user_id AS seller_id, seller.username AS seller, message.sender_id, sender.username AS sender, message.receiver_id, receiver.username AS receiver, message.date, message.listing_id, listing.title AS listing, message.message FROM message, listing, user seller, user sender, user receiver WHERE (message.sender_id = " +
     uid +
-    " AND user.id = message.sender_id;";
+    " || message.receiver_id = " +
+    uid +
+    ") AND message.listing_id = listing.id AND seller.username IN (SELECT username FROM user WHERE user.id = listing.user_id) AND sender.username IN (SELECT username FROM user WHERE user.id = message.sender_id) AND receiver.username IN (SELECT username FROM user WHERE user.id = message.receiver_id) ORDER BY date DESC";
 
   await db.execute(query, (err, result) => {
     if (err) {
@@ -24,32 +26,6 @@ async function getMessages(req, res, next) {
       next();
     }
     req.userMessages = result;
-    next();
-  });
-}
-
-async function getConversation(req, res, next) {
-  var uid = req.user.id;
-  var partnerId = req.query.partnerId;
-  //var listingId = req.listingId;
-
-  var query =
-    "SELECT DISTINCT user.username, message.sender_id, message.receiver_id, message.message, message.date FROM message, user WHERE ((message.receiver_id = " +
-    uid +
-    " && message.sender_id = " +
-    partnerId +
-    ") || (message.receiver_id = " +
-    partnerId +
-    " && message.sender_id = " +
-    uid +
-    ")) AND user.id = message.sender_id ORDER BY date ASC;";
-
-  await db.execute(query, (err, result) => {
-    if (err) {
-      req.conversation = "";
-      next();
-    }
-    req.conversation = result;
     next();
   });
 }
@@ -69,7 +45,7 @@ async function getListings(req, res, next) {
 }
 
 async function updateListing(req, res, next) {
-  var lid = req.body.lid;
+  var lid = req.body.listingId;
 
   var query = "UPDATE listing SET is_sold = 1 WHERE id = " + lid;
   await db.execute(query, (err, result) => {
@@ -81,7 +57,7 @@ async function updateListing(req, res, next) {
 }
 
 async function deleteListing(req, res, next) {
-  var lid = req.body.lid;
+  var lid = req.body.listingId;
 
   var query = "DELETE FROM listing WHERE id = " + lid;
   await db.execute(query, (err, result) => {
@@ -92,35 +68,16 @@ async function deleteListing(req, res, next) {
   });
 }
 
-// async function contactSeller(req, res, next) {
-//   var message = req.body.message;
-//   var buyerId = req.user.id;
-//   var sellerId = req.body.sellerId;
-//   var listingId = req.body.listingId;
-
-//   await db.execute(
-//     `INSERT INTO message (
-//         id, message, buyer_id, seller_id, listing_id, date) VALUES (?,?,?,?,?,?) `,
-//     ["NULL", message, buyerId, sellerId, listingId, "NULL"],
-//     (err, results) => {
-//       if (err) {
-//         next();
-//       }
-//       next();
-//     }
-//   );
-// }
-
 async function createMessage(req, res, next) {
   var message = req.body.message;
   var senderId = req.body.senderId;
   var receiverId = req.body.receiverId;
-  //var listingId = req.body.listingId;
+  var listingId = req.body.listingId;
 
   await db.execute(
     `INSERT INTO message (
-            id, message, sender_id, receiver_id, date) VALUES (?,?,?,?,?) `,
-    ["NULL", message, senderId, receiverId, "NULL"],
+            id, message, sender_id, receiver_id, date, listing_id ) VALUES (?,?,?,?,?,?) `,
+    ["NULL", message, senderId, receiverId, "NULL", listingId],
     (err, results) => {
       if (err) {
         next();
@@ -130,54 +87,44 @@ async function createMessage(req, res, next) {
   );
 }
 
-router.get("/userMessages", getCategories, getMessages, (req, res) => {
-  var categoriesList = req.categoriesList;
-  var userMessages = req.userMessages;
-
-  // res.render("pages/userMessages", {
-  //
-  //   categoriesList: categoriesList,
-  //   searchTerm: "",
-  //   searchCategory: "All"
-  // });
-});
-
 router.get(
-  "/getConversation",
-  //getCategories,
-  getConversation,
+  "/dashboard",
+  getCategories,
+  getMessages,
+  getListings,
   (req, res) => {
-    // var categoriesList = req.categoriesList;
-    var conversation = req.conversation;
-    // render message box with conversation
+    var categoriesList = req.categoriesList;
+    var userMessages = req.userMessages;
+    var userListings = req.listings;
+
+    res.render("pages/dashboard", {
+      userMessages: userMessages,
+      userListings: userListings,
+      categoriesList: categoriesList,
+      searchTerm: "",
+      searchCategory: "All"
+    });
   }
 );
-
-router.get("/userListings", getCategories, getListings, (req, res) => {
-  var categoriesList = req.categoriesList;
-  var userListings = req.listings;
-  // res.render("pages/userListings", {
-  //   cards: userListings,
-  //   categoriesList: categoriesList,
-  //   searchTerm: "",
-  //   searchCategory: "All"
-  // });
-});
 
 router.put(
   "/updateListing",
   getCategories,
   updateListing,
   getListings,
+  getMessages,
   (req, res) => {
     var categoriesList = req.categoriesList;
+    var userMessages = req.userMessages;
     var userListings = req.listings;
-    // res.render("pages/userListings", {
-    //   cards: userListings,
-    //   categoriesList: categoriesList,
-    //   searchTerm: "",
-    //   searchCategory: "All"
-    // });
+
+    res.render("pages/dashboard", {
+      userMessages: userMessages,
+      userListings: userListings,
+      categoriesList: categoriesList,
+      searchTerm: "",
+      searchCategory: "All"
+    });
   }
 );
 
@@ -186,18 +133,80 @@ router.delete(
   getCategories,
   deleteListing,
   getListings,
+  getMessages,
   (req, res) => {
     var categoriesList = req.categoriesList;
+    var userMessages = req.userMessages;
     var userListings = req.listings;
-    // res.render("pages/userListings", {
-    //   cards: userListings,
-    //   categoriesList: categoriesList,
-    //   searchTerm: "",
-    //   searchCategory: "All"
-    // });
+
+    res.render("pages/dashboard", {
+      userMessages: userMessages,
+      userListings: userListings,
+      categoriesList: categoriesList,
+      searchTerm: "",
+      searchCategory: "All"
+    });
   }
 );
 
-//router.post("/contactSeller", getCategories, contactSeller, (req, res) => {});
-
 router.post("/message", getCategories, createMessage, (req, res) => {});
+
+// async function getConversation(req, res, next) {
+//   var uid = req.user.id;
+//   var partnerId = req.query.partnerId;
+//   //var listingId = req.listingId;
+
+//   var query =
+//     "SELECT DISTINCT user.username, message.sender_id, message.receiver_id, message.message, message.date FROM message, user WHERE ((message.receiver_id = " +
+//     uid +
+//     " && message.sender_id = " +
+//     partnerId +
+//     ") || (message.receiver_id = " +
+//     partnerId +
+//     " && message.sender_id = " +
+//     uid +
+//     ")) AND user.id = message.sender_id ORDER BY date ASC;";
+
+//   await db.execute(query, (err, result) => {
+//     if (err) {
+//       req.conversation = "";
+//       next();
+//     }
+//     req.conversation = result;
+//     next();
+//   });
+// }
+
+// router.get("/userMessages", getCategories, getMessages, (req, res) => {
+//   var categoriesList = req.categoriesList;
+//   var userMessages = req.userMessages;
+
+//   // res.render("pages/userMessages", {
+//   //
+//   //   categoriesList: categoriesList,
+//   //   searchTerm: "",
+//   //   searchCategory: "All"
+//   // });
+// });
+
+// router.get(
+//   "/getConversation",
+//   //getCategories,
+//   getConversation,
+//   (req, res) => {
+//     // var categoriesList = req.categoriesList;
+//     var conversation = req.conversation;
+//     // render message box with conversation
+//   }
+// );
+
+// router.get("/userListings", getCategories, getListings, (req, res) => {
+//   var categoriesList = req.categoriesList;
+//   var userListings = req.listings;
+//   // res.render("pages/userListings", {
+//   //   cards: userListings,
+//   //   categoriesList: categoriesList,
+//   //   searchTerm: "",
+//   //   searchCategory: "All"
+//   // });
+// });
