@@ -2,16 +2,48 @@
 <html lang="en">
   <head>
     <% include ../partials/head %>
+    <title>DashBoard</title>
   </head>
 
-  <body class="colorbg ">
-    <title>Messages</title>
-    <!-- navbar -->
 
-    <!-- 
-  //  This partial is for the messages page that holds the implentation of the email messages for the //  users to find their sent or received messages from users trying to contact them on their posted //  items
+
+  <body>
+      <header>
+          <!-- navbar -->
+          <%- include('../partials/header', {'categoriesList':categoriesList,
+          'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+      </header>
+      
+     
+    
+  <!-- navbar -->
+
+    
+<!--  //  This partial is for the messages page that holds the implentation of the email messages for the //  users to find their sent or received messages from users trying to contact them on their posted //  items
  -->
-    <!-- message box test -->
-    <%-include('../partials/msgBox', {'emails': emails})%>
-  </body>
-</html>
+
+  <section class="colorbg">
+ <!-- container for lists of users posts -->
+ 
+
+
+
+<div class="container-fluid">
+  <div class="container">
+      <%-include('../partials/myPosts')%>
+  </div>
+<div class="container">
+    <!-- container for messages -->
+     <%-include('../partials/msgBox', {'emails': emails})%>
+    </div>
+    </div>
+    </section> 
+
+    <footer>
+        <%- include('../partials/footer', {"cp":"Copyright"}) %>
+    </footer>
+ 
+</body>
+
+</html> 
+
