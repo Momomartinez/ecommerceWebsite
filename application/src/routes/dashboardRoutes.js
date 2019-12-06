@@ -112,12 +112,19 @@ router.get(
     var userMessages = req.userMessages;
     var userListings = req.listings;
 
-    res.render("pages/dashboard", {
-      userMessages: userMessages,
-      userListings: userListings,
+    // res.render("pages/dashboard", {
+    //   userMessages: userMessages,
+    //   userListings: userListings,
+    //   categoriesList: categoriesList,
+    //   searchTerm: "",
+    //   searchCategory: "All"
+    // });
+
+    res.render("pages/messages", {
       categoriesList: categoriesList,
       searchTerm: "",
-      searchCategory: "All"
+      searchCategory: "All",
+      emails: userMessages
     });
   }
 );
