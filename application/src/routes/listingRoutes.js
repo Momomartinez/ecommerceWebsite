@@ -13,7 +13,33 @@ async function getCategories(req, res, next) {
 
 async function getRecentListings(req, res, next) {
   let query =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY date DESC LIMIT 9;";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY date DESC LIMIT 9;";
+
+  await db.execute(query, (err, results) => {
+    if (err) {
+      req.searchResult = "";
+      next();
+    }
+    req.searchResult = results;
+    next();
+  });
+}
+
+async function getClasses(req, res, next) {
+  await db.execute("SELECT * FROM class", (err, classes) => {
+    if (err) throw err;
+    //console.log(categories);
+    req.classesList = classes;
+    next();
+  });
+}
+
+async function textbookSearch(req, res, next) {
+  var classSearch = req.query.class;
+
+  var query =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.date, category.name, listing.user_id, class.class FROM listing, class, category WHERE category.id = listing.category_id AND listing.is_sold = 0 AND class.id = listing.class_id AND class.class = " +
+    classSearch;
 
   await db.execute(query, (err, results) => {
     if (err) {
@@ -31,7 +57,7 @@ async function search(req, res, next) {
   var category = req.query.category;
 
   let join =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id";
   let query = "";
   if (searchTerm != "" && category != "" && category != "All") {
     query =
@@ -67,33 +93,52 @@ async function search(req, res, next) {
   });
 }
 
-//Landing page
-router.get("/", getRecentListings, getCategories, (req, res) => {
-  var searchResult = req.searchResult;
-  var categoriesList = req.categoriesList;
-  res.render("pages/mainpage", {
-    cards: searchResult,
-    categoriesList: categoriesList,
-    searchTerm: "",
-    searchCategory: "Recent"
-
-  });
-});
-
-
-
 //search
 //gets search results and renders searchpage
-router.get("/search", search, getCategories, (req, res) => {
+router.get("/search", search, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
+  var classesList = req.classesList;
   res.render("pages/mainpage", {
     cards: searchResult,
     categoriesList: categoriesList,
+    //classesList: classesList,
     searchTerm: req.query.search,
     searchCategory: req.query.category
   });
 });
 
+router.get(
+  "/textbookSearch",
+  textbookSearch,
+  getCategories,
+  getClasses,
+  (req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    var classesList = req.classesList;
+    res.render("pages/mainpage", {
+      cards: searchResult,
+      categoriesList: categoriesList,
+      //classesList: classesList,
+      searchTerm: "",
+      searchCategory: "All"
+    });
+  }
+);
+
+//Landing page
+router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
+  var searchResult = req.searchResult;
+  var categoriesList = req.categoriesList;
+  //var classesList = req.classesList;
+  res.render("pages/mainpage", {
+    cards: searchResult,
+    categoriesList: categoriesList,
+    //classesList: classesList,
+    searchTerm: "",
+    searchCategory: "Recent"
+  });
+});
 
 module.exports = router;

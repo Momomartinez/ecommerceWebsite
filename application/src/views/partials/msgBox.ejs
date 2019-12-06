@@ -2,66 +2,36 @@
   //  This partial is for the messages page that holds the implentation of the email messages for the //  users to find their sent or received messages from users trying to contact them on their posted //  items
  -->
 
-    <div class="container MessageBox">
-    <h3 class=" text-center py-3">Messages</h3>
-    <div class="messaging">
-        
-<div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th>SellerID</th>
-          <th>BuyerID</th>
-          <th>PostDate</th>
-          <th>Item</th>
-          <th>Category</th>
-          <th>Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>#12345</td>
-          <td>#67890</td>
-          <td>12/12/12</td>
-          <td>Green Sofa</td>
-          <td>Furniture</td>
-          <td>Lorem...</td>
-        </tr>
-        <tr>
-            <td>#12345</td>
-            <td>#67890</td>
-            <td>12/12/12</td>
-            <td>Green Sofa</td>
-            <td>Furniture</td>
-            <td>Lorem...</td>
-          </tr>
+<div class="container MessageBox">
+  <h3 class=" text-center py-3">Messages</h3>
+  <div class="messaging">
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
           <tr>
-              <td>#12345</td>
-              <td>#67890</td>
-              <td>12/12/12</td>
-              <td>Green Sofa</td>
-              <td>Furniture</td>
-              <td>Lorem...</td>
-            </tr>
-            <tr>
-                <td>#12345</td>
-                <td>#67890</td>
-                <td>12/12/12</td>
-                <td>Green Sofa</td>
-                <td>Furniture</td>
-                <td>Lorem...</td>
-              </tr>
-              <tr>
-                  <td>#12345</td>
-                  <td>#67890</td>
-                  <td>12/12/12</td>
-                  <td>Green Sofa</td>
-                  <td>Furniture</td>
-                  <td>Lorem...</td>
-                </tr>
-      </tbody>
-    </table>
-  </div> 
-    
-    
-    
+            <th>Seller</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Listing</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Reply</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% emails.forEach(function(emails){ %>
+          <tr>
+            <td><%= emails.seller %></td>
+            <td><%= emails.sender %></td>
+            <td><%= emails.receiver %></td>
+            <td><%= emails.listing %></td>
+            <td><%= emails.message %></td>
+            <td><%= emails.date %></td>
+            <td><button>Reply</button></td>
+            <% }); %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
