@@ -1,6 +1,12 @@
 const express = require("express");
 const db = require("../models/database.js");
 const router = express.Router();
+const passport = require("passport");
+
+async function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) next();
+  else res.redirect("/login");
+}
 
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
@@ -104,6 +110,7 @@ async function createMessage(req, res, next) {
 
 router.get(
   "/dashboard",
+  checkAuthentication,
   getCategories,
   getMessages,
   getListings,
@@ -131,6 +138,7 @@ router.get(
 
 router.put(
   "/updateListing",
+  checkAuthentication,
   getCategories,
   updateListing,
   getListings,
@@ -152,6 +160,7 @@ router.put(
 
 router.delete(
   "/deleteListing",
+  checkAuthentication,
   getCategories,
   deleteListing,
   getListings,
@@ -171,8 +180,8 @@ router.delete(
   }
 );
 
-router.post("/message", createMessage, (req, res) => {
-  res.redirect("/");
+router.post("/message", checkAuthentication, createMessage, (req, res) => {
+  res.redirect("/dashboard");
 });
 
 // async function getConversation(req, res, next) {
