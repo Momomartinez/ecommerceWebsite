@@ -131,7 +131,7 @@ router.get(
 router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
-  var classesList = req.classesList;
+  //var classesList = req.classesList;
   res.render("pages/mainpage", {
     cards: searchResult,
     categoriesList: categoriesList,

@@ -52,11 +52,12 @@ async function getListings(req, res, next) {
 
 async function updateListing(req, res, next) {
   var lid = req.body.listingId;
+  console.log("lid: ", lid);
 
   var query = "UPDATE listing SET is_sold = 1 WHERE id = " + lid;
   await db.execute(query, (err, result) => {
     if (err) {
-      next();
+      console.log(err);
     }
     next();
   });
@@ -64,11 +65,12 @@ async function updateListing(req, res, next) {
 
 async function deleteListing(req, res, next) {
   var lid = req.body.listingId;
+  console.log("lid: ", lid);
 
   var query = "DELETE FROM listing WHERE id = " + lid;
   await db.execute(query, (err, result) => {
     if (err) {
-      next();
+      console.log(err);
     }
     next();
   });
@@ -131,52 +133,27 @@ router.get(
       categoriesList: categoriesList,
       searchTerm: "",
       searchCategory: "All",
-      emails: userMessages
+      emails: userMessages,
+      cards: userListings
     });
   }
 );
 
-router.put(
+router.post(
   "/updateListing",
   checkAuthentication,
-  getCategories,
   updateListing,
-  getListings,
-  getMessages,
   (req, res) => {
-    var categoriesList = req.categoriesList;
-    var userMessages = req.userMessages;
-    var userListings = req.listings;
-
-    res.render("pages/dashboard", {
-      userMessages: userMessages,
-      userListings: userListings,
-      categoriesList: categoriesList,
-      searchTerm: "",
-      searchCategory: "All"
-    });
+    res.redirect("/dashboard");
   }
 );
 
-router.delete(
+router.post(
   "/deleteListing",
   checkAuthentication,
-  getCategories,
   deleteListing,
-  getListings,
-  getMessages,
   (req, res) => {
-    var categoriesList = req.categoriesList;
-    var userMessages = req.userMessages;
-    var userListings = req.listings;
-
-    res.render("pages/dashboard", {
-      userMessages: userMessages,
-      userListings: userListings,
-      categoriesList: categoriesList,
-      searchTerm: "",
-      searchCategory: "All"
-    });
+    res.redirect("/dashboard");
   }
 );
 
