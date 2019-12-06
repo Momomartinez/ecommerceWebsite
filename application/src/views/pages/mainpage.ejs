@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- scripts -->
     <% include ../partials/head %>
-</head>
+  </head>
 
-<body>
-<header>
-    <!-- navbar -->
-    <%- include('../partials/header', {'categoriesList':categoriesList,
-    'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
-</header>
+  <body>
+    <header>
+      <!-- navbar -->
+      <%- include('../partials/header', {'categoriesList':categoriesList,
+      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+    </header>
 
-
-<section>
-        <div class="inner-hero"> 
-          <div class="row m-0">
-            <div class="col">
-             
-              <h1 class="hero-text text-center">Welcome to our website! Explore what your fellow students have to offer.</h1>
-         
-            </div>
+    <section>
+      <div class="inner-hero">
+        <div class="row m-0">
+          <div class="col">
+            <h1 class="hero-text text-center">
+              Welcome to our website! Explore what your fellow students have to
+              offer.
+            </h1>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-
-<!-- content body -->
-<section>
-    <!-- the side and main areas -->
-    <div class="container-fluid centerArea">
+    <!-- content body -->
+    <section>
+      <!-- the side and main areas -->
+      <div class="container-fluid centerArea">
         <div class="row">
-            <!-- the main area -->
-            <% include ../partials/sidebar %>
-            <%- include('../partials/listings', {'items':cards, 'searchTerm':
-            searchTerm, 'searchCategory': searchCategory}) %>
+          <!-- the main area -->
+          <% include ../partials/sidebar %> <%- include('../partials/listings',
+          {'items':cards, 'searchTerm': searchTerm, 'searchCategory':
+          searchCategory}) %>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<footer>
-    <%- include('../partials/footer', {"cp":"Copyright"}) %>
-</footer>
-</body>
+    <footer>
+      <%- include('../partials/footer', {"cp":"Copyright"}) %>
+    </footer>
+  </body>
 </html>
 
 <% include ../partials/contactSeller %>

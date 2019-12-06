@@ -1,149 +1,138 @@
 <!-- /views/partials/login.ejs -->
 
 <div class="modal fade text-dark" id="login">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="container ">
-                    <div class="modal-header">
-                        <h2 class="w-100 text-center">Sign Up</h2>
-                        <button class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                    <div class="modal-body">
+                            <div id="register">
+                                    <h1 class="text-center mb-3">
+                                            <i class="fas fa-user-plus"></i> Sign up
+                                        </h1>
+                                        
+                                        <form action="/register" method="POST">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input
+                                                        type="name"
+                                                        id="name"
+                                                        name="name"
+                                                        class="form-control"
+                                                        placeholder="Enter Name"
+                                                        value="<%= typeof name != 'undefined' ? name : '' %>"
+                                                />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input
+                                                        type="email"
+                                                        id="email"
+                                                        name="email"
+                                                        class="form-control"
+                                                        placeholder="Enter Email"
+                                                        value="<%= typeof email != 'undefined' ? email : '' %>"
+                                                />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input
+                                                        type="password"
+                                                        id="password"
+                                                        name="password"
+                                                        class="form-control"
+                                                        placeholder="Create Password"
+                                                        value="<%= typeof password != 'undefined' ? password : '' %>"
+                                                />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Confirm Password</label>
+                                                <input
+                                                        type="password"
+                                                        name="password_confirm"
+                                                        class="form-control"
+                                                        placeholder="Confirm Password"
+                                                        
+                                                />
+                                            </div>
+                                            <div class="form-check">
+                                                    <input
+                                                            name="terms"
+                                                            class="form-check-input"
+                                                            type="checkbox"
+                                                            value="1"
+                                                            id="termsAndConditionsCheck"
+                                                            <%= (typeof body != 'undefined' && typeof body.terms != 'undefined') ? 'checked' : '' %>
+                                                    />
+                                                    <label class="form-check-label" for="appartmentCheck">
+                                                        Agree to <a href="" style="color: blue;">terms and conditions</a>
+                                                    </label>
+                                                    <p></p>
+                                                </div>
+                                            <button class="btn btn-danger" type="submit">Submit</button>
+                                        </form>
 
-                    <div class="modalCard row">
-                        <!-- sign up form -->
 
-                        <div class="row mt-5">
 
-                            <div class="card card-body">
-                                <h1 class="text-center mb-3">
-                                    <i class="fas fa-user-plus"></i> Register
-                                </h1>
-                                <form action="/users/register" method="POST">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input
-                                                type="name"
-                                                id="name"
-                                                name="name"
-                                                class="form-control"
-                                                placeholder="Enter Name"
-                                                value="<%= typeof name != 'undefined' ? name : '' %>"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                class="form-control"
-                                                placeholder="Enter Email"
-                                                value="<%= typeof email != 'undefined' ? email : '' %>"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input
-                                                type="password"
-                                                id="password"
-                                                name="password"
-                                                class="form-control"
-                                                placeholder="Create Password"
-                                                value="<%= typeof password != 'undefined' ? password : '' %>"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password2">Confirm Password</label>
-                                        <input
-                                                type="password"
-                                                id="password2"
-                                                name="password2"
-                                                class="form-control"
-                                                placeholder="Confirm Password"
-                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-                                        />
-                                    </div>
-                                    <button onclick="replace()" data-dismiss="modal" type="button" class="btn btn-primary btn-block">
-                                        Register
-                                    </button>
-                                </form>
-                                <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+                                        <hr>
+                              <a class="btn btn-success btn-lg" onclick="$('#login-content').show();$('#register').hide();">Already Have an Account?</a>
                             </div>
-                        </div>
-
-
-                        <div class="col-md-6 m-auto">
-                            <div class="card card-body">
-                                <h1 class="text-center mb-3"> Login</h1>
-                                <form action="/users/register" method="POST">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                class="form-control"
-                                                placeholder="Email"
-                                                value="<%= typeof email != 'undefined' ? email : '' %>"
-                                        />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="password2">Password</label>
-                                        <input
-                                                type="password"
-                                                id="password2"
-                                                name="password2"
-                                                class="form-control"
-                                                placeholder="Password"
-                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-                                        />
-                                    </div>
-                                    <button onclick="replace()" data-dismiss="modal" type="button" class="btn btn-primary btn-block">
-                                        Login
-                                    </button>
-                                </form>
-                                <p class="lead mt-4"><a href="#">Forgot username/Password?</a></p>
+    
+                            <!-- login modal input -->
+                            <div id="login-content" style="display :none;">
+                                    <h1 class="text-center mb-3">
+                                            <i class="far fa-user"></i>Log In
+                                        </h1>
+                                    
+    
+                              
+                              <form id="form-id" method="POST" action="/login">
+                                <div class="form-group">
+                                  <label for="inputEmail">Email</label>
+                                  <input class="form-control" type="email" name="name" id="inputEmail" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                  <label for="inputPassword">Password</label>
+                                  <input class="form-control" name="password" type="password" id="inputPassword" placeholder="Password">
+                                  <a type="button" class="btn btn-link btn-sm">Forgot password</a>
+                                </div>
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-info btn-md">Log in</button>
+                                </div>
+                              </form>
+                              <hr>
+                              <a class="btn btn-success btn-lg" onclick="$('#login-content').hide();$('#register').show();$('#form-id').trigger('reset');">
+                                <!-- <i class="fa fa-arrow-circle-left" aria-hidden="true">
+                                </i> -->
+                                Don't Have an account yet?</a>
                             </div>
-                        </div>
-                    </div>
-
-                </div>
-
+                          </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-
-
-<!-- for prototype day or testing and showing only -->
-<script>
-    function hideElement() {
-        element = document.querySelector('.loginButton');
-        element.style.visibility = 'hidden';
-    }
-
-    function showElement() {
-        element = document.querySelector('.user');
-        element.style.visibility = 'visible';
-    }
-
-    function replace() {
-        var firstbtn = document.querySelector(".loginButton");
-        var secondbtn = document.querySelector(".user");
-        firstbtn.parentNode.replaceChild(secondbtn, firstbtn);
-        secondbtn.style.visibility = 'visible';
-    }
-
-document.onload = () => {
-  if(window.logged){
-    showElement();
-  } else{
-    window.logged = 1;
-  }
-}
-</script>
+    </div>
+    
+    
+    <!-- for prototype day or testing and showing only -->
+    <script>
+        function hideElement() {
+            element = document.querySelector('.loginButton');
+            element.style.visibility = 'hidden';
+        }
+    //     function showElement() {
+    //         element = document.querySelector('.user');
+    //         element.style.visibility = 'visible';
+    //     }
+    //     function replace() {
+    //         var firstbtn = document.querySelector(".loginButton");
+    //         var secondbtn = document.querySelector(".user");
+    //         firstbtn.parentNode.replaceChild(secondbtn, firstbtn);
+    //         secondbtn.style.visibility = 'visible';
+    //     }
+    // document.onload = () => {
+    //   if(window.logged){
+    //     showElement();
+    //   } else{
+    //     window.logged = 1;
+    //   }
+    // }
+    </script>
+    

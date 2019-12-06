@@ -80,15 +80,15 @@ async function createMessage(req, res, next) {
   // console.log("listingId:", listingId);
 
   var query =
-    "INSERT INTO message (message, sender_id, receiver_id, listing_id ) VALUES ( '" +
+    `INSERT INTO message (message, sender_id, receiver_id, listing_id ) VALUES ( "` +
     message +
-    "', " +
+    `", ` +
     senderId +
-    ", " +
+    `, ` +
     receiverId +
-    ", " +
+    `, ` +
     listingId +
-    ")";
+    `)`;
 
   console.log("query = ", query);
 
