@@ -22,11 +22,14 @@
 
       <div class="container-fluid">
         <div class="container">
-          <%-include('../partials/myPosts', {'cards' : cards})%>
+          <%-include('../partials/myPosts', {'cards' : cards, 'username':
+          username})%>
         </div>
         <div class="container">
           <!-- container for messages -->
-          <%-include('../partials/msgBox', {'emails': emails})%>
+          <%-include('../partials/msgBox', {'emails': emails , 'userId': userId,
+          'username': username})%> <% emails.forEach(function(emails){ %> <%-
+          include('../partials/replyBox', {emails: emails}); %> <% }); %>
         </div>
       </div>
     </section>

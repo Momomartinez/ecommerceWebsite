@@ -20,7 +20,7 @@ async function getMessages(req, res, next) {
   var uid = req.user.id;
 
   var query =
-    "SELECT DISTINCT listing.user_id AS seller_id, seller.username AS seller, message.sender_id, sender.username AS sender, message.receiver_id, receiver.username AS receiver, message.date, message.listing_id, listing.title AS listing, message.message FROM message, listing, user seller, user sender, user receiver WHERE (message.sender_id = " +
+    "SELECT DISTINCT message.id, listing.user_id AS seller_id, seller.username AS seller, message.sender_id, sender.username AS sender, message.receiver_id, receiver.username AS receiver, message.date, message.listing_id, listing.title AS listing, message.message FROM message, listing, user seller, user sender, user receiver WHERE (message.sender_id = " +
     uid +
     " || message.receiver_id = " +
     uid +
@@ -120,6 +120,9 @@ router.get(
     var categoriesList = req.categoriesList;
     var userMessages = req.userMessages;
     var userListings = req.listings;
+    var userId = req.user.id;
+    var username = req.user.username;
+    console.log("username: ", username);
 
     // res.render("pages/dashboard", {
     //   userMessages: userMessages,
@@ -134,7 +137,9 @@ router.get(
       searchTerm: "",
       searchCategory: "All",
       emails: userMessages,
-      cards: userListings
+      cards: userListings,
+      userId: userId,
+      username: username
     });
   }
 );
