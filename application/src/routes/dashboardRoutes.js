@@ -70,21 +70,36 @@ async function deleteListing(req, res, next) {
 
 async function createMessage(req, res, next) {
   var message = req.body.message;
-  var senderId = req.body.senderId;
+  var senderId = req.user.id;
   var receiverId = req.body.receiverId;
   var listingId = req.body.listingId;
 
-  await db.execute(
-    `INSERT INTO message (
-            id, message, sender_id, receiver_id, date, listing_id ) VALUES (?,?,?,?,?,?) `,
-    ["NULL", message, senderId, receiverId, "NULL", listingId],
-    (err, results) => {
-      if (err) {
-        next();
-      }
+  // console.log("senderId:", senderId);
+  // console.log("message:", message);
+  // console.log("receiverId:", receiverId);
+  // console.log("listingId:", listingId);
+
+  var query =
+    "INSERT INTO message (message, sender_id, receiver_id, listing_id ) VALUES ( '" +
+    message +
+    "', " +
+    senderId +
+    ", " +
+    receiverId +
+    ", " +
+    listingId +
+    ")";
+
+  console.log("query = ", query);
+
+  await db.execute(query, (err, results) => {
+    if (err) {
+      console.log(err);
       next();
     }
-  );
+    console.log("Succesful message");
+    next();
+  });
 }
 
 router.get(
@@ -149,7 +164,9 @@ router.delete(
   }
 );
 
-router.post("/message", getCategories, createMessage, (req, res) => {});
+router.post("/message", createMessage, (req, res) => {
+  res.redirect("/");
+});
 
 // async function getConversation(req, res, next) {
 //   var uid = req.user.id;
