@@ -45,9 +45,8 @@ body {
 
 #inner-hero {
   background-color: indigo;
-  border: 1px solid #c4c4c4;
   max-width: 1800px;
-  margin: 17px;
+  margin: auto;
   height: 150px;
   color: white;
   padding-bottom: 10px;
@@ -55,6 +54,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 8px 6px -6px black;
 }
 .aboutbody {
   background-color: white;
@@ -118,7 +118,7 @@ a.dropdown-item {
   display: flex;
   justify-content: center;
   margin: auto;
- 
+  box-shadow: 0 8px 6px -6px black;
 }
 
 /* dropdown */
