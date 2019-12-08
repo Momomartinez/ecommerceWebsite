@@ -1,9 +1,27 @@
-<!-- views/partials/sidebar.ejs -->
+<!-- views/partials/categories.ejs -->
 
 
-<div class="col-2 d-none d-xl-block side my-3">
+<div class="col-2 d-none d-lg-block side my-3">
     <div class="left-menu text-center pt-5">
-        <h4 class="pb-4">Textbook Search</h4>
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter Search
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+                <a class="dropdown-item" href="#">Most Recent</a>
+                <a class="dropdown-item" href="#">Price: High to Low</a>
+                <a class="dropdown-item" href="#">Price: Low to High</a>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="left-menu text-center pt-5">
+        <h4 class="pb-4">Textbook Search</h2>
             <ul class="">
                 <li>
                     <select name="Department" id="Department" onChange="changecat(this.value);">
@@ -29,16 +47,15 @@
                 <hr>
                 <li>
                     <form method="GET" action="/search" class="form-inline search" style="display: block;  margin-left: auto;  margin-right: auto;">
-                        <button id="searchbtn" class="textbook btn bg-warning" type="submit">Search For Textbook</button>
+                        <button id="searchbtn" class="btn bg-warning" type="submit">Search For Textbook</button>
                     </form>
                 </li>
-                <hr>
+
 
             </ul>
+        </h4>
     </div>
 
-</div>
-<div>
 </div>
 
 <script>
