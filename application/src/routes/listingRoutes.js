@@ -25,6 +25,33 @@ async function getRecentListings(req, res, next) {
   });
 }
 
+async function sortListingByPriceHighToLow(req, res, next) {
+    let query =
+        "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price DESC LIMIT 9;";
+
+    await db.execute(query, (err, results) => {
+        if (err) {
+            req.searchResult = "";
+            next();
+        }
+        req.searchResult = results;
+        next();
+    });
+}
+async function sortListingByPriceLowToHigh(req, res, next) {
+    let query =
+        "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price Asc LIMIT 9;";
+
+    await db.execute(query, (err, results) => {
+        if (err) {
+            req.searchResult = "";
+            next();
+        }
+        req.searchResult = results;
+        next();
+    });
+}
+
 async function getClasses(req, res, next) {
   await db.execute("SELECT * FROM class", (err, classes) => {
     if (err) throw err;
@@ -94,6 +121,45 @@ async function search(req, res, next) {
 }
 
 //search
+
+
+router.get("/filter/most-recent",getRecentListings,getCategories,(req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    //var classesList = req.classesList;
+    res.render("pages/mainpage", {
+        cards: searchResult,
+        categoriesList: categoriesList,
+        //classesList: classesList,
+        searchTerm: "",
+        searchCategory: "Most Recent"
+    });
+});
+
+router.get("/filter/Price_High_to_low",sortListingByPriceHighToLow,getCategories,(req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    //var classesList = req.classesList;
+    res.render("pages/mainpage", {
+        cards: searchResult,
+        categoriesList: categoriesList,
+        //classesList: classesList,
+        searchTerm: "",
+        searchCategory: "Sort By Price (High to Low)"
+    });
+});
+router.get("/filter/Price_Low_to_High",sortListingByPriceLowToHigh,getCategories,(req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    //var classesList = req.classesList;
+    res.render("pages/mainpage", {
+        cards: searchResult,
+        categoriesList: categoriesList,
+        //classesList: classesList,
+        searchTerm: "",
+        searchCategory: "Sort By Price (Low to High)"
+    });
+});
 //gets search results and renders searchpage
 router.get("/search", search, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
