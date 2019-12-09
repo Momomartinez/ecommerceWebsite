@@ -53,7 +53,7 @@ async function sortListingByPriceLowToHigh(req, res, next) {
 }
 
 async function getClasses(req, res, next) {
-  await db.execute("SELECT * FROM class", (err, classes) => {
+  await db.execute("SELECT * FROM classes", (err, classes) => {
     if (err) throw err;
     //console.log(categories);
     req.classesList = classes;
