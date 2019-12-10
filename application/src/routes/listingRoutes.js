@@ -13,7 +13,7 @@ async function getCategories(req, res, next) {
 
 async function getRecentListings(req, res, next) {
   let query =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY date DESC LIMIT 9;";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY date DESC LIMIT 9;";
 
   await db.execute(query, (err, results) => {
     if (err) {
@@ -25,55 +25,55 @@ async function getRecentListings(req, res, next) {
   });
 }
 
-async function getRecentElectronics(req, res, next) {
-  let electronicsQ =
-    "SELECT * FROM listing WHERE category_id = 1 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
+async function sortListingByPriceHighToLow(req, res, next) {
+    let query =
+        "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price DESC LIMIT 9;";
 
-  await db.execute(electronicsQ, (err, recentElectronics) => {
-    if (err) {
-      req.recentElectronics = "";
-      next();
-    }
-    req.recentElectronics = recentElectronics;
+    await db.execute(query, (err, results) => {
+        if (err) {
+            req.searchResult = "";
+            next();
+        }
+        req.searchResult = results;
+        next();
+    });
+}
+async function sortListingByPriceLowToHigh(req, res, next) {
+    let query =
+        "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price Asc LIMIT 9;";
+
+    await db.execute(query, (err, results) => {
+        if (err) {
+            req.searchResult = "";
+            next();
+        }
+        req.searchResult = results;
+        next();
+    });
+}
+
+async function getClasses(req, res, next) {
+  await db.execute("SELECT * FROM classes", (err, classes) => {
+    if (err) throw err;
+    //console.log(categories);
+    req.classesList = classes;
     next();
   });
 }
-async function getRecentBooks(req, res, next) {
-  let booksQ =
-    "SELECT * FROM listing WHERE category_id = 2 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
 
-  await db.execute(booksQ, (err, recentBooks) => {
+async function textbookSearch(req, res, next) {
+  var classSearch = req.query.class;
+
+  var query =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.date, category.name, listing.user_id, class.class FROM listing, class, category WHERE category.id = listing.category_id AND listing.is_sold = 0 AND class.id = listing.class_id AND class.class = " +
+    classSearch;
+
+  await db.execute(query, (err, results) => {
     if (err) {
-      req.recentBooks = "";
+      req.searchResult = "";
       next();
     }
-    req.recentBooks = recentBooks;
-    next();
-  });
-}
-async function getRecentFurniture(req, res, next) {
-  let furnitureQ =
-    "SELECT * FROM listing WHERE category_id = 3 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
-
-  await db.execute(furnitureQ, (err, recentFurniture) => {
-    if (err) {
-      req.recentFurniture = "";
-      next();
-    }
-    req.recentFurniture = recentFurniture;
-    next();
-  });
-}
-async function getRecentOther(req, res, next) {
-  let otherQ =
-    "SELECT * FROM listing WHERE category_id = 4 AND is_sold = 0 ORDER BY date DESC LIMIT 3;";
-
-  await db.execute(otherQ, (err, recentOther) => {
-    if (err) {
-      req.recentOther = "";
-      next();
-    }
-    req.recentOther = recentOther;
+    req.searchResult = results;
     next();
   });
 }
@@ -84,7 +84,7 @@ async function search(req, res, next) {
   var category = req.query.category;
 
   let join =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name FROM listing INNER JOIN category ON listing.category_id = category.id";
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id";
   let query = "";
   if (searchTerm != "" && category != "" && category != "All") {
     query =
@@ -120,80 +120,91 @@ async function search(req, res, next) {
   });
 }
 
-//Landing page
-router.get("/", getRecentListings, getCategories, (req, res) => {
-  var searchResult = req.searchResult;
-  var categoriesList = req.categoriesList;
-  res.render("pages/mainpage", {
-    cards: searchResult,
-    categoriesList: categoriesList,
-    searchTerm: "",
-    searchCategory: "All"
-  });
-});
-
-//Message page
-router.get("/msgs", getCategories, (req, res) => {
-  var categoriesList = req.categoriesList;
-  res.render("pages/messages", {
-    categoriesList: categoriesList,
-    searchTerm: "",
-    searchCategory: "All"
-  });
-});
-
-router.get("/posts", (req, res) => {
-  res.render("partials/postlistings", {});
-});
-
 //search
+
+
+router.get("/filter/most-recent",getRecentListings,getCategories,(req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    //var classesList = req.classesList;
+    res.render("pages/mainpage", {
+        cards: searchResult,
+        categoriesList: categoriesList,
+        //classesList: classesList,
+        searchTerm: "",
+        searchCategory: "Most Recent"
+    });
+});
+
+router.get("/filter/Price_High_to_low",sortListingByPriceHighToLow,getCategories,(req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    //var classesList = req.classesList;
+    res.render("pages/mainpage", {
+        cards: searchResult,
+        categoriesList: categoriesList,
+        //classesList: classesList,
+        searchTerm: "",
+        searchCategory: "Sort By Price (High to Low)"
+    });
+});
+router.get("/filter/Price_Low_to_High",sortListingByPriceLowToHigh,getCategories,(req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    //var classesList = req.classesList;
+    res.render("pages/mainpage", {
+        cards: searchResult,
+        categoriesList: categoriesList,
+        //classesList: classesList,
+        searchTerm: "",
+        searchCategory: "Sort By Price (Low to High)"
+    });
+});
 //gets search results and renders searchpage
-router.get("/search", search, getCategories, (req, res) => {
+router.get("/search", search, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
+  var classesList = req.classesList;
   res.render("pages/mainpage", {
     cards: searchResult,
     categoriesList: categoriesList,
+    //classesList: classesList,
     searchTerm: req.query.search,
     searchCategory: req.query.category
   });
 });
 
-// //Landing page
-// router.get("/", getRecentListings, getCategories, (req, res) => {
-//   var searchResult = req.searchResult;
-//   var categoriesList = req.categoriesList;
-//   res.render("pages/mainpage", {
-//     cards: searchResult,
-//     categoriesList: categoriesList,
-//     searchTerm: "",
-//     searchCategory: "All"
-//   });
-// });
+router.get(
+  "/textbookSearch",
+  textbookSearch,
+  getCategories,
+  getClasses,
+  (req, res) => {
+    var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    var classesList = req.classesList;
+    res.render("pages/mainpage", {
+      cards: searchResult,
+      categoriesList: categoriesList,
+      //classesList: classesList,
+      searchTerm: "",
+      searchCategory: "All"
+    });
+  }
+);
 
-//Homepage
-//Takes the 3 most recent items in each category and displays them
-// router.get(
-//   "/",
-//   getRecentElectronics,
-//   getRecentBooks,
-//   getRecentFurniture,
-//   getRecentOther,
-//   getCategories,
-//   (req, res) => {
-//     var recentElectronics = req.recentElectronics;
-//     var recentBooks = req.recentBooks;
-//     var recentFurniture = req.recentFurniture;
-//     var recentOther = req.recentOther;
-//     var categoriesList = req.categoriesList;
-//     console.log(recentElectronics);
-//     console.log(recentBooks);
-//     console.log(recentFurniture);
-//     console.log(recentOther);
-//     res.render("pages/mainpage", {
-//       categoriesList: categoriesList
-//     });
-//   }
-// );
+//Landing page
+router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
+  var searchResult = req.searchResult;
+  var categoriesList = req.categoriesList;
+  //var classesList = req.classesList;
+  res.render("pages/mainpage", {
+    cards: searchResult,
+    categoriesList: categoriesList,
+    //classesList: classesList,
+    searchTerm: "",
+    searchCategory: "Recent"
+  });
+});
 
 module.exports = router;
