@@ -115,7 +115,7 @@ router.post("/sell", upload.single("thumb"), (req, res) => {
     console.log("req.body: " + req.user.id);
     console.log("date: " + curDateYMD);
 
-    res.redirect("register");
+    res.redirect("/dashboard");
   })();
 });
 
