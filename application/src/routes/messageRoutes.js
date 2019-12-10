@@ -159,7 +159,7 @@ router.get('/search', search, getCategories, (req, res) => {
 //   });
 // });
 
-router.get('/msgs', function(req, res, next) {
+router.get('/msgs', getCategories, function(req, res, next) {
   let emailsRecieved = [
     {
       sender: 'Donner Conner',
@@ -180,7 +180,62 @@ router.get('/msgs', function(req, res, next) {
       id: 3
     }
   ];
-  res.render('pages/messages', { emails: emailsRecieved });
+  var searchTerm = req.query.search;
+  var categoriesList = req.categoriesList; 
+  res.render('pages/messages', { categoriesList: categoriesList, searchTerm: '',
+         searchCategory: 'All', emails: emailsRecieved });
 });
+
+// router.get('/msgs', function(req, res, next) {
+//   let emailsRecieved = [
+//     {
+//       sender: 'Donner Conner',
+//       publishedAt: new Date('2016-03-19'),
+//       message: 'some info for some thing i dont know what to sAY...',
+//       id: 1
+//     },
+//     {
+//       sender: 'Megan Hagen',
+//       publishedAt: new Date('2016-04-19'),
+//       message: 'some info for some thing i dont know what to sAY...',
+//       id: 2
+//     },
+//     {
+//       sender: 'Sally Dolly',
+//       publishedAt: new Date('2016-06-19'),
+//       message: 'some info for some thing i dont know what to sAY...',
+//       id: 3
+//     }
+//   ];
+//   res.render('pages/messages', { emails: emailsRecieved });
+// });
+
+// router.get('/messages/:id', (req,res,next) =>{
+//   let messagesId = {
+//     1: {sender:"Conner Conner",
+//         messages:[
+//             {send:"seller",
+//             message:"seller message1",
+//             timestamp: new Date("2019-03-22")},
+//             {send:"buyer",
+//             message:"seller message1",
+//             timestamp: new Date("2019-03-22")},
+//             {send:"buyer",
+//             message:"seller message1",
+//             timestamp: new Date("2019-03-22")},
+//             {send:"seller",
+//             message:"seller message1",
+//             timestamp: new Date("2019-03-22")},
+//             {send:"buyer",
+//             message:"seller message1",
+//             timestamp: new Date("2019-03-22")}]},
+//     2: ["message2", "message22"],
+//     3: ["message33", "message33"],
+    
+//   };
+//   console.log(req.params.id);
+//   console.log(JSON.stringify({ messagesId: req.params.id }));
+//   res.json({"messages":messagesId[req.params.id]});
+// })
 
 module.exports = router;
