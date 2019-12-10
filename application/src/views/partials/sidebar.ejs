@@ -4,17 +4,31 @@
 <div class="col-2 d-none d-lg-block side my-3">
     <div class="left-menu text-center pt-5">
         <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter Search
-            </a>
+            
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <form action="/search" method="GET">
+                
+                <input type="hidden" name="category" value="<%= searchCategory%>"></input>
+                <input type="hidden" name="search" value="<%= searchTerm%>"></input>
+                <select name="sort" aria-setsize="1">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                
+                        <option class="dropdown-item" name="sort" value="1">Most Recent</option>
+                        <option class="dropdown-item" name="sort" value="2">Price: Low to High</option>
+                        <option class="dropdown-item" name="sort" value="3">Price: High to Low</option>
+                    </div>
+                </select>    
 
-                <a class="dropdown-item" href="/filter/most-recent">Most Recent</a>
-                <a class="dropdown-item" href="/filter/Price_High_to_low">Price: High to Low</a>
-                <a class="dropdown-item" href="/filter/Price_Low_to_High">Price: Low to High</a>
+                <button type="submit" class="btn bg-warning">Filter</button>    
 
-            </div>
+            </form>
+
+            
+            
+
+
+
+            
         </div>
     </div>
 
