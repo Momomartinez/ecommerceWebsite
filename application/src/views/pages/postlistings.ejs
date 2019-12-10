@@ -1,0 +1,103 @@
+<br>
+<br>
+<div class="container py-3">
+    <div class="row">
+        <div class="mx-auto col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Create a Listing</h4>
+                </div>
+                <div class="text-right">
+                    <label class="col-lg-5 col-form-label form-control-label">mandatory fields marked by *</label>
+                </div>
+                <div class="alert alert-danger">
+                    <strong>Invalid Input!</strong> Please fill out all mandatory fields.
+                </div>
+                <div class="card-body">
+                    <form class="form" role="form" autocomplete="off" action="/sell" enctype="multipart/form-data" method="post">
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Title*</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" name="title">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Type*</label>
+                            <div class="col-lg-9">
+                                <select class="form-control" name="listing_type_id">
+                                    <option value="1">Caterory*</option>
+                                    <option value="2">Book*</option>
+                                    <option value="3">Electronics*</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMuWbtufa4o-yIjmfJOP3k6ncOSp2Q4IE&libraries=places&callback=initAutocomplete"
+                                async defer></script>
+
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Price*</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" type="text" name="price">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Description</label>
+                            <div class="col-lg-9">
+                                <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row"></div>
+                        <label class="col-lg-3 col-form-label form-control-label">Upload an Image</label>
+                        <div class="col-lg-9">
+                            <input type='file'  name="thumb" />
+                        </div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="text-center">
+                    <img id="uploadedImage"/>
+                </div>
+
+                <script>
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $('#uploadedImage')
+                                    .attr('src', e.target.result);
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                </script>
+
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <!-- Post & Cancel Buttons -->
+                <div class="text-center form-group row">
+                    <div class="col-md-6">
+                        <input type="reset" href="/listing" onclick="window.location.href = '/listing';" class="btn btn-secondary" value="Cancel">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-primary" value="Post">
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

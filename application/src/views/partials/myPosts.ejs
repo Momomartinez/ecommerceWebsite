@@ -1,0 +1,23 @@
+<!-- <div class="container myPosts">
+  <h3 class=" text-center py-3">My Posts</h3>
+  <div class=""></div>
+</div> -->
+
+<!-- views/partials/listings.ejs -->
+
+<div class=" mainArea col my-3">
+  <section id="cardss">
+    <span class="my-4">
+      <h3 class=" text-center py-3"><%= username %>'s Listings</h3>
+    </span>
+    <div class="row">
+      <% cards.forEach(function(cards){ %> <%- include('../partials/cards',
+      {cards: cards}); %> <% }); %>
+    </div>
+    <hr />
+  </section>
+</div>
+
+<% cards.forEach(function(cards){ %> <%- include('../partials/manageListing',
+{cards: cards}); %> <% }); %> <% cards.forEach(function(cards){ %> <%-
+include('../partials/contactSeller', {cards: cards}); %> <% }); %>
