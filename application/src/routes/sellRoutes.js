@@ -109,7 +109,7 @@ router.post("/sell", upload.single("thumb"), (req, res) => {
         0,
         curDateYMD,
         req.user.id,
-        2
+        req.body.category
       ]
     );
     console.log("req.body: " + req.user.id);
