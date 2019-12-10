@@ -31,9 +31,11 @@
       <div class="container-fluid centerArea">
         <div class="row">
           <!-- the main area -->
-          <% include ../partials/sidebar %> <%- include('../partials/listings',
-          {'items':cards, 'searchTerm': searchTerm, 'searchCategory':
-          searchCategory}) %>
+
+          <%- include('../partials/sidebar', {'items':cards, 'searchTerm':
+          searchTerm, 'searchCategory': searchCategory}) %> <%-
+          include('../partials/listings', {'items':cards, 'searchTerm':
+          searchTerm, 'searchCategory': searchCategory}) %>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("../models/database.js");
 const router = express.Router();
+const sortJsonArray = require("sort-json-array");
 
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
@@ -26,30 +27,30 @@ async function getRecentListings(req, res, next) {
 }
 
 async function sortListingByPriceHighToLow(req, res, next) {
-    let query =
-        "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price DESC LIMIT 9;";
+  let query =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price DESC LIMIT 9;";
 
-    await db.execute(query, (err, results) => {
-        if (err) {
-            req.searchResult = "";
-            next();
-        }
-        req.searchResult = results;
-        next();
-    });
+  await db.execute(query, (err, results) => {
+    if (err) {
+      req.searchResult = "";
+      next();
+    }
+    req.searchResult = results;
+    next();
+  });
 }
 async function sortListingByPriceLowToHigh(req, res, next) {
-    let query =
-        "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price Asc LIMIT 9;";
+  let query =
+    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 ORDER BY price Asc LIMIT 9;";
 
-    await db.execute(query, (err, results) => {
-        if (err) {
-            req.searchResult = "";
-            next();
-        }
-        req.searchResult = results;
-        next();
-    });
+  await db.execute(query, (err, results) => {
+    if (err) {
+      req.searchResult = "";
+      next();
+    }
+    req.searchResult = results;
+    next();
+  });
 }
 
 async function getClasses(req, res, next) {
@@ -82,11 +83,17 @@ async function textbookSearch(req, res, next) {
 async function search(req, res, next) {
   var searchTerm = req.query.search;
   var category = req.query.category;
+  var sort = req.query.sort;
 
   let join =
     "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id";
   let query = "";
-  if (searchTerm != "" && category != "" && category != "All") {
+  if (
+    searchTerm != "" &&
+    category != "" &&
+    category != "All" &&
+    category != "Recent"
+  ) {
     query =
       ` WHERE name = '` +
       category +
@@ -94,22 +101,39 @@ async function search(req, res, next) {
       searchTerm +
       `%' OR description LIKE '%` +
       searchTerm +
-      `%') AND is_sold = 0;`;
-  } else if (searchTerm != "" && (category == "" || category == "All")) {
+      `%') AND is_sold = 0`;
+  } else if (
+    searchTerm != "" &&
+    (category == "" || category == "All" || category == "Recent")
+  ) {
     query =
       ` WHERE (title LIKE '%` +
       searchTerm +
       `%' OR description LIKE '%` +
       searchTerm +
-      `%') AND is_sold = 0;`;
-  } else if (searchTerm == "" && category != "" && category != "All") {
-    query = ` WHERE name = '` + category + `' AND is_sold = 0;`;
-  } else if (searchTerm == "" && category == "All") {
-    query = ` WHERE is_sold = 0;`;
+      `%') AND is_sold = 0`;
+  } else if (
+    searchTerm == "" &&
+    category != "" &&
+    category != "All" &&
+    category != "Recent"
+  ) {
+    query = ` WHERE name = '` + category + `' AND is_sold = 0`;
+  } else if (searchTerm == "" && (category == "All" || category == "Recent")) {
+    query = ` WHERE is_sold = 0`;
   }
 
-  let sql = join + query;
-  //console.log("this is sql: " + sql);
+  var orderby = "";
+  if (sort == 1) {
+    orderby = " ORDER BY listing.date DESC";
+  } else if (sort == 2) {
+    orderby = " ORDER BY listing.price ASC";
+  } else {
+    orderby = " ORDER BY listing.price DESC";
+  }
+
+  let sql = join + query + orderby;
+  console.log("this is sql: " + sql);
   await db.execute(sql, (err, result) => {
     if (err) {
       req.searchResult = "";
@@ -120,47 +144,60 @@ async function search(req, res, next) {
   });
 }
 
-//search
+// router.get(
+//   "/filter/most-recent",
+//   getRecentListings,
+//   getCategories,
+//   (req, res) => {
+//     var searchResult = req.searchResult;
+//     var categoriesList = req.categoriesList;
+//     //var classesList = req.classesList;
+//     res.render("pages/mainpage", {
+//       cards: searchResult,
+//       categoriesList: categoriesList,
+//       //classesList: classesList,
+//       searchTerm: "",
+//       searchCategory: "Most Recent"
+//     });
+//   }
+// );
 
-
-router.get("/filter/most-recent",getRecentListings,getCategories,(req, res) => {
-    var searchResult = req.searchResult;
-    var categoriesList = req.categoriesList;
-    //var classesList = req.classesList;
-    res.render("pages/mainpage", {
-        cards: searchResult,
-        categoriesList: categoriesList,
-        //classesList: classesList,
-        searchTerm: "",
-        searchCategory: "Most Recent"
-    });
-});
-
-router.get("/filter/Price_High_to_low",sortListingByPriceHighToLow,getCategories,(req, res) => {
-    var searchResult = req.searchResult;
-    var categoriesList = req.categoriesList;
-    //var classesList = req.classesList;
-    res.render("pages/mainpage", {
-        cards: searchResult,
-        categoriesList: categoriesList,
-        //classesList: classesList,
-        searchTerm: "",
-        searchCategory: "Sort By Price (High to Low)"
-    });
-});
-router.get("/filter/Price_Low_to_High",sortListingByPriceLowToHigh,getCategories,(req, res) => {
-    var searchResult = req.searchResult;
-    var categoriesList = req.categoriesList;
-    //var classesList = req.classesList;
-    res.render("pages/mainpage", {
-        cards: searchResult,
-        categoriesList: categoriesList,
-        //classesList: classesList,
-        searchTerm: "",
-        searchCategory: "Sort By Price (Low to High)"
-    });
-});
+// router.get(
+//   "/filter/Price_High_to_low",
+//   sortListingByPriceHighToLow,
+//   getCategories,
+//   (req, res) => {
+//     var searchResult = req.searchResult;
+//     var categoriesList = req.categoriesList;
+//     //var classesList = req.classesList;
+//     res.render("pages/mainpage", {
+//       cards: searchResult,
+//       categoriesList: categoriesList,
+//       //classesList: classesList,
+//       searchTerm: "",
+//       searchCategory: "Sort By Price (High to Low)"
+//     });
+//   }
+// );
+// router.get(
+//   "/filter/Price_Low_to_High",
+//   sortListingByPriceLowToHigh,
+//   getCategories,
+//   (req, res) => {
+//     var searchResult = req.searchResult;
+//     var categoriesList = req.categoriesList;
+//     //var classesList = req.classesList;
+//     res.render("pages/mainpage", {
+//       cards: searchResult,
+//       categoriesList: categoriesList,
+//       //classesList: classesList,
+//       searchTerm: "",
+//       searchCategory: "Sort By Price (Low to High)"
+//     });
+//   }
+// );
 //gets search results and renders searchpage
+
 router.get("/search", search, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
