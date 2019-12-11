@@ -127,13 +127,14 @@ router.get('/', getRecentListings, getCategories, (req, res) => {
   res.render('pages/mainpage', {
     cards: searchResult,
     categoriesList: categoriesList,
+    isLoggedIn: req.isAuthenticated(),
     searchTerm: '',
     searchCategory: 'All'
   });
 });
 
 router.get('/posts', (req, res) => {
-  res.render('partials/postlistings', {});
+  res.render('partials/postlistings', {isLoggedIn: req.isAuthenticated()});
 });
 
 //search
@@ -145,6 +146,7 @@ router.get('/search', search, getCategories, (req, res) => {
     cards: searchResult,
     categoriesList: categoriesList,
     searchTerm: req.query.search,
+    isLoggedIn: req.isAuthenticated(),
     searchCategory: req.query.category
   });
 });
@@ -182,8 +184,13 @@ router.get('/msgs', getCategories, function(req, res, next) {
   ];
   var searchTerm = req.query.search;
   var categoriesList = req.categoriesList; 
-  res.render('pages/messages', { categoriesList: categoriesList, searchTerm: '',
-         searchCategory: 'All', emails: emailsRecieved });
+  res.render('pages/messages', {
+    categoriesList: categoriesList,
+    searchTerm: '',
+    isLoggedIn: req.isAuthenticated(),
+    searchCategory: 'All',
+    emails: emailsRecieved
+  });
 });
 
 // router.get('/msgs', function(req, res, next) {

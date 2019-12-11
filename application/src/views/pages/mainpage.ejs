@@ -33,7 +33,8 @@
           <!-- the main area -->
 
           <%- include('../partials/sidebar', {'items':cards, 'searchTerm':
-          searchTerm, 'searchCategory': searchCategory}) %> <%-
+          searchTerm, 'searchCategory': searchCategory, 'classesList':
+          classesList, 'classId': classId}) %> <%-
           include('../partials/listings', {'items':cards, 'searchTerm':
           searchTerm, 'searchCategory': searchCategory}) %>
         </div>

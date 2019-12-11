@@ -22,6 +22,15 @@ const router = express.Router();
   }
 })();
 
+async function getClasses(req, res, next) {
+  await db.execute("SELECT * FROM classes", (err, classes) => {
+    if (err) throw err;
+    console.log(classes);
+    req.classesList = classes;
+    next();
+  });
+}
+
 //Set Storage for file uploads
 const storage = multer.diskStorage({
   destination: "./public/images/",
@@ -67,16 +76,19 @@ async function makeThumb(path) {
 }
 
 //gets search results and renders searchpage
-router.get("/sell", getCategories, (req, res) => {
+router.get("/sell", getCategories, getClasses, (req, res) => {
   // var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
   var userid = req.user.id;
+  var classesList = req.classesList;
 
   res.render("pages/postlistings", {
     // cards: searchResult,
     categoriesList: categoriesList,
     searchTerm: req.query.search,
-    searchCategory: req.query.category
+    searchCategory: req.query.category,
+    isLoggedIn: req.isAuthenticated(),
+    classesList: classesList
   });
 });
 
@@ -99,8 +111,8 @@ router.post("/sell", upload.single("thumb"), (req, res) => {
     const insertRes = await db.query(
       `INSERT INTO listing (
        title, price, description, 
-      image, is_sold, date, user_id, category_id
-      ) VALUES (?,?,?,?,?,?,?,?) `,
+      image, is_sold, date, user_id, category_id, class_id
+      ) VALUES (?,?,?,?,?,?,?,?,?) `,
       [
         req.body.title,
         req.body.price,
@@ -109,7 +121,8 @@ router.post("/sell", upload.single("thumb"), (req, res) => {
         0,
         curDateYMD,
         req.user.id,
-        req.body.category
+        req.body.category,
+        req.body.class
       ]
     );
     console.log("req.body: " + req.user.id);
