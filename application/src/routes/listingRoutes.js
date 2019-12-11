@@ -56,7 +56,7 @@ async function sortListingByPriceLowToHigh(req, res, next) {
 async function getClasses(req, res, next) {
   await db.execute("SELECT * FROM classes", (err, classes) => {
     if (err) throw err;
-    //console.log(categories);
+    //console.log(classes);
     req.classesList = classes;
     next();
   });
@@ -84,6 +84,7 @@ async function search(req, res, next) {
   var searchTerm = req.query.search;
   var category = req.query.category;
   var sort = req.query.sort;
+  var classId = req.query.class;
 
   let join =
     "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id";
@@ -123,6 +124,12 @@ async function search(req, res, next) {
     query = ` WHERE is_sold = 0`;
   }
 
+  var classQuery = "";
+  if (classId != undefined) {
+    req.classId = classId;
+    classQuery = " AND listing.class_id = " + classId;
+  }
+
   var orderby = "";
   if (sort == 1) {
     orderby = " ORDER BY listing.date DESC";
@@ -132,7 +139,7 @@ async function search(req, res, next) {
     orderby = " ORDER BY listing.price DESC";
   }
 
-  let sql = join + query + orderby;
+  let sql = join + query + classQuery + orderby;
   console.log("this is sql: " + sql);
   await db.execute(sql, (err, result) => {
     if (err) {
@@ -202,12 +209,14 @@ router.get("/search", search, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
   var classesList = req.classesList;
+  var classId = req.classId;
   res.render("pages/mainpage", {
     cards: searchResult,
     categoriesList: categoriesList,
-    //classesList: classesList,
+    classesList: classesList,
     searchTerm: req.query.search,
-    searchCategory: req.query.category
+    searchCategory: req.query.category,
+    classId: classId
   });
 });
 
@@ -234,13 +243,15 @@ router.get(
 router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
-  //var classesList = req.classesList;
+  var classesList = req.classesList;
+  var classId = req.classId;
   res.render("pages/mainpage", {
     cards: searchResult,
     categoriesList: categoriesList,
-    //classesList: classesList,
+    classesList: classesList,
     searchTerm: "",
-    searchCategory: "Recent"
+    searchCategory: "Recent",
+    classId: classId
   });
 });
 
