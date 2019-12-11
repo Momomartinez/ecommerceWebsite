@@ -96,6 +96,12 @@ router.post(
     failureFlash: false
   })
 );
+router.get('/logout', function (req,res) {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+
+});
 
 passport.serializeUser((user, done) => {
   done(null, user);
