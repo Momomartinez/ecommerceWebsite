@@ -39,6 +39,7 @@ router.post("/register", function(req, res, next) {
     console.log(`errors: ${JSON.stringify(errors)}`);
     res.render("register", {
       title: "Registeration Error",
+      isLoggedIn: req.isAuthenticated(),
       errors: errors
     });
   } else {
@@ -59,7 +60,10 @@ router.post("/register", function(req, res, next) {
         //if there is similar user exists in the table --> show error
       } else {
         console.log("not valid");
-        res.render("register", { title: "Error : Similar user exists" });
+        res.render("register", {
+          title: "Error : Similar user exists" ,
+          isLoggedIn: req.isAuthenticated()
+        });
       }
     });
   }
@@ -74,7 +78,10 @@ router.get("/login/failed", (req, res) => {
 });
 
 router.get("/login", function(req, res) {
-  res.render("login", { title: "Login" });
+  res.render("login", {
+    title: "Login",
+    isLoggedIn: req.isAuthenticated()
+  });
   console.log("user login get: " + req.user.id);
 });
 

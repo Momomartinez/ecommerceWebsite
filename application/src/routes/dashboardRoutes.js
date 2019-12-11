@@ -139,6 +139,7 @@ router.get(
       emails: userMessages,
       cards: userListings,
       userId: userId,
+      isLoggedIn: req.isAuthenticated(),
       username: username
     });
   }

@@ -216,6 +216,7 @@ router.get("/search", search, getCategories, getClasses, (req, res) => {
     classesList: classesList,
     searchTerm: req.query.search,
     searchCategory: req.query.category,
+    isLoggedIn: req.isAuthenticated(),
     classId: classId
   });
 });
@@ -232,6 +233,7 @@ router.get(
     res.render("pages/mainpage", {
       cards: searchResult,
       categoriesList: categoriesList,
+      isLoggedIn: req.isAuthenticated(),
       //classesList: classesList,
       searchTerm: "",
       searchCategory: "All"
@@ -251,6 +253,7 @@ router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
     classesList: classesList,
     searchTerm: "",
     searchCategory: "Recent",
+    isLoggedIn: req.isAuthenticated(),
     classId: classId
   });
 });

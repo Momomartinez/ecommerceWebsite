@@ -87,6 +87,7 @@ router.get("/sell", getCategories, getClasses, (req, res) => {
     categoriesList: categoriesList,
     searchTerm: req.query.search,
     searchCategory: req.query.category,
+    isLoggedIn: req.isAuthenticated(),
     classesList: classesList
   });
 });
