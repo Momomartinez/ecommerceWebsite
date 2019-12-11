@@ -18,6 +18,7 @@ router.get("/register", function(req, res, next) {
 });
 
 router.post("/register", function(req, res, next) {
+  console.log(req);
   req
     .check("name", "username must be between  6 and 18 character")
     .isLength({ min: 6, max: 18 }),
@@ -37,10 +38,11 @@ router.post("/register", function(req, res, next) {
   // const errors = validationResult(req).array({ onlyFirstError: true });
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
-    res.render("register", {
-      title: "Registeration Error",
-      errors: errors
-    });
+    res.json(JSON.stringify({"errors":errors}));
+    // res.render("register", {
+    //   title: "Registeration Error",
+    //   errors: errors
+    // });
   } else {
     const { name, email, password, password_confirm } = req.body;
     console.log("email is: " + req.body.email);
