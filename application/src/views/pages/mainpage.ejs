@@ -9,11 +9,11 @@
     <header>
       <!-- navbar -->
       <%- include('../partials/header', {'categoriesList':categoriesList,
-      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+      'searchTerm': searchTerm, 'searchCategory': searchCategory, 'userLogged': userLogged}) %>
     </header>
 
     <section>
-      <div class="inner-hero">
+      <div id="inner-hero">
         <div class="row m-0">
           <div class="col">
             <h1 class="hero-text text-center">

@@ -66,16 +66,7 @@
     <div class="">
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item user dropleft">
-                    <a href="" target="_blank" class="nav-link dropdown-toggle " type="button" id="dropdownMenuButton" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false"><i class=" fas fa-user fa-2x "></i></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="/msgs">Messages</a>
-                        <a class="dropdown-item" href="/posts">Listings</a>
-                        <a class="dropdown-item bg-light" href="/register">LogOut</a>
-
-                    </div>
-                </li>
+                
                 <li class="nav-item">
                     <a href="./sell" class="nav-link">SELL</a>
                 </li>
@@ -84,9 +75,24 @@
                 </li>
 
 
-                <li class="nav-item loginButton">
-                    <a href="#login" data-toggle="modal" role="button" style="border: 2px solid #ffc107; border-radius: 5px;" class="nav-link ">LOGIN<span style="color: #ffc107">/</span>SIGNUP</a>
-                </li>
+               <% if(userLogged) {%>
+                    <li class="nav-item user dropleft">
+                            <a href="" target="_blank" class="nav-link dropdown-toggle " type="button" id="dropdownMenuButton" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false"><i class=" fas fa-user fa-2x "></i></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                                <a class="dropdown-item bg-light" href="/register">LogOut</a>
+        
+                            </div>
+                        </li>
+                
+               <%} else{%>
+                    <li class="nav-item loginButton">
+                            <a href="#login" data-toggle="modal" role="button" style="border: 2px solid #ffc107; border-radius: 5px;" class="nav-link ">LOGIN<span style="color: #ffc107">/</span>SIGNUP</a>
+                        </li>
+               <% }%>
+
+               
 
 
                 <!-- <li class="nav-item">
@@ -101,5 +107,3 @@
 </div>
 
 <% include ../partials/login %>
-
-

@@ -211,6 +211,7 @@ router.get("/search", search, getCategories, getClasses, (req, res) => {
   var classesList = req.classesList;
   var classId = req.classId;
   res.render("pages/mainpage", {
+    userLogged: true,
     cards: searchResult,
     categoriesList: categoriesList,
     classesList: classesList,
@@ -231,6 +232,7 @@ router.get(
     var categoriesList = req.categoriesList;
     var classesList = req.classesList;
     res.render("pages/mainpage", {
+      userLogged: true,
       cards: searchResult,
       categoriesList: categoriesList,
       isLoggedIn: req.isAuthenticated(),
@@ -248,6 +250,7 @@ router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
   var classesList = req.classesList;
   var classId = req.classId;
   res.render("pages/mainpage", {
+    userLogged: true,
     cards: searchResult,
     categoriesList: categoriesList,
     classesList: classesList,
