@@ -10,6 +10,9 @@
                 
                 <input type="hidden" name="category" value="<%= searchCategory%>"></input>
                 <input type="hidden" name="search" value="<%= searchTerm%>"></input>
+                <% if (classId != undefined) { %>
+                    <input type="hidden" name="class" value="<%= classId%>"></input>
+                <% } %>
                 <select name="sort" aria-setsize="1">
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 
@@ -37,30 +40,28 @@
     <div class="left-menu text-center pt-5">
         <h4 class="pb-4">Textbook Search</h2>
             <ul class="">
+                    <form method="GET" action="/search" class="form-inline search" style="display: block;  margin-left: auto;  margin-right: auto;">
                 <li>
-                    <select name="Department" id="Department" onChange="changecat(this.value);">
+                    <select name="class" id="Department" onChange="changecat(this.value);">
                         <option value="" disabled selected>Select</option>
-                        <option value="BIOL">Biology (BIOL)</option>
-                        <option value="CHEM">Chemistry (CHEM)</option>
-                        <option value="CSC">Computer Science (CSC)</option>
-                        <option value="ERTH">Earth Sciences (ERTH)</option>
-                        <option value="ENGR">Engineering (ENGR)</option>
-                        <option value="GEOL">Geology (GEOL)</option>
-                        <option value="MATH">Mathematics (MATH)</option>
-                        <option value="PHYS">Physics (PHYS)</option>
-                        <option value="PSY">Psychology (PSY)</option>
+                        <% for (var i = 0; i < classesList.length; i++) { %>
+                            <option class="dropdown-item" value="<%= classesList[i].id %>" <% if (searchCategory == classesList[i].class) { %>selected
+                                    <% } %>
+                            ><%= classesList[i].class %></option
+                            >
+                        <% } %>
                     </select>
+                    
+                    <input type="hidden" name="category" value="Textbooks"> </input>
+                    <input type="hidden" name="search" value= ""></input>
+                    <input type="hidden" name="sort" value="1"></input>
 
                 </li>
+                
+    
                 <hr>
                 <li>
-                    <select name="class" id="class">
-                        <option value="" disabled selected>Select</option>
-                    </select>
-                </li>
-                <hr>
-                <li>
-                    <form method="GET" action="/search" class="form-inline search" style="display: block;  margin-left: auto;  margin-right: auto;">
+                    
                         <button id="searchbtn" class="btn bg-warning" type="submit">Search For Textbook</button>
                     </form>
                 </li>
