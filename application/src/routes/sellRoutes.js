@@ -41,17 +41,30 @@ const storage = multer.diskStorage({
     );
   }
 });
-// const storage = multer.diskStorage({
-//     destination(req, file, cb) {
-//         cb(null, 'uploads');
-//     },
-//     filename(req, file, cb) {
-//         cb(null, `${file.fieldname}-${Date.now()}`);
-//     },
-// });
 
 //Initialize the upload variable
-const upload = multer({ storage });
+const upload = multer({
+  storage: storage,
+  fileFilter : function(req, file, cb){
+    checkFileType(file, cb);
+  },
+  limits: {fileSize : 2000000}
+});
+
+//check file type
+function checkFileType(file, cb){
+  //Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  //check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  //check mime
+  const mimetype = filetypes.test(file.mimeType);
+  if(extname && mimetype){
+    return cb(null, true);
+  }else{
+    cb('Error: Images only!');
+  }
+}
 
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
