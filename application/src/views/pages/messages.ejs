@@ -17,15 +17,15 @@
     <!--  //  This partial is for the messages page that holds the implentation of the email messages for the //  users to find their sent or received messages from users trying to contact them on their posted //  items
  -->
 
-    <section class="colorbg">
+    <section class="colorbg  pl-5 pr-5">
       <!-- container for lists of users posts -->
 
-      <div class="container-fluid">
-        <div class="container">
+      <div class="container-fluid ">
+        <div class="container-fluid p-0">
           <%-include('../partials/myPosts', {'cards' : cards, 'username':
           username})%>
         </div>
-        <div class="container">
+        <div class="container-fluid">
           <!-- container for messages -->
           <%-include('../partials/msgBox', {'emails': emails , 'userId': userId,
           'username': username})%> <% emails.forEach(function(emails){ %> <%-
