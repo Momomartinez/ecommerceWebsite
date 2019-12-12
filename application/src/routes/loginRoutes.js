@@ -38,11 +38,13 @@ router.post("/register", function(req, res, next) {
   // const errors = validationResult(req).array({ onlyFirstError: true });
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
-    res.render("register", {
-      title: "Registeration Error",
-      isLoggedIn: req.isAuthenticated(),
-      errors: errors
-    });
+
+    res.json(JSON.stringify({"errors":errors}));
+    // res.render("register", {
+    //   title: "Registeration Error",
+    //   errors: errors
+    // });
+
   } else {
     const { name, email, password, password_confirm } = req.body;
     console.log("email is: " + req.body.email);
@@ -94,6 +96,12 @@ router.post(
     failureFlash: false
   })
 );
+router.get('/logout', function (req,res) {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+
+});
 
 passport.serializeUser((user, done) => {
   done(null, user);
