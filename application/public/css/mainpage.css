@@ -328,6 +328,7 @@ p.itemDescription {
   margin: auto;
   display: flex;
   align-items: center;
+  flex-flow: wrap;
 }
 
 .table-sm td, .table-sm th {
