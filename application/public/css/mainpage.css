@@ -1,12 +1,9 @@
 html,
 body {
-  
   position: relative;
   width: 100%;
   background-color: #d4d6d6;
 }
-
-
 
 .mainArea {
   min-height: 100vh;
@@ -142,8 +139,6 @@ select {
   width: 100%;
   position: relative;
 }
-
-
 
 #team-members {
   margin-top: 80px;
@@ -331,7 +326,8 @@ p.itemDescription {
   flex-flow: wrap;
 }
 
-.table-sm td, .table-sm th {
+.table-sm td,
+.table-sm th {
   text-align: center;
 }
 
@@ -339,23 +335,27 @@ p.itemDescription {
   min-height: 300px;
   margin: auto;
   border: #333 2px solid;
-  padding: 15x;
   margin-bottom: 50px;
   background-color: white;
 }
 
 .MessageBox {
   min-height: 400px;
+  max-height: 400px;
   margin: auto;
-  border: #333 2px solid;
-  padding: 15x;
- background-color: white;
+  margin-bottom: 20px ;
+  background-color: white;
+  padding: 0;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
 }
 
-
 /*  css for textbook search feature*/
-.filterBtn,select#class,
-#Department, button#searchbtn.btn.bg-warning {
+.filterBtn,
+.filterbtn,
+.select#class,
+#Department,
+button#textbook.searchbtn.btn.bg-warning {
   width: 100%;
 }
 
@@ -364,6 +364,6 @@ p.itemDescription {
   position: sticky;
   position: -webkit-sticky;
   height: 80vh;
-  width:100%;
+  width: 100%;
   top: 50px;
 }
