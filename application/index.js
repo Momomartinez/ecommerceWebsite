@@ -53,6 +53,7 @@ const sellRouter = require("./src/routes/sellRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
 // test for messages route
 const messagesRouter = require("./src/routes/messageRoutes");
+<<<<<<< Updated upstream
 
 function authProtect(req, res, next) {
     if (!req.isAuthenticated()) {
@@ -65,6 +66,20 @@ app.use("/", listingRouter);
 app.use("/", loginRouter);
 app.use("/", authProtect,sellRouter);
 app.use("/", authProtect,dashboardRouter);
+=======
+function authProtect(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect('/register');
+    }
+}
+app.use("/about", aboutRouter);
+app.use("/", listingRouter);
+app.use("/", loginRouter);
+app.use("/", authProtect, sellRouter);
+app.use("/", dashboardRouter);
+>>>>>>> Stashed changes
 
 passport.use(
   new LocalStrategy(
