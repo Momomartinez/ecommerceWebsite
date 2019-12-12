@@ -354,8 +354,16 @@ p.itemDescription {
 
 
 /*  css for textbook search feature*/
-select#class,
-#Department,
-button#searchbtn.textbook.btn.bg-warning {
+.filterBtn,select#class,
+#Department, button#searchbtn.btn.bg-warning {
   width: 100%;
+}
+
+/* fake add */
+#sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  height: 80vh;
+  width:100%;
+  top: 50px;
 }

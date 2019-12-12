@@ -2,9 +2,10 @@
 
 
 <div class="col-2 d-none d-lg-block side my-3">
-    <div class="left-menu text-center pt-5">
+<!-- filter button -->
+    <div class="left-menu text-center pt-5 pb-5">
         <div class="dropdown show">
-            
+                <h4 class="pb-4">Filter Search</h2>
 
             <form action="/search" method="GET">
                 
@@ -13,7 +14,7 @@
                 <% if (classId != undefined) { %>
                     <input type="hidden" name="class" value="<%= classId%>"></input>
                 <% } %>
-                <select name="sort" aria-setsize="1">
+                <select name="sort" aria-setsize="1" class="filterBtn">
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 
                         <option class="dropdown-item" name="sort" value="1">Most Recent</option>
@@ -21,22 +22,18 @@
                         <option class="dropdown-item" name="sort" value="3">Price: High to Low</option>
                     </div>
                 </select>    
-
-                <button type="submit" class="btn bg-warning">Filter</button>    
+                    <hr>
+                <button type="submit" class="btn bg-warning filterBtn">Filter</button>    
 
             </form>
-
-            
-            
-
 
 
             
         </div>
     </div>
 
-    <hr>
 
+<!-- textbook search button-->
     <div class="left-menu text-center pt-5">
         <h4 class="pb-4">Textbook Search</h2>
             <ul class="">
@@ -70,12 +67,16 @@
             </ul>
         </h4>
     </div>
-    <div class="col p-0" class="bg-warning" style="height: 100vh; width: 100% !important;">
+
+
+    <!-- fake add -->
+    <div class="col p-0" id="sticky" >
         <h3 class="text-center mt-5">YOUR AD HERE!</h3>
-            <img class="animated-gif" src="https://media.giphy.com/media/9Pmf3QJiDHwyftez6i/giphy.gif" style="
-            height: 80vh; width:100%"> 
+            <img src="https://media.giphy.com/media/9Pmf3QJiDHwyftez6i/giphy.gif" style="
+            min-height: 75vh; width:100%"> 
                 </div>
-</div>
+            </div>
+
 
 <script>
     var departmentByCategory = {
