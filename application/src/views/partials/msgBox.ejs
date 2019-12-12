@@ -25,7 +25,7 @@
             <td><%= emails.sender %></td>
             <td><%= emails.receiver %></td>
             <td><%= emails.listing %></td>
-            <td><%= emails.message %></td>
+            <td class="messageText"><%= emails.message %></td>
             <td><%= emails.date %></td>
             <% if (emails.receiver_id == userId) {%>
             <td>
