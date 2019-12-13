@@ -1,5 +1,9 @@
 <!-- /views/partials/login.ejs -->
 
+
+
+
+<script src="https://www.google.com/recaptcha/api.js?render=_6LeFicYUAAAAAAz0BnJavWtV0eHzfRhXaDqULg9p"></script>
 <div class="modal fade text-dark" id="login">
         <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
@@ -80,7 +84,32 @@
                                                     <label class="form-check-label" for="appartmentCheck">
                                                         Agree to <a href="" style="color: blue;">Privacy Policy</a>
                                                     </label>
+                                                   
                                                     
+                                                    <div class="g-recaptcha" data-sitekey="_6LeFicYUAAAAAAz0BnJavWtV0eHzfRhXaDqULg9p"></div><br>
+
+
+                                                    <script>
+                                                            $(document).ready(function() {
+                                                              $('#comment_form').submit(function() {
+                                                                $(this).ajaxSubmit({
+                                                                  error: function(xhr) {
+                                                                    status('Error: ' + xhr.status);
+                                                                  },
+                                                                 success: function(response) {
+                                                                  console.log(response);
+                                                                 }
+                                                                });
+                                                                //Very important line, it disable the page refresh.
+                                                                return false;
+                                                              });
+                                                            });
+                                                          </script>
+
+
+
+
+
                                                     <p></p>
                                                 </div>
                                             <button class="btn btn-danger" type="submit">Submit</button>

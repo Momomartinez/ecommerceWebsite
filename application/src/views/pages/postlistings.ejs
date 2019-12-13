@@ -48,6 +48,10 @@
                   </select>
                 </div>
               </div>
+              
+
+
+
               <div class="form-group row">
                     <div class="col-lg-9">
                       <select class="form-control" name="class">
@@ -57,10 +61,40 @@
                                   <% } %>
                           ><%= classesList[i].class %></option
                           >
+
+
                       <% } %>
                       </select>
                     </div>
                   </div>
+
+                  <script>
+                      (function() {
+                         'use strict';
+                         /* jshint browser: true */
+                      
+                         var d=document;
+                         var mf=d.getElementById('myform');
+                         var se=d.getElementById('second');
+                         var lo=d.getElementById('location')
+                         var temp;
+                      
+                         mf.reset();
+                         se.className='hide';
+                         lo.onchange=function() {
+                      if(this.value==='loc5') {
+                         se.className=se.className.replace('hide','');
+                       }
+                      else {
+                         temp=this.value;
+                         se.className='hide';
+                         mf.reset();
+                         lo.value=temp;
+                        }
+                       };
+                      }());
+                      </script>
+
               
               <input
                 type="number"
