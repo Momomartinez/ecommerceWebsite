@@ -65,6 +65,22 @@
                                                     <label class="form-check-label" for="appartmentCheck">
                                                         Agree to <a href="" style="color: blue;">terms and conditions</a>
                                                     </label>
+                                                    
+                                                    <p></p>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input
+                                                            name="terms"
+                                                            class="form-check-input"
+                                                            type="checkbox"
+                                                            value="1"
+                                                            id="termsAndConditionsCheck"
+                                                            <%= (typeof body != 'undefined' && typeof body.terms != 'undefined') ? 'checked' : '' %>
+                                                    />
+                                                    <label class="form-check-label" for="appartmentCheck">
+                                                        Agree to <a href="" style="color: blue;">Privacy Policy</a>
+                                                    </label>
+                                                    
                                                     <p></p>
                                                 </div>
                                             <button class="btn btn-danger" type="submit">Submit</button>
