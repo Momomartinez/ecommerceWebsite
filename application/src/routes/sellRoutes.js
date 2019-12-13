@@ -48,7 +48,7 @@ const upload = multer({
   fileFilter : function(req, file, cb){
     checkFileType(file, cb);
   },
-  limits: {fileSize : 2000000}
+  limits: {fileSize : 5000000}
 });
 
 //check file type
@@ -58,12 +58,13 @@ function checkFileType(file, cb){
   //check ext
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   //check mime
-  const mimetype = filetypes.test(file.mimeType);
-  if(extname && mimetype){
+  // const mimetype = filetypes.test(file.mimeType);
+  if(extname){
     return cb(null, true);
   }else{
-    cb('Error: Images only!');
+    cb('Error: Upload images only!');
   }
+
 }
 
 async function getCategories(req, res, next) {
@@ -114,13 +115,18 @@ router.post("/sell", upload.single("thumb"), (req, res) => {
       console.log(req.file);
     }
     if (thumb === "err") {
+      res.render("pages/postlistings", { isLoggedIn: req.isAuthenticated(), err: 'Error parsing image.' });
       console.log("there is an error in making tumb");
-      //return;
+      return;
     }
+    if(req.file == undefined){
+      res.redirect("/sell");
+      return;
+    }
+
 
     var curDate = new Date();
     var curDateYMD = curDate.toYMD();
-
     const insertRes = await db.query(
       `INSERT INTO listing (
        title, price, description, 
