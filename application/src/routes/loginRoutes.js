@@ -33,18 +33,18 @@ router.post("/register", function(req, res, next) {
     .isLength({ min: 6, max: 18 }),
     //req.check('password', 'password not match').equals(req.body.password_confirm);
     req.check("terms", "You must accept the terms and conditions.").equals("1");
+  req.check("privacy", "You must accept the privacy policy").equals("1");
 
   var errors = req.validationErrors();
   // const errors = validationResult(req).array({ onlyFirstError: true });
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
 
-    res.json(JSON.stringify({"errors":errors}));
+    res.json(JSON.stringify({ errors: errors }));
     // res.render("register", {
     //   title: "Registeration Error",
     //   errors: errors
     // });
-
   } else {
     const { name, email, password, password_confirm } = req.body;
     console.log("email is: " + req.body.email);
@@ -64,7 +64,7 @@ router.post("/register", function(req, res, next) {
       } else {
         console.log("not valid");
         res.render("register", {
-          title: "Error : Similar user exists" ,
+          title: "Error : Similar user exists",
           isLoggedIn: req.isAuthenticated()
         });
       }
@@ -96,11 +96,10 @@ router.post(
     failureFlash: false
   })
 );
-router.get('/logout', function (req,res) {
+router.get("/logout", function(req, res) {
   req.logout();
   req.session.destroy();
-  res.redirect('/');
-
+  res.redirect("/");
 });
 
 passport.serializeUser((user, done) => {
