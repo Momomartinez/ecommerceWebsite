@@ -22,6 +22,23 @@ class User {
                 return false;
             });
     }
+
+    static async findUser(name, pass) {
+        return db.query('SELECT * FROM user WHERE email = ?', name)
+            .then(([rows, fields]) => {
+                if (!rows || rows == null || rows.length !== 1) {
+                    return false;
+                }
+                if(bcrypt.compareSync(pass, rows[0].password)){
+                    console.log("return rows[0]"+rows[0]);
+                    return rows[0];
+                }else{
+                    return false;
+                }
+            });
+    }
+
+
 }
 
 

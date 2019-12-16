@@ -9,16 +9,33 @@
     <header>
       <!-- navbar -->
       <%- include('../partials/header', {'categoriesList':categoriesList,
-      'searchTerm': searchTerm, 'searchCategory': searchCategory}) %>
+      'searchTerm': searchTerm, 'searchCategory': searchCategory, 'isLoggedIn': isLoggedIn}) %>
     </header>
+
+    <section>
+      <div id="inner-hero">
+        <div class="row m-0">
+          <div class="col">
+            <h1 class="hero-text text-center">
+              Welcome to our website! Explore what your fellow students have to
+              offer.
+            </h1>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- content body -->
     <section>
       <!-- the side and main areas -->
-      <div class="container-fluid">
+      <div class="container-fluid centerArea">
         <div class="row">
-          <!-- the mian area -->
-          <%- include('../partials/listings', {'items':cards, 'searchTerm':
+          <!-- the main area -->
+
+          <%- include('../partials/sidebar', {'items':cards, 'searchTerm':
+          searchTerm, 'searchCategory': searchCategory, 'classesList':
+          classesList, 'classId': classId}) %> <%-
+          include('../partials/listings', {'items':cards, 'searchTerm':
           searchTerm, 'searchCategory': searchCategory}) %>
         </div>
       </div>
