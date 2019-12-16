@@ -52,7 +52,28 @@ const storage = multer.diskStorage({
 });
 
 //Initialize the upload variable
-const upload = multer({ storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  },
+  limits: { fileSize: 5000000 }
+});
+
+//check file type
+function checkFileType(file, cb) {
+  //Allowed ext
+  const filetypes = /jpeg|jpg|png/;
+  //check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  //check mime
+  // const mimetype = filetypes.test(file.mimeType);
+  if (extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Upload images only!");
+  }
+}
 
 // Gets list of listing categories
 async function getCategories(req, res, next) {
@@ -63,7 +84,7 @@ async function getCategories(req, res, next) {
   });
 }
 
-// Creates thumbnail for listing
+// generates thumbnail for posting
 async function makeThumb(path) {
   try {
     const buffer = await Jimp.read(path).then(lenna =>
@@ -78,7 +99,7 @@ async function makeThumb(path) {
   }
 }
 
-// Gets sell page
+//gets sell page
 router.get(
   "/sell",
   checkAuthentication,
@@ -115,13 +136,20 @@ router.post(
         console.log(req.file);
       }
       if (thumb === "err") {
+        res.render("pages/postlistings", {
+          isLoggedIn: req.isAuthenticated(),
+          err: "Error parsing image."
+        });
         console.log("there is an error in making tumb");
-        //return;
+        return;
+      }
+      if (req.file == undefined) {
+        res.redirect("/sell");
+        return;
       }
 
       var curDate = new Date();
       var curDateYMD = curDate.toYMD();
-
       const insertRes = await db.query(
         `INSERT INTO listing (
        title, price, description, 
