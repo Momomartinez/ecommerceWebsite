@@ -22,6 +22,11 @@ const router = express.Router();
   }
 })();
 
+async function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) next();
+  else res.redirect("/");
+}
+
 async function getClasses(req, res, next) {
   await db.execute("SELECT * FROM classes", (err, classes) => {
     if (err) throw err;
@@ -76,60 +81,71 @@ async function makeThumb(path) {
 }
 
 //gets search results and renders searchpage
-router.get("/sell", getCategories, getClasses, (req, res) => {
-  // var searchResult = req.searchResult;
-  var categoriesList = req.categoriesList;
-  var userid = req.user.id;
-  var classesList = req.classesList;
+router.get(
+  "/sell",
+  checkAuthentication,
+  getCategories,
+  getClasses,
+  (req, res) => {
+    // var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    var userid = req.user.id;
+    var classesList = req.classesList;
 
-  res.render("pages/postlistings", {
-    // cards: searchResult,
-    categoriesList: categoriesList,
-    searchTerm: req.query.search,
-    searchCategory: req.query.category,
-    isLoggedIn: req.isAuthenticated(),
-    classesList: classesList
-  });
-});
+    res.render("pages/postlistings", {
+      // cards: searchResult,
+      categoriesList: categoriesList,
+      searchTerm: req.query.search,
+      searchCategory: req.query.category,
+      isLoggedIn: req.isAuthenticated(),
+      classesList: classesList
+    });
+  }
+);
 
-router.post("/sell", upload.single("thumb"), (req, res) => {
-  // const img = fs.readFileSync(req.file.path);
-  (async () => {
-    let thumb;
-    if (req.file) {
-      thumb = await makeThumb(req.file.path);
-      console.log(req.file);
-    }
-    if (thumb === "err") {
-      console.log("there is an error in making tumb");
-      //return;
-    }
+router.post(
+  "/sell",
+  checkAuthentication,
+  upload.single("thumb"),
+  (req, res) => {
+    // const img = fs.readFileSync(req.file.path);
+    (async () => {
+      let thumb;
+      if (req.file) {
+        thumb = await makeThumb(req.file.path);
+        console.log(req.file);
+      }
+      if (thumb === "err") {
+        console.log("there is an error in making tumb");
+        //return;
+      }
 
-    var curDate = new Date();
-    var curDateYMD = curDate.toYMD();
+      var curDate = new Date();
+      var curDateYMD = curDate.toYMD();
 
-    const insertRes = await db.query(
-      `INSERT INTO listing (
+      const insertRes = await db.query(
+        `INSERT INTO listing (
        title, price, description, 
       image, is_sold, date, user_id, category_id, class_id
       ) VALUES (?,?,?,?,?,?,?,?,?) `,
-      [
-        req.body.title,
-        req.body.price,
-        req.body.description,
-        req.file.path.substring(7),
-        0,
-        curDateYMD,
-        req.user.id,
-        req.body.category,
-        req.body.class
-      ]
-    );
-    console.log("req.body: " + req.user.id);
-    console.log("date: " + curDateYMD);
+        [
+          req.body.title,
+          req.body.price,
+          req.body.description,
+          req.file.path.substring(7),
+          0,
+          curDateYMD,
+          req.user.id,
+          req.body.category,
+          req.body.class
+        ]
+      );
+      console.log("req.body: " + req.user.id);
+      console.log("date: " + curDateYMD);
 
-    res.redirect("/dashboard");
-  })();
-});
+      res.redirect("/dashboard");
+    })();
+  }
+);
 
 module.exports = router;
