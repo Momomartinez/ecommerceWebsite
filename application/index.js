@@ -1,3 +1,4 @@
+// Entry point for Node application
 const express = require("express");
 const path = require("path");
 const { User } = require("./src/models/user.js");
@@ -22,11 +23,16 @@ var options = {
 var sessionStore = new MySQLStore(options);
 const app = express();
 
+// logs requests to the backend
 const morgan = require("morgan");
 app.use(morgan("tiny"));
+
+// sets view engine for ejs
 app.set("views", path.join(__dirname, "./src/views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+
+// allows to parse body in http post requests
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
@@ -44,16 +50,16 @@ app.use(
 // require('./src/config/passport.js')(app);
 app.use(passport.initialize());
 app.use(passport.session());
+
 /* allows to call static items in pulic folder such as images */
 app.use(express.static("./public"));
+
+// allows to use our API's for application
 const aboutRouter = require("./src/routes/aboutRoutes");
 const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
 const sellRouter = require("./src/routes/sellRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
-// test for messages route
-const messagesRouter = require("./src/routes/messageRoutes");
-
 app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);

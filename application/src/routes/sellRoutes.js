@@ -1,3 +1,4 @@
+// API for posting listings
 const express = require("express");
 const multer = require("multer");
 const Jimp = require("jimp");
@@ -5,6 +6,7 @@ const path = require("path");
 const db = require("../models/database.js");
 const router = express.Router();
 
+// Converts js time to MySQL datetime format to fit database model
 (function() {
   Date.prototype.toYMD = Date_toYMD;
   function Date_toYMD() {
@@ -22,11 +24,13 @@ const router = express.Router();
   }
 })();
 
+// Checks if user is logged in
 async function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) next();
   else res.redirect("/");
 }
 
+// Gets list of classes to post textbooks for
 async function getClasses(req, res, next) {
   await db.execute("SELECT * FROM classes", (err, classes) => {
     if (err) throw err;
@@ -46,18 +50,11 @@ const storage = multer.diskStorage({
     );
   }
 });
-// const storage = multer.diskStorage({
-//     destination(req, file, cb) {
-//         cb(null, 'uploads');
-//     },
-//     filename(req, file, cb) {
-//         cb(null, `${file.fieldname}-${Date.now()}`);
-//     },
-// });
 
 //Initialize the upload variable
 const upload = multer({ storage });
 
+// Gets list of listing categories
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
     if (err) throw err;
@@ -66,6 +63,7 @@ async function getCategories(req, res, next) {
   });
 }
 
+// Creates thumbnail for listing
 async function makeThumb(path) {
   try {
     const buffer = await Jimp.read(path).then(lenna =>
@@ -80,7 +78,7 @@ async function makeThumb(path) {
   }
 }
 
-//gets search results and renders searchpage
+// Gets sell page
 router.get(
   "/sell",
   checkAuthentication,
@@ -103,6 +101,7 @@ router.get(
   }
 );
 
+// Creates new listing from required fields in form
 router.post(
   "/sell",
   checkAuthentication,

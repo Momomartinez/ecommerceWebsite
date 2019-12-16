@@ -1,13 +1,16 @@
+// API's for messages and dashboard
 const express = require("express");
 const db = require("../models/database.js");
 const router = express.Router();
 const passport = require("passport");
 
+// Checks to see if user is logged in
 async function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) next();
   else res.redirect("/login");
 }
 
+// Gets list of categories
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
     if (err) throw err;
@@ -16,6 +19,7 @@ async function getCategories(req, res, next) {
   });
 }
 
+// Gets list of messages sent and received from user
 async function getMessages(req, res, next) {
   var uid = req.user.id;
 
@@ -36,6 +40,7 @@ async function getMessages(req, res, next) {
   });
 }
 
+// Gets list of listings posted by user
 async function getListings(req, res, next) {
   var uid = req.user.id;
 
@@ -50,6 +55,7 @@ async function getListings(req, res, next) {
   });
 }
 
+// Updates listing as sold
 async function updateListing(req, res, next) {
   var lid = req.body.listingId;
   console.log("lid: ", lid);
@@ -63,6 +69,7 @@ async function updateListing(req, res, next) {
   });
 }
 
+// Deletes listing from database
 async function deleteListing(req, res, next) {
   var lid = req.body.listingId;
   console.log("lid: ", lid);
@@ -76,6 +83,7 @@ async function deleteListing(req, res, next) {
   });
 }
 
+// creates and sends message to receiver
 async function createMessage(req, res, next) {
   var message = req.body.message;
   var senderId = req.user.id;
@@ -110,6 +118,7 @@ async function createMessage(req, res, next) {
   });
 }
 
+// Renders user dashboard with user's listings and messages
 router.get(
   "/dashboard",
   checkAuthentication,
@@ -124,14 +133,6 @@ router.get(
     var username = req.user.username;
     console.log("username: ", username);
 
-    // res.render("pages/dashboard", {
-    //   userMessages: userMessages,
-    //   userListings: userListings,
-    //   categoriesList: categoriesList,
-    //   searchTerm: "",
-    //   searchCategory: "All"
-    // });
-
     res.render("pages/messages", {
       categoriesList: categoriesList,
       searchTerm: "",
@@ -145,6 +146,7 @@ router.get(
   }
 );
 
+// Updates listing and then renders dashboard again
 router.post(
   "/updateListing",
   checkAuthentication,
@@ -154,6 +156,7 @@ router.post(
   }
 );
 
+// Deletes listing and then renders dashboard again
 router.post(
   "/deleteListing",
   checkAuthentication,
@@ -163,68 +166,9 @@ router.post(
   }
 );
 
+// Creates and sends message and then renders dashboard
 router.post("/message", checkAuthentication, createMessage, (req, res) => {
   res.redirect("/dashboard");
 });
-
-// async function getConversation(req, res, next) {
-//   var uid = req.user.id;
-//   var partnerId = req.query.partnerId;
-//   //var listingId = req.listingId;
-
-//   var query =
-//     "SELECT DISTINCT user.username, message.sender_id, message.receiver_id, message.message, message.date FROM message, user WHERE ((message.receiver_id = " +
-//     uid +
-//     " && message.sender_id = " +
-//     partnerId +
-//     ") || (message.receiver_id = " +
-//     partnerId +
-//     " && message.sender_id = " +
-//     uid +
-//     ")) AND user.id = message.sender_id ORDER BY date ASC;";
-
-//   await db.execute(query, (err, result) => {
-//     if (err) {
-//       req.conversation = "";
-//       next();
-//     }
-//     req.conversation = result;
-//     next();
-//   });
-// }
-
-// router.get("/userMessages", getCategories, getMessages, (req, res) => {
-//   var categoriesList = req.categoriesList;
-//   var userMessages = req.userMessages;
-
-//   // res.render("pages/userMessages", {
-//   //
-//   //   categoriesList: categoriesList,
-//   //   searchTerm: "",
-//   //   searchCategory: "All"
-//   // });
-// });
-
-// router.get(
-//   "/getConversation",
-//   //getCategories,
-//   getConversation,
-//   (req, res) => {
-//     // var categoriesList = req.categoriesList;
-//     var conversation = req.conversation;
-//     // render message box with conversation
-//   }
-// );
-
-// router.get("/userListings", getCategories, getListings, (req, res) => {
-//   var categoriesList = req.categoriesList;
-//   var userListings = req.listings;
-//   // res.render("pages/userListings", {
-//   //   cards: userListings,
-//   //   categoriesList: categoriesList,
-//   //   searchTerm: "",
-//   //   searchCategory: "All"
-//   // });
-// });
 
 module.exports = router;

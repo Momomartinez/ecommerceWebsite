@@ -1,3 +1,4 @@
+// API for user registration and signup
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/user.js");
@@ -5,6 +6,7 @@ const { validationResult } = require("express-validator/check");
 const passport = require("passport");
 var expressValidator = require("express-validator");
 
+// Gets registration page
 router.get("/register", function(req, res, next) {
   console.log("10 : " + req.user);
   console.log("10 : " + req.isAuthenticated());
@@ -17,6 +19,7 @@ router.get("/register", function(req, res, next) {
   req.session.errors = null;
 });
 
+// Verifies that new user has filled in the signup form correctly and creates user
 router.post("/register", function(req, res, next) {
   console.log(req);
   req
@@ -72,6 +75,7 @@ router.post("/register", function(req, res, next) {
   }
 });
 
+// Redirect for failed login
 router.get("/login/failed", (req, res) => {
   res.render("register", {
     login: true,
@@ -80,6 +84,7 @@ router.get("/login/failed", (req, res) => {
   });
 });
 
+// Get login page
 router.get("/login", function(req, res) {
   res.render("login", {
     title: "Login",
@@ -88,6 +93,7 @@ router.get("/login", function(req, res) {
   console.log("user login get: " + req.user.id);
 });
 
+// Logs in user
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -96,6 +102,8 @@ router.post(
     failureFlash: false
   })
 );
+
+// Logs out user
 router.get("/logout", function(req, res) {
   req.logout();
   req.session.destroy();
