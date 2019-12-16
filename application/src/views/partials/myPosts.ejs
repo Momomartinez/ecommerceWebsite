@@ -5,11 +5,12 @@
 
 <!-- views/partials/listings.ejs -->
 
-<div class=" mainArea col my-3">
+<div class="overflow-auto myposts">
+    <span class="">
+        <h3 style="background-color: indigo; color: white;" class=" text-center py-3 sticky-top"><%= username %>'s Listings</h3>
+      </span>
   <section id="cardss">
-    <span class="my-4">
-      <h3 class=" text-center py-3"><%= username %>'s Listings</h3>
-    </span>
+   
     <div class="row">
       <% cards.forEach(function(cards){ %> <%- include('../partials/cards',
       {cards: cards}); %> <% }); %>

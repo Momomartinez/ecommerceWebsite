@@ -211,11 +211,13 @@ router.get("/search", search, getCategories, getClasses, (req, res) => {
   var classesList = req.classesList;
   var classId = req.classId;
   res.render("pages/mainpage", {
+    userLogged: true,
     cards: searchResult,
     categoriesList: categoriesList,
     classesList: classesList,
     searchTerm: req.query.search,
     searchCategory: req.query.category,
+    isLoggedIn: req.isAuthenticated(),
     classId: classId
   });
 });
@@ -230,8 +232,10 @@ router.get(
     var categoriesList = req.categoriesList;
     var classesList = req.classesList;
     res.render("pages/mainpage", {
+      userLogged: true,
       cards: searchResult,
       categoriesList: categoriesList,
+      isLoggedIn: req.isAuthenticated(),
       //classesList: classesList,
       searchTerm: "",
       searchCategory: "All"
@@ -246,11 +250,13 @@ router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
   var classesList = req.classesList;
   var classId = req.classId;
   res.render("pages/mainpage", {
+    userLogged: true,
     cards: searchResult,
     categoriesList: categoriesList,
     classesList: classesList,
     searchTerm: "",
     searchCategory: "Recent",
+    isLoggedIn: req.isAuthenticated(),
     classId: classId
   });
 });

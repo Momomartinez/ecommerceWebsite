@@ -18,6 +18,7 @@ router.get("/register", function(req, res, next) {
 });
 
 router.post("/register", function(req, res, next) {
+  console.log(req);
   req
     .check("name", "username must be between  6 and 18 character")
     .isLength({ min: 6, max: 18 }),
@@ -37,10 +38,13 @@ router.post("/register", function(req, res, next) {
   // const errors = validationResult(req).array({ onlyFirstError: true });
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
-    res.render("register", {
-      title: "Registeration Error",
-      errors: errors
-    });
+
+    res.json(JSON.stringify({"errors":errors}));
+    // res.render("register", {
+    //   title: "Registeration Error",
+    //   errors: errors
+    // });
+
   } else {
     const { name, email, password, password_confirm } = req.body;
     console.log("email is: " + req.body.email);
@@ -59,7 +63,10 @@ router.post("/register", function(req, res, next) {
         //if there is similar user exists in the table --> show error
       } else {
         console.log("not valid");
-        res.render("register", { title: "Error : Similar user exists" });
+        res.render("register", {
+          title: "Error : Similar user exists" ,
+          isLoggedIn: req.isAuthenticated()
+        });
       }
     });
   }
@@ -74,7 +81,10 @@ router.get("/login/failed", (req, res) => {
 });
 
 router.get("/login", function(req, res) {
-  res.render("login", { title: "Login" });
+  res.render("login", {
+    title: "Login",
+    isLoggedIn: req.isAuthenticated()
+  });
   console.log("user login get: " + req.user.id);
 });
 
@@ -86,6 +96,12 @@ router.post(
     failureFlash: false
   })
 );
+router.get('/logout', function (req,res) {
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+
+});
 
 passport.serializeUser((user, done) => {
   done(null, user);
