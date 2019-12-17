@@ -1,4 +1,8 @@
-// API for listings
+/*
+Author: Gem Angelo Lagman
+Date: 12/16/19
+Description: API for listings
+*/
 const express = require("express");
 const db = require("../models/database.js");
 const router = express.Router();

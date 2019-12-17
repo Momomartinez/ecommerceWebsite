@@ -1,4 +1,9 @@
-// API for posting listings
+/*
+Author: Raya Farshad
+Date: 12/16/19
+Description: API for posting listings.
+*/
+
 const express = require("express");
 const multer = require("multer");
 const Jimp = require("jimp");
