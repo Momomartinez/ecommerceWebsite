@@ -38,7 +38,7 @@ body {
 }
 
 #inner-hero {
-  background-color: indigo;
+  background-color:rgb(50, 1, 85);
   max-width: 1800px;
   margin: auto;
   height: 150px;
@@ -56,7 +56,7 @@ body {
 
 .header {
   height: 100px;
-  background-color: indigo !important;
+  background-color: rgb(50, 1, 85) !important;
 }
 
 #logobtn {
@@ -73,7 +73,7 @@ body {
 }
 .team {
   font-family: 'Alatsi', sans-serif;
-  background: indigo;
+  background:rgb(50, 1, 85);
   box-shadow: none !important;
   color: white;
 }
@@ -114,7 +114,7 @@ a.dropdown-item {
 }
 
 .navbar {
-  background-color: indigo !important;
+  background-color: rgb(50, 1, 85) !important;
   max-width: 1800px;
   display: flex;
   justify-content: center;
@@ -140,7 +140,7 @@ select {
 }
 
 .searchDiv {
-  background-color: indigo;
+  background-color: rgb(50, 1, 85);
   padding-bottom: 10px;
   padding-top: 0;
   width: 100%;
@@ -219,9 +219,9 @@ ul {
   border-radius: 0.5rem;
  
 }
-.login-modal{
+/* .login-modal{
   width: fit-content;
-}
+} */
 
 .modal-footer > button {
   justify-content: center !important;
@@ -245,21 +245,21 @@ ul {
 
 #loginBtn {
   width: 100%;
-  background: indigo;
-  border: 1px solid indigo;
+  background: rgb(50, 1, 85);
+  border: 1px solid rgb(50, 1, 85);
   padding: 8px 20px;
   font-weight: 700;
   font-size: 20px;
   color: white;
 }
 #forgotlink {
-  color: indigo !important;
+  color: rgb(50, 1, 85) !important;
   display: flex;
   justify-content: center;
 }
 
 #switch {
-  color: indigo;
+  color: rgb(50, 1, 85);
   cursor: pointer;
   margin-left: .3rem;
 }
