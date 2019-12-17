@@ -1,3 +1,9 @@
+/*
+Author: Gem Angelo Lagman
+Date: 12/16/19
+Description: These routes are specifically for  messages and dashboard.
+*/
+
 // API's for messages and dashboard
 const express = require("express");
 const db = require("../models/database.js");

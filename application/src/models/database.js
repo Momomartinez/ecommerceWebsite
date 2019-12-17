@@ -1,3 +1,9 @@
+/*
+Author: Raya Farshad
+Date: 12/16/19
+Description: This file holds the pool data for connections.
+*/
+
 const mysql = require("mysql2/promise");
 
 const pool = mysql.createPool({
