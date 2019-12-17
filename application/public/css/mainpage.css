@@ -219,9 +219,6 @@ ul {
   border-radius: 0.5rem;
  
 }
-/* .login-modal{
-  width: fit-content;
-} */
 
 .modal-footer > button {
   justify-content: center !important;
@@ -449,4 +446,12 @@ button#textbook.searchbtn.btn.bg-warning {
 
 .submit {
   width: 100%;
+}
+
+
+.needReg{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
