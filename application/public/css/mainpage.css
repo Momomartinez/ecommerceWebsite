@@ -261,6 +261,7 @@ ul {
 #switch {
   color: indigo;
   cursor: pointer;
+  margin-left: .3rem;
 }
 
 .policy {

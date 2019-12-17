@@ -80,9 +80,10 @@
                 <% } %>
 
                 <form method="post" action="/register">
-                  <!--name-->
+                  <!-- name -->
                   <div class="form-group">
                     <input
+                      required
                       name="name"
                       type="text"
                       class="form-control form-control-lg"
@@ -104,6 +105,7 @@
                   <!--password-->
                   <div class="form-group">
                     <input
+                    required
                       name="password"
                       type="password"
                       class="form-control form-control-lg"
@@ -113,6 +115,7 @@
                   <!--password-->
                   <div class="form-group">
                     <input
+                    required
                       name="password_confirm"
                       type="password"
                       class="form-control form-control-lg"
@@ -121,7 +124,7 @@
                   </div>
                   <!--agree to terms and conditions-->
                   <div class="form-check">
-                    <input name="terms" class="form-check-input" type="checkbox"
+                    <input  required name="terms" class="form-check-input" type="checkbox"
                     value="1" id="termsAndConditionsCheck" <%= (typeof body !=
                     'undefined' && typeof body.terms != 'undefined') ? 'checked'
                     : '' %> />
@@ -132,6 +135,7 @@
                     <p></p>
                   </div>
                   <input
+                  required
                     type="hidden"
                     name="recaptcha_response"
                     id="recaptchaResponse"

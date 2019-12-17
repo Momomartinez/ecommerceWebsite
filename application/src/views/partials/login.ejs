@@ -11,13 +11,14 @@
                                 <div id="userIcon"> <i class="fas fa-user-plus"></i>
                                   </div>
                                       Sign up
-                                     
                                   </h1>
-                                  
+                                  <span class="policy">* All fields are required</span>
                                   <form action="/register" method="POST">
                                       <div class="form-group">
                                           <label for="name">Name</label>
                                           <input
+                                          required
+                                          pattern="\w{6,18}"
                                                   type="name"
                                                   id="name"
                                                   name="name"
@@ -25,10 +26,13 @@
                                                   placeholder="Enter Name"
                                                   value="<%= typeof name != 'undefined' ? name : '' %>"
                                           />
+                                          <span class=" policy text-muted">Name must be between 6 to 18 characters</span>
                                       </div>
                                       <div class="form-group">
                                           <label for="email">Email</label>
                                           <input
+                                          pattern="\w+@mail\.sfsu\.edu"
+                                          required
                                                   type="email"
                                                   id="email"
                                                   name="email"
@@ -36,10 +40,13 @@
                                                   placeholder="Enter Email"
                                                   value="<%= typeof email != 'undefined' ? email : '' %>"
                                           />
+                                          <span class=" policy text-muted">Email must end with @mail.sfsu.edu</span>
                                       </div>
                                       <div class="form-group">
                                           <label for="password">Password</label>
                                           <input
+                                          required
+                                          pattern="\w{6,18}"
                                                   type="password"
                                                   id="password"
                                                   name="password"
@@ -47,10 +54,13 @@
                                                   placeholder="Create Password"
                                                   value="<%= typeof password != 'undefined' ? password : '' %>"
                                           />
+                                          <span class=" policy text-muted">Password must be between 6 to 18 characters</span>
                                       </div>
                                       <div class="form-group">
                                           <label for="password">Confirm Password</label>
                                           <input
+                                          required
+                                          pattern="\w{6,18}"
                                                   type="password"
                                                   name="password_confirm"
                                                   class="form-control"
@@ -60,6 +70,7 @@
                                       </div>
                                       <div class="form-check">
                                               <input
+                                              required
                                                       name="terms"
                                                       class="form-check-input"
                                                       type="checkbox"
@@ -115,11 +126,11 @@
                         <form id="form-id" method="POST" action="/login">
                           <div class="form-group">
                             <label for="inputEmail">Email</label>
-                            <input class="form-control" type="email" name="name" id="inputEmail" placeholder="Email">
+                            <input class="form-control" type="email" name="name" id="inputEmail" placeholder="Email" required>
                           </div>
                           <div class="form-group">
                             <label for="inputPassword">Password</label>
-                            <input class="form-control" name="password" type="password" id="inputPassword" placeholder="Password">
+                            <input class="form-control" name="password" type="password" id="inputPassword" placeholder="Password"  required>
                             
                           </div>
                           <div class="policy mb-5 text-muted">
@@ -144,3 +155,9 @@
   </div>
 </div>
 </div>
+<script>
+  function performRegister(myForm) {
+
+  }
+
+</script>
