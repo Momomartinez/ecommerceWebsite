@@ -1,4 +1,9 @@
-// API to retrieve each members' about me page
+/*
+Author: Raya Farshad, Gem Angelo Lagman
+Date: 12/16/19
+Description: API to retrieve each members' about me page
+*/
+
 var express = require("express");
 var router = express.Router();
 
