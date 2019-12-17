@@ -71,21 +71,26 @@ body {
     width: 100%;
   }
 }
+.team {
+  font-family: 'Alatsi', sans-serif;
+  background: indigo;
+  box-shadow: none !important;
+  color: white;
+}
 
 .navbar-brand {
-  font-size: 30px;
+  font-size: 25px;
   padding: 0;
   padding-left: 10px;
   padding-right: 30px;
   color: white !important;
   margin: 0;
-  font-family: 'Anton', sans-serif;
+  font-family: 'Playfair Display', serif;
 }
 .nav-link {
   color: white !important;
   text-align: center;
   margin: 5px;
-
 }
 
 /* user dropdown navlinks */
@@ -188,7 +193,7 @@ select {
   height: 100%;
 }
 
-.cardLook{
+.cardLook {
   padding-right: 5px !important;
   padding-left: 5px !important;
 }
@@ -203,14 +208,19 @@ ul {
   padding-left: 0;
 }
 
-.modal{
-  background: rgba(255, 255, 255, 0.8);
+.modal {
+  background: rgba(255, 255, 255, 0.5);
+  font-family: 'Alatsi', sans-serif;
 }
 
-.modal-content{
-  box-shadow: 0 2px 9px 0 rgba(74,74,74,0.20);
+.modal-content {
+  box-shadow: 0 2px 9px 0 rgba(74, 74, 74, 0.2);
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
+ 
+}
+.login-modal{
+  width: fit-content;
 }
 
 .modal-footer > button {
@@ -227,10 +237,55 @@ ul {
   flex-direction: column;
 }
 
+
+/* login/signup css details */
 .modalbtn {
   width: 100%;
 }
 
+#loginBtn {
+  width: 100%;
+  background: indigo;
+  border: 1px solid indigo;
+  padding: 8px 20px;
+  font-weight: 700;
+  font-size: 20px;
+  color: white;
+}
+#forgotlink {
+  color: indigo !important;
+  display: flex;
+  justify-content: center;
+}
+
+#switch {
+  color: indigo;
+  cursor: pointer;
+}
+
+.policy {
+  font-size: 12px;
+}
+
+.noAcct {
+  display: flex;
+  justify-content: center;
+}
+
+#userIcon{
+  border: 3px solid #333;
+  height: 70px;
+  width: 70px;
+ margin: auto;
+ border-radius: 50%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+
+
+/* card text details for items on page */
 h6.itemPrice {
   width: 100%;
   text-align: start;
@@ -358,19 +413,18 @@ p.itemDescription {
   background-color: white;
 }
 
-
-
-.MessageBox, .myposts {
+.MessageBox,
+.myposts {
   min-height: 500px;
   max-height: 500px;
   margin: auto;
   margin-bottom: 20px;
   background-color: white;
   padding: 0;
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
-.messageText{
+.messageText {
   font-style: oblique;
 }
 
@@ -392,6 +446,6 @@ button#textbook.searchbtn.btn.bg-warning {
   top: 50px;
 }
 
-.submit{
+.submit {
   width: 100%;
 }
