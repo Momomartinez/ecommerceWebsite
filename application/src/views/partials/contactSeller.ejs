@@ -21,7 +21,7 @@
            <%=cards.title%>
             <span class="itemPrice">$<%= cards.price %></span>
           </div>
-          <div class=""> <%= cards.description %> </div>
+          <div class="inner-post-info"> <%= cards.description %> </div>
         </div>
     </div>
           <form action="/message" method="POST">
@@ -38,7 +38,7 @@
               <input type="text" name = "message" class="form-control"></input>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary btn-block " type="submit">Submit</button>
+              <button style="background-color: indigo; color: white;;" class="btn btn-block" type="submit">Submit</button>
               <button class="btn btn-warning btn-block m-0">Cancel</button>
             </div>
           </form>
