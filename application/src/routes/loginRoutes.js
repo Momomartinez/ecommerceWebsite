@@ -1,4 +1,9 @@
-// API for user registration and signup
+/*
+Author: Raya Farshad
+Date: 12/16/19
+Description: API for user registration, Login, Logout and authentication.
+*/
+
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/user.js");
@@ -8,8 +13,8 @@ var expressValidator = require("express-validator");
 
 // Gets registration page
 router.get("/register", function(req, res, next) {
-  console.log("10 : " + req.user);
-  console.log("10 : " + req.isAuthenticated());
+  // console.log("10 : " + req.user);
+  // console.log("10 : " + req.isAuthenticated());
   res.render("register", {
     title: "Form Validation",
     isLoggedIn: req.isAuthenticated(),

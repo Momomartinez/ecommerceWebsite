@@ -1,3 +1,9 @@
+/*
+Author: Raya Farshad
+Date: 12/16/19
+Description: User Model and specific functions relating to the user such as user registration and validation
+*/
+
 const bcrypt = require('bcryptjs');
 const db = require('./database.js');
 const saltRounds = 10;
