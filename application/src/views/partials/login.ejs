@@ -7,6 +7,9 @@
                       <div id="register">
                               <h1 class="text-center mb-3">
                                       <i class="fas fa-user-plus"></i> Sign up
+                                      <button class="close" data-dismiss="modal">
+                                          <span>&times;</span>
+                                      </button>
                                   </h1>
                                   
                                   <form action="/register" method="POST">
@@ -99,6 +102,9 @@
                       <div id="login-content" style="display :none;">
                               <h1 class="text-center mb-3">
                                       <i class="far fa-user"></i>Log In
+                                      <button class="close" data-dismiss="modal">
+                                          <span>&times;</span>
+                                      </button>
                                   </h1>
                               
 
@@ -111,11 +117,12 @@
                           <div class="form-group">
                             <label for="inputPassword">Password</label>
                             <input class="form-control" name="password" type="password" id="inputPassword" placeholder="Password">
-                            <a type="button" class="btn btn-link btn-sm">Forgot password</a>
+                            
                           </div>
                           <div class="form-group">
                             <button type="submit" class="btn btn-info btn-md">Log in</button>
                           </div>
+                          <a href="#" class="">Forgot password</a>
                         </form>
                         <hr>
                         <a class="btn btn-success btn-lg" onclick="$('#login-content').hide();$('#register').show();$('#form-id').trigger('reset');">
@@ -128,29 +135,3 @@
   </div>
 </div>
 </div>
-
-
-<!-- for prototype day or testing and showing only -->
-<script>
-  function hideElement() {
-      element = document.querySelector('.loginButton');
-      element.style.visibility = 'hidden';
-  }
-//     function showElement() {
-//         element = document.querySelector('.user');
-//         element.style.visibility = 'visible';
-//     }
-//     function replace() {
-//         var firstbtn = document.querySelector(".loginButton");
-//         var secondbtn = document.querySelector(".user");
-//         firstbtn.parentNode.replaceChild(secondbtn, firstbtn);
-//         secondbtn.style.visibility = 'visible';
-//     }
-// document.onload = () => {
-//   if(window.logged){
-//     showElement();
-//   } else{
-//     window.logged = 1;
-//   }
-// }
-</script>
