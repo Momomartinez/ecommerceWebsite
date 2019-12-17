@@ -203,6 +203,16 @@ ul {
   padding-left: 0;
 }
 
+.modal{
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.modal-content{
+  box-shadow: 0 2px 9px 0 rgba(74,74,74,0.20);
+  border: none;
+  border-radius: .5rem;
+}
+
 .modal-footer > button {
   justify-content: center !important;
   align-content: center !important;
