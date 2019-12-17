@@ -1,3 +1,4 @@
+// API for posting listings
 const express = require("express");
 const multer = require("multer");
 const Jimp = require("jimp");
@@ -5,6 +6,7 @@ const path = require("path");
 const db = require("../models/database.js");
 const router = express.Router();
 
+// Converts js time to MySQL datetime format to fit database model
 (function() {
   Date.prototype.toYMD = Date_toYMD;
   function Date_toYMD() {
@@ -22,6 +24,13 @@ const router = express.Router();
   }
 })();
 
+// Checks if user is logged in
+async function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) next();
+  else res.redirect("/");
+}
+
+// Gets list of classes to post textbooks for
 async function getClasses(req, res, next) {
   await db.execute("SELECT * FROM classes", (err, classes) => {
     if (err) throw err;
@@ -41,18 +50,32 @@ const storage = multer.diskStorage({
     );
   }
 });
-// const storage = multer.diskStorage({
-//     destination(req, file, cb) {
-//         cb(null, 'uploads');
-//     },
-//     filename(req, file, cb) {
-//         cb(null, `${file.fieldname}-${Date.now()}`);
-//     },
-// });
 
 //Initialize the upload variable
-const upload = multer({ storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: function(req, file, cb) {
+    checkFileType(file, cb);
+  },
+  limits: { fileSize: 5000000 }
+});
 
+//check file type
+function checkFileType(file, cb) {
+  //Allowed ext
+  const filetypes = /jpeg|jpg|png/;
+  //check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  //check mime
+  // const mimetype = filetypes.test(file.mimeType);
+  if (extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Upload images only!");
+  }
+}
+
+// Gets list of listing categories
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
     if (err) throw err;
@@ -61,6 +84,7 @@ async function getCategories(req, res, next) {
   });
 }
 
+// generates thumbnail for posting
 async function makeThumb(path) {
   try {
     const buffer = await Jimp.read(path).then(lenna =>
@@ -75,61 +99,80 @@ async function makeThumb(path) {
   }
 }
 
-//gets search results and renders searchpage
-router.get("/sell", getCategories, getClasses, (req, res) => {
-  // var searchResult = req.searchResult;
-  var categoriesList = req.categoriesList;
-  var userid = req.user.id;
-  var classesList = req.classesList;
+//gets sell page
+router.get(
+  "/sell",
+  checkAuthentication,
+  getCategories,
+  getClasses,
+  (req, res) => {
+    // var searchResult = req.searchResult;
+    var categoriesList = req.categoriesList;
+    var userid = req.user.id;
+    var classesList = req.classesList;
 
-  res.render("pages/postlistings", {
-    // cards: searchResult,
-    categoriesList: categoriesList,
-    searchTerm: req.query.search,
-    searchCategory: req.query.category,
-    isLoggedIn: req.isAuthenticated(),
-    classesList: classesList
-  });
-});
+    res.render("pages/postlistings", {
+      // cards: searchResult,
+      categoriesList: categoriesList,
+      searchTerm: req.query.search,
+      searchCategory: req.query.category,
+      isLoggedIn: req.isAuthenticated(),
+      classesList: classesList
+    });
+  }
+);
 
-router.post("/sell", upload.single("thumb"), (req, res) => {
-  // const img = fs.readFileSync(req.file.path);
-  (async () => {
-    let thumb;
-    if (req.file) {
-      thumb = await makeThumb(req.file.path);
-      console.log(req.file);
-    }
-    if (thumb === "err") {
-      console.log("there is an error in making tumb");
-      //return;
-    }
+// Creates new listing from required fields in form
+router.post(
+  "/sell",
+  checkAuthentication,
+  upload.single("thumb"),
+  (req, res) => {
+    // const img = fs.readFileSync(req.file.path);
+    (async () => {
+      let thumb;
+      if (req.file) {
+        thumb = await makeThumb(req.file.path);
+        console.log(req.file);
+      }
+      if (thumb === "err") {
+        res.render("pages/postlistings", {
+          isLoggedIn: req.isAuthenticated(),
+          err: "Error parsing image."
+        });
+        console.log("there is an error in making tumb");
+        return;
+      }
+      if (req.file == undefined) {
+        res.redirect("/sell");
+        return;
+      }
 
-    var curDate = new Date();
-    var curDateYMD = curDate.toYMD();
-
-    const insertRes = await db.query(
-      `INSERT INTO listing (
+      var curDate = new Date();
+      var curDateYMD = curDate.toYMD();
+      const insertRes = await db.query(
+        `INSERT INTO listing (
        title, price, description, 
       image, is_sold, date, user_id, category_id, class_id
       ) VALUES (?,?,?,?,?,?,?,?,?) `,
-      [
-        req.body.title,
-        req.body.price,
-        req.body.description,
-        req.file.path.substring(7),
-        0,
-        curDateYMD,
-        req.user.id,
-        req.body.category,
-        req.body.class
-      ]
-    );
-    console.log("req.body: " + req.user.id);
-    console.log("date: " + curDateYMD);
+        [
+          req.body.title,
+          req.body.price,
+          req.body.description,
+          req.file.path.substring(7),
+          0,
+          curDateYMD,
+          req.user.id,
+          req.body.category,
+          req.body.class
+        ]
+      );
+      console.log("req.body: " + req.user.id);
+      console.log("date: " + curDateYMD);
 
-    res.redirect("/dashboard");
-  })();
-});
+      res.redirect("/dashboard");
+    })();
+  }
+);
 
 module.exports = router;

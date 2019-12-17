@@ -1,3 +1,4 @@
+// API for user registration and signup
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/user.js");
@@ -5,6 +6,7 @@ const { validationResult } = require("express-validator/check");
 const passport = require("passport");
 var expressValidator = require("express-validator");
 
+// Gets registration page
 router.get("/register", function(req, res, next) {
   console.log("10 : " + req.user);
   console.log("10 : " + req.isAuthenticated());
@@ -17,6 +19,7 @@ router.get("/register", function(req, res, next) {
   req.session.errors = null;
 });
 
+// Verifies that new user has filled in the signup form correctly and creates user
 router.post("/register", function(req, res, next) {
   console.log(req);
   req
@@ -33,18 +36,18 @@ router.post("/register", function(req, res, next) {
     .isLength({ min: 6, max: 18 }),
     //req.check('password', 'password not match').equals(req.body.password_confirm);
     req.check("terms", "You must accept the terms and conditions.").equals("1");
+  req.check("privacy", "You must accept the privacy policy").equals("1");
 
   var errors = req.validationErrors();
   // const errors = validationResult(req).array({ onlyFirstError: true });
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
 
-    res.json(JSON.stringify({"errors":errors}));
+    res.json(JSON.stringify({ errors: errors }));
     // res.render("register", {
     //   title: "Registeration Error",
     //   errors: errors
     // });
-
   } else {
     const { name, email, password, password_confirm } = req.body;
     console.log("email is: " + req.body.email);
@@ -64,7 +67,7 @@ router.post("/register", function(req, res, next) {
       } else {
         console.log("not valid");
         res.render("register", {
-          title: "Error : Similar user exists" ,
+          title: "Error : Similar user exists",
           isLoggedIn: req.isAuthenticated()
         });
       }
@@ -72,6 +75,7 @@ router.post("/register", function(req, res, next) {
   }
 });
 
+// Redirect for failed login
 router.get("/login/failed", (req, res) => {
   res.render("register", {
     login: true,
@@ -80,6 +84,7 @@ router.get("/login/failed", (req, res) => {
   });
 });
 
+// Get login page
 router.get("/login", function(req, res) {
   res.render("login", {
     title: "Login",
@@ -88,6 +93,7 @@ router.get("/login", function(req, res) {
   console.log("user login get: " + req.user.id);
 });
 
+// Logs in user
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -96,11 +102,12 @@ router.post(
     failureFlash: false
   })
 );
-router.get('/logout', function (req,res) {
+
+// Logs out user
+router.get("/logout", function(req, res) {
   req.logout();
   req.session.destroy();
-  res.redirect('/');
-
+  res.redirect("/");
 });
 
 passport.serializeUser((user, done) => {
