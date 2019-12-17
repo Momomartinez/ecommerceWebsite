@@ -21,7 +21,7 @@
 6. Database password:
      6&rFzI70oM*
 7. Database name (basically the name that contains all your tables):
- test_raya
+ team11_db
 8. Instructions on how to use the above information:
      ssh root@142.44.170.121
     
