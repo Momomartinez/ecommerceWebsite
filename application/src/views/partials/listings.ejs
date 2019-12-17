@@ -3,7 +3,11 @@
 <div class=" mainArea col my-3">
   <section id="cardss">
     <span class="my-4">
+      <% if (cards.length > 0) { %>
       <h2 class="m-0"><%= searchCategory %></h2>
+      <% } else { %>
+      <h2 class="m-0">No Results</h2>
+      <% } %>
       <!-- <a class="ml-4" href="#">view more</a>-->
     </span>
     <div class="row">
