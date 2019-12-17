@@ -1,18 +1,24 @@
 <!-- /views/partials/login.ejs -->
 
 <div class="modal fade text-dark" id="login">
-  <div class="modal-dialog modal-dialog-centered modal-md">
-      <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="login-modal modal-content">
               <div class="modal-body">
                       <div id="register">
-                              <h1 class="text-center mb-3">
-                                      <i class="fas fa-user-plus"></i> Sign up
+                              <h1 class="text-center mb-3"><button class="close" data-dismiss="modal">
+                                  <span>&times;</span>
+                              </button>
+                                <div id="userIcon"> <i class="fas fa-user-plus"></i>
+                                  </div>
+                                      Sign up
                                   </h1>
-                                  
+                                  <span class="policy">* All fields are required</span>
                                   <form action="/register" method="POST">
                                       <div class="form-group">
                                           <label for="name">Name</label>
                                           <input
+                                          required
+                                          pattern="\w{6,18}"
                                                   type="name"
                                                   id="name"
                                                   name="name"
@@ -20,10 +26,13 @@
                                                   placeholder="Enter Name"
                                                   value="<%= typeof name != 'undefined' ? name : '' %>"
                                           />
+                                          <span class=" policy text-muted">Name must be between 6 to 18 characters</span>
                                       </div>
                                       <div class="form-group">
                                           <label for="email">Email</label>
                                           <input
+                                          pattern="\w+@mail\.sfsu\.edu"
+                                          required
                                                   type="email"
                                                   id="email"
                                                   name="email"
@@ -31,10 +40,13 @@
                                                   placeholder="Enter Email"
                                                   value="<%= typeof email != 'undefined' ? email : '' %>"
                                           />
+                                          <span class=" policy text-muted">Email must end with @mail.sfsu.edu</span>
                                       </div>
                                       <div class="form-group">
                                           <label for="password">Password</label>
                                           <input
+                                          required
+                                          pattern="\w{6,18}"
                                                   type="password"
                                                   id="password"
                                                   name="password"
@@ -42,10 +54,13 @@
                                                   placeholder="Create Password"
                                                   value="<%= typeof password != 'undefined' ? password : '' %>"
                                           />
+                                          <span class=" policy text-muted">Password must be between 6 to 18 characters</span>
                                       </div>
                                       <div class="form-group">
                                           <label for="password">Confirm Password</label>
                                           <input
+                                          required
+                                          pattern="\w{6,18}"
                                                   type="password"
                                                   name="password_confirm"
                                                   class="form-control"
@@ -55,6 +70,7 @@
                                       </div>
                                       <div class="form-check">
                                               <input
+                                              required
                                                       name="terms"
                                                       class="form-check-input"
                                                       type="checkbox"
@@ -63,11 +79,11 @@
                                                       <%= (typeof body != 'undefined' && typeof body.terms != 'undefined') ? 'checked' : '' %>
                                               />
                                               <label class="form-check-label" for="appartmentCheck">
-                                                  Agree to <a href="" style="color: blue;">terms and conditions</a>
+                                                  Agree to <a href="#" id="switch">terms and conditions</a>
                                               </label>
                                               <p></p>
                                           </div>
-                                          <div class="form-check">
+                                          <div class="form-check mb-3">
                                             <input
                                                     name="privacy"
                                                     class="form-check-input"
@@ -77,7 +93,7 @@
                                                     <%= (typeof body != 'undefined' && typeof body.terms != 'undefined') ? 'checked' : '' %>
                                             />
                                             <label class="form-check-label" for="appartmentCheck">
-                                                Agree to <a href="" style="color: blue;">Privacy Policy</a>
+                                                Agree to <a href="#" id="switch">Privacy Policy</a>
                                             </label>
                                             </div>
                                             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -86,19 +102,23 @@
                                                               <form action="?" method="POST">
                                                                 <div class="g-recaptcha" data-sitekey="6LcX5ccUAAAAANWFWWYi_SFz2aKnJT8rGduiUR5N"></div>
                                                                 <br/>
-                                      <button class="btn btn-danger" type="submit">Submit</button>
+                                      <button id="loginBtn" class="btn btn-danger" type="submit">Submit</button>
                                   </form>
 
 
 
                                   <hr>
-                        <a class="btn btn-success btn-lg" onclick="$('#login-content').show();$('#register').hide();">Already Have an Account?</a>
+                                  <span class="noAcct">Already Have an Account?
+                        <a id="switch" onclick="$('#login-content').show();$('#register').hide();">Log In!</a></span>
                       </div>
 
                       <!-- login modal input -->
                       <div id="login-content" style="display :none;">
-                              <h1 class="text-center mb-3">
-                                      <i class="far fa-user"></i>Log In
+                              <h1 class="text-center mb-3"><button class="close" data-dismiss="modal">
+                                  <span>&times;</span>
+                              </button>
+                                      <i id="userIcon" class="far fa-user"></i>Log In 
+                                      
                                   </h1>
                               
 
@@ -106,51 +126,38 @@
                         <form id="form-id" method="POST" action="/login">
                           <div class="form-group">
                             <label for="inputEmail">Email</label>
-                            <input class="form-control" type="email" name="name" id="inputEmail" placeholder="Email">
+                            <input class="form-control" type="email" name="name" id="inputEmail" placeholder="Email" required>
                           </div>
                           <div class="form-group">
                             <label for="inputPassword">Password</label>
-                            <input class="form-control" name="password" type="password" id="inputPassword" placeholder="Password">
-                            <a type="button" class="btn btn-link btn-sm">Forgot password</a>
+                            <input class="form-control" name="password" type="password" id="inputPassword" placeholder="Password"  required>
+                            
+                          </div>
+                          <div class="policy mb-5 text-muted">
+                              This site is protected by reCAPTCHA and the Google <a id="switch" href="#">Privacy Policy</a> and <a id="switch" href="#">Terms of Service</a> apply.
                           </div>
                           <div class="form-group">
-                            <button type="submit" class="btn btn-info btn-md">Log in</button>
+                            <button type="submit" id="loginBtn" class=" btn btn-info btn-md">Log in</button>
                           </div>
+                          <a id="forgotlink" href="#" class="text-center">Forgot password?</a>
                         </form>
                         <hr>
-                        <a class="btn btn-success btn-lg" onclick="$('#login-content').hide();$('#register').show();$('#form-id').trigger('reset');">
-                          <!-- <i class="fa fa-arrow-circle-left" aria-hidden="true">
-                          </i> -->
-                          Don't Have an account yet?</a>
+                        <span class="noAcct">
+                        Don't Have an account yet? 
+                        <a id="switch" onclick="$('#login-content').hide();$('#register').show();$('#form-id').trigger('reset');">
+                         
+                            Sign Up!
+                          </a>
+                          </span>
                       </div>
                     </div>
       </div>
   </div>
 </div>
 </div>
-
-
-<!-- for prototype day or testing and showing only -->
 <script>
-  function hideElement() {
-      element = document.querySelector('.loginButton');
-      element.style.visibility = 'hidden';
+  function performRegister(myForm) {
+
   }
-//     function showElement() {
-//         element = document.querySelector('.user');
-//         element.style.visibility = 'visible';
-//     }
-//     function replace() {
-//         var firstbtn = document.querySelector(".loginButton");
-//         var secondbtn = document.querySelector(".user");
-//         firstbtn.parentNode.replaceChild(secondbtn, firstbtn);
-//         secondbtn.style.visibility = 'visible';
-//     }
-// document.onload = () => {
-//   if(window.logged){
-//     showElement();
-//   } else{
-//     window.logged = 1;
-//   }
-// }
+
 </script>
