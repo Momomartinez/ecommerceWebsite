@@ -60,11 +60,18 @@ const listingRouter = require("./src/routes/listingRoutes");
 const loginRouter = require("./src/routes/loginRoutes");
 const sellRouter = require("./src/routes/sellRoutes");
 const dashboardRouter = require("./src/routes/dashboardRoutes");
+function authProtect(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect('register');
+    }
+}
 app.use("/about", aboutRouter);
 app.use("/", listingRouter);
 app.use("/", loginRouter);
-app.use("/", sellRouter);
-app.use("/", dashboardRouter);
+app.use("/", authProtect, sellRouter);
+app.use("/", authProtect, dashboardRouter);
 
 passport.use(
   new LocalStrategy(

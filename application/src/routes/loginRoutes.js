@@ -95,7 +95,7 @@ router.get("/login", function(req, res) {
     title: "Login",
     isLoggedIn: req.isAuthenticated()
   });
-  console.log("user login get: " + req.user.id);
+
 });
 
 // Logs in user
