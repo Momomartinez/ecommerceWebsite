@@ -48,11 +48,11 @@ router.post("/register", function(req, res, next) {
   if (errors) {
     console.log(`errors: ${JSON.stringify(errors)}`);
 
-    res.json(JSON.stringify({ errors: errors }));
-    // res.render("register", {
-    //   title: "Registeration Error",
-    //   errors: errors
-    // });
+    //res.json(JSON.stringify({ errors: errors }));
+    res.render("register", {
+      title: "Registeration Error",
+      errors: errors
+    });
   } else {
     const { name, email, password, password_confirm } = req.body;
     console.log("email is: " + req.body.email);
