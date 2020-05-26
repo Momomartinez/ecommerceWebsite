@@ -3,18 +3,18 @@ Author: Gem Angelo Lagman
 Date: 12/16/19
 Description: API for listings
 */
-const express = require("express");
-const db = require("../models/database.js");
+const express = require('express');
+const db = require('../models/database.js');
 const router = express.Router();
-const sortJsonArray = require("sort-json-array");
+const sortJsonArray = require('sort-json-array');
 
 // Gets list of categories
 async function getCategories(req, res, next) {
-  await db.execute("SELECT * FROM category", (err, categories) => {
+  await db.execute('SELECT * FROM category', (err, categories) => {
     if (err) {
       next(err);
     }
-    console.log("categories",categories);
+    console.log('categories', categories);
     req.categoriesList = categories;
     next();
   });
@@ -23,11 +23,10 @@ async function getCategories(req, res, next) {
 // Gets most recent 12 approved listings
 async function getRecentListings(req, res, next) {
   let query =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, listing.is_approved, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 AND is_approved = 1 ORDER BY date DESC LIMIT 12;";
+    'SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, listing.is_approved, category.name, listing.user_id FROM listing INNER JOIN category ON listing.category_id = category.id WHERE is_sold = 0 AND is_approved = 1 ORDER BY date DESC LIMIT 12;';
 
   await db.execute(query, (err, results) => {
     if (err) {
-      
       next(err);
     }
     req.searchResult = results;
@@ -37,11 +36,11 @@ async function getRecentListings(req, res, next) {
 
 // Gets list of classes available to post for textbook
 async function getClasses(req, res, next) {
-  await db.execute("SELECT * FROM classes", (err, classes) => {
+  await db.execute('SELECT * FROM classes', (err, classes) => {
     if (err) {
       next(err);
     }
-    console.log("Classes",classes);
+    console.log('Classes', classes);
     req.classesList = classes;
     // res.locals.classesList = classes;
     next();
@@ -56,13 +55,13 @@ async function search(req, res, next) {
   var classId = req.query.class;
 
   let join =
-    "SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id, listing.is_approved FROM listing INNER JOIN category ON listing.category_id = category.id";
-  let query = "";
+    'SELECT listing.id, listing.title, listing.price, listing.description, listing.image, listing.is_sold, listing.date, category.name, listing.user_id, listing.is_approved FROM listing INNER JOIN category ON listing.category_id = category.id';
+  let query = '';
   if (
-    searchTerm != "" &&
-    category != "" &&
-    category != "All" &&
-    category != "Recent"
+    searchTerm != '' &&
+    category != '' &&
+    category != 'All' &&
+    category != 'Recent'
   ) {
     query =
       ` WHERE name = '` +
@@ -73,8 +72,8 @@ async function search(req, res, next) {
       searchTerm +
       `%') AND is_sold = 0 AND is_approved = 1`;
   } else if (
-    searchTerm != "" &&
-    (category == "" || category == "All" || category == "Recent")
+    searchTerm != '' &&
+    (category == '' || category == 'All' || category == 'Recent')
   ) {
     query =
       ` WHERE (title LIKE '%` +
@@ -83,34 +82,34 @@ async function search(req, res, next) {
       searchTerm +
       `%') AND is_sold = 0 AND is_approved = 1`;
   } else if (
-    searchTerm == "" &&
-    category != "" &&
-    category != "All" &&
-    category != "Recent"
+    searchTerm == '' &&
+    category != '' &&
+    category != 'All' &&
+    category != 'Recent'
   ) {
     query =
       ` WHERE name = '` + category + `' AND is_sold = 0 AND is_approved = 1`;
-  } else if (searchTerm == "" && (category == "All" || category == "Recent")) {
+  } else if (searchTerm == '' && (category == 'All' || category == 'Recent')) {
     query = ` WHERE is_sold = 0 AND is_approved = 1`;
   }
 
-  var classQuery = "";
+  var classQuery = '';
   if (classId != undefined) {
     req.classId = classId;
-    classQuery = " AND listing.class_id = " + classId;
+    classQuery = ' AND listing.class_id = ' + classId;
   }
 
-  var orderby = "";
+  var orderby = '';
   if (sort == 1) {
-    orderby = " ORDER BY listing.date DESC";
+    orderby = ' ORDER BY listing.date DESC';
   } else if (sort == 2) {
-    orderby = " ORDER BY listing.price ASC";
+    orderby = ' ORDER BY listing.price ASC';
   } else {
-    orderby = " ORDER BY listing.price DESC";
+    orderby = ' ORDER BY listing.price DESC';
   }
 
   let sql = join + query + classQuery + orderby;
-  console.log("this is sql: " + sql);
+  console.log('this is sql: ' + sql);
   await db.execute(sql, (err, result) => {
     if (err) {
       next(err);
@@ -121,12 +120,12 @@ async function search(req, res, next) {
 }
 
 //gets search results and renders searchpage
-router.get("/search", search, getCategories, getClasses, (req, res) => {
+router.get('/search', search, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
   var classesList = req.classesList;
   var classId = req.classId;
-  res.render("pages/mainpage", {
+  res.render('pages/mainpage', {
     userLogged: true,
     cards: searchResult,
     categoriesList: categoriesList,
@@ -134,27 +133,26 @@ router.get("/search", search, getCategories, getClasses, (req, res) => {
     searchTerm: req.query.search,
     searchCategory: req.query.category,
     isLoggedIn: req.isAuthenticated(),
-    classId: classId
+    classId: classId,
   });
 });
 
 //Landing page
-router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
-  
+router.get('/', getRecentListings, getCategories, getClasses, (req, res) => {
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
   var classesList = req.classesList;
-  
+
   var classId = req.classId;
-  res.render("pages/mainpage", {
+  res.render('pages/mainpage', {
     userLogged: true,
     cards: searchResult,
     categoriesList: categoriesList,
     classesList: classesList,
-    searchTerm: "",
-    searchCategory: "Recent",
+    searchTerm: '',
+    searchCategory: 'Recent',
     isLoggedIn: req.isAuthenticated(),
-    classId: classId
+    classId: classId,
   });
 });
 
