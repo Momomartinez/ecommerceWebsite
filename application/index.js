@@ -8,13 +8,13 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var expressValidator = require("express-validator");
 
-const PORT = 3000;
+const PORT = 3000; 
 
 var options = {
-  host: "142.44.170.121",
-  user: "root",
-  password: "6&rFzI70oM*",
-  database: "team11_db",
+  host: "localhost",
+  user: "team11",
+  password: "team11",
+  database: "team11ajs",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -86,3 +86,5 @@ passport.use(
 );
 
 app.listen(PORT, () => console.log("server started on port", PORT));
+
+

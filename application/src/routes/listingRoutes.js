@@ -11,8 +11,10 @@ const sortJsonArray = require("sort-json-array");
 // Gets list of categories
 async function getCategories(req, res, next) {
   await db.execute("SELECT * FROM category", (err, categories) => {
-    if (err) throw err;
-    //console.log(categories);
+    if (err) {
+      next(err);
+    }
+    console.log("categories",categories);
     req.categoriesList = categories;
     next();
   });
@@ -25,8 +27,8 @@ async function getRecentListings(req, res, next) {
 
   await db.execute(query, (err, results) => {
     if (err) {
-      req.searchResult = "";
-      next();
+      
+      next(err);
     }
     req.searchResult = results;
     next();
@@ -36,9 +38,12 @@ async function getRecentListings(req, res, next) {
 // Gets list of classes available to post for textbook
 async function getClasses(req, res, next) {
   await db.execute("SELECT * FROM classes", (err, classes) => {
-    if (err) throw err;
-    //console.log(classes);
+    if (err) {
+      next(err);
+    }
+    console.log("Classes",classes);
     req.classesList = classes;
+    // res.locals.classesList = classes;
     next();
   });
 }
@@ -108,8 +113,7 @@ async function search(req, res, next) {
   console.log("this is sql: " + sql);
   await db.execute(sql, (err, result) => {
     if (err) {
-      req.searchResult = "";
-      next();
+      next(err);
     }
     req.searchResult = result;
     next();
@@ -136,9 +140,11 @@ router.get("/search", search, getCategories, getClasses, (req, res) => {
 
 //Landing page
 router.get("/", getRecentListings, getCategories, getClasses, (req, res) => {
+  
   var searchResult = req.searchResult;
   var categoriesList = req.categoriesList;
   var classesList = req.classesList;
+  
   var classId = req.classId;
   res.render("pages/mainpage", {
     userLogged: true,

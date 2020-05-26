@@ -41,11 +41,11 @@
       <div class="container-fluid centerArea">
         <div class="row">
           <!-- the main area -->
-
+          <% console.log("mpejs",classesList); %>
           <%- include('../partials/sidebar', {'items':cards, 'searchTerm':
           searchTerm, 'searchCategory': searchCategory, 'classesList':
-          classesList, 'classId': classId}) %> <%-
-          include('../partials/listings', {'items':cards, 'searchTerm':
+          classesList, 'classId': classId}) %> 
+          <%- include('../partials/listings', {'items':cards, 'searchTerm':
           searchTerm, 'searchCategory': searchCategory}) %>
         </div>
       </div>

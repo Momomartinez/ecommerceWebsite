@@ -7,10 +7,10 @@ Description: This file holds the pool data for connections.
 const mysql = require("mysql2/promise");
 
 const pool = mysql.createPool({
-  host: "142.44.170.121",
-  user: "root",
-  password: "6&rFzI70oM*",
-  database: "team11_db",
+  host: "localhost",
+  user: "team11",
+  password: "team11",
+  database: "team11ajs",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
