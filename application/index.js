@@ -13,8 +13,8 @@ const PORT = 3000;
 var options = {
   host: "localhost",
   user: "team11",
-  password: "team11",
-  database: "team11db",
+  password: "team11db",
+  database: "team11",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
